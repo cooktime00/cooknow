@@ -244,5 +244,8 @@ gradle-app.setting
 # Ignore Properties
 *.properties
 
+# allow 'gradle-wrapper.properties'
+!gradle-wrapper.properties
+
 .idea/*
 
