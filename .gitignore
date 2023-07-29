@@ -244,3 +244,5 @@ gradle-app.setting
 # Ignore Properties
 *.properties
 
+.idea/*
+

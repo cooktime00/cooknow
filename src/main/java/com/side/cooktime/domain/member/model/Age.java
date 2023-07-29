@@ -11,7 +11,6 @@ public class Age {
 
     @Column(name = "age")
     private int age;
-
     public Age(final int age) {
         validate(age);
         this.age = age;

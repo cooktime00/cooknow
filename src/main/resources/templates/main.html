@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<h1 th:text="${userName}"></h1>
+
+<h1 th:text="${userEmail}"></h1>
+<img th:src="${userImageUrl}"/>
+
+<div th:if="${session.user != null}">
+    <span>세션 담음</span>
+    [[${session.user.email}]]<br>[[${session.user.name}]]<br>
+    <a th:href="@{/logout}">로그아웃</a>
+</div>
+</body>
+</html>

@@ -2,7 +2,9 @@ package com.side.cooktime.domain.ingredient.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Embeddable
 public class Day {
 

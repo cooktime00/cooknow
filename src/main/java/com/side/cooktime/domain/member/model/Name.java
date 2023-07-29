@@ -25,4 +25,9 @@ public class Name {
             throw new IllegalArgumentException("이름(FirstName)이 공백이거나 Null 값입니다.");
         }
     }
+
+    @Override
+    public String toString() {
+        return lastName + firstName;
+    }
 }

@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "member")
-@DiscriminatorValue("A")
+//@DiscriminatorValue("A")
 public class Admin extends Member {
 
     public Admin(final String email, final String password, final String firstName, final String lastName) {

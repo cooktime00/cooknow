@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+<body>
+
+<div class="login-container" >
+    <img th:src="@{/img/logo.png}" style="width: 100px">
+    <h1>COOKTIME</h1>
+    <div class="login-buttons">
+<!--        <a href="#" class="naver-button">네이버 로그인</a>-->
+        <a th:href="@{/oauth2/authorization/google}" class="google-button">구글 로그인</a>
+    </div>
+</div>
+
+</body>
+</html>

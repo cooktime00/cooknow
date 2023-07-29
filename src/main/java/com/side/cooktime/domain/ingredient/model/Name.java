@@ -2,12 +2,16 @@ package com.side.cooktime.domain.ingredient.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
 @Embeddable
+@NoArgsConstructor
 public class Name {
 
     @Column(length = 100)
-    private final String name;
+    private String name;
 
     public Name(final String name) {
         validateName(name);
