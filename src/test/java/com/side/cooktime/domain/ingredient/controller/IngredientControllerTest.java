@@ -27,7 +27,7 @@ public class IngredientControllerTest  extends RestDocsTestSupport {
         when(ingredientService.save(any())).thenReturn(ingredient);
 
         this.mockMvc.perform(post("/api/v1/ingredient")
-                        .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
                         .content("{\"name\": \"채소\"}"))
                 .andExpect(status().isCreated())
                 .andDo(
