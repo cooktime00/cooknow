@@ -22,6 +22,10 @@ public class Ingredients {
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Ingredient> ingredients = new ArrayList<>();
 
+    public Ingredients(List<Ingredient> list) {
+        ingredients = list;
+    }
+
     public <T> List<T> toDtos(Function<Ingredient, T> mapper) {
         return ingredients.stream()
                 .map(mapper)

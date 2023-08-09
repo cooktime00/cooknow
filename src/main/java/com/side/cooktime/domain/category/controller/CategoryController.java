@@ -8,6 +8,7 @@ import com.side.cooktime.domain.category.model.dto.response.ResponseDeleteDto;
 import com.side.cooktime.domain.category.model.dto.response.ResponseFindIngredientsDto;
 import com.side.cooktime.domain.category.model.dto.response.ResponseSaveDto;
 import com.side.cooktime.domain.category.service.CategoryService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,16 +24,17 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping("/category")
-    public ResponseEntity<ResponseSaveDto> save(@RequestBody RequestSaveDto requestDto) {
+    public ResponseEntity<ResponseSaveDto> save(@RequestBody final RequestSaveDto requestDto) {
         Category category = categoryService.save(requestDto.toEntity());
         ResponseSaveDto responseDto = new ResponseSaveDto(category);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
+    @Transactional
     @GetMapping("/category/{id}/ingredients")
     public ResponseEntity<List<ResponseFindIngredientsDto>> findIngredients(@PathVariable("id") Long categoryId) {
-        List<ResponseFindIngredientsDto> responseDtos = categoryService.getIngredients(categoryId);
-        return new ResponseEntity<>(responseDtos, HttpStatus.OK);
+        Ingredients ingredients = categoryService.getIngredients(categoryId);
+        return new ResponseEntity<>(ingredients.toDtos(ResponseFindIngredientsDto::new), HttpStatus.OK);
     }
 
     @DeleteMapping("/category/{id}")

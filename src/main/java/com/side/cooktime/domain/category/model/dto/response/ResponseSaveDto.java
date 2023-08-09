@@ -14,4 +14,8 @@ public class ResponseSaveDto {
         this.name = category.getName().getName();
     }
 
+    public ResponseSaveDto(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

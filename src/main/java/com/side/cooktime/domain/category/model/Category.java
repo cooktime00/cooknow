@@ -21,6 +21,11 @@ public class Category extends BaseEntity {
     @Embedded
     private final Ingredients ingredients = new Ingredients();
 
+    public Category(final Long id, final String name){
+        super(id);
+        this.name = new Name(name);
+    }
+
     public Category(final String name) {
         this();
         this.name = new Name(name);
@@ -32,7 +37,6 @@ public class Category extends BaseEntity {
 
     public void addIngredient(Ingredient ingredient) {
         ingredients.add(ingredient);
-        ingredient.changeCategory(this);
     }
 
     public void removeIngredient(Ingredient ingredient) {

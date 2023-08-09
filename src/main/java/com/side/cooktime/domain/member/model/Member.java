@@ -7,9 +7,7 @@ import lombok.Getter;
 @Entity
 @Getter
 @Table(name = "member")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//TODO: Role을 enum타입 대신 쓸 수 있다면
-//@DiscriminatorColumn(name = "role")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Member extends BaseEntity {
 
     @Embedded
@@ -19,23 +17,37 @@ public abstract class Member extends BaseEntity {
     @Embedded
     protected Name name;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", updatable = false)
+    protected Role role;
+
+    //TODO: 소셜로그인 추가 적용시 테이블 분리
     protected String provider;
     protected String providerId;
 
-    protected Member(final String email, final String password, final String firstName, final String lastName) {
+    @Embedded
+    private final UserStorages userStorages = new UserStorages();
+
+    protected Member(final Role role, final String email, final String password, final String firstName, final String lastName) {
         super();
+        this.role = role;
         this.email = new Email(email);
         this.password = new Password(password);
         this.name = new Name(firstName, lastName);
     }
 
-    protected Member(final String provider, final String providerId, final String email, final String password, final String firstName, final String lastName) {
+    protected Member(final Role role, final String provider, final String providerId, final String email, final String password, final String firstName, final String lastName) {
         super();
+        this.role = role;
         this.provider = provider;
         this.providerId = providerId;
         this.email = new Email(email);
         this.password = new Password(password);
         this.name = new Name(firstName, lastName);
+    }
+
+    public String getRoleKey() {
+        return role.getKey();
     }
 
     protected Member() {

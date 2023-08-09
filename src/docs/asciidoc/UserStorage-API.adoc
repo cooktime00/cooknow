@@ -1,0 +1,3 @@
+[[UserStorage-삭제]]
+=== Delete 200
+operation::user-storage-controller-test/delete_200[snippets='http-request,http-response,request-fields,request-body,response-body']

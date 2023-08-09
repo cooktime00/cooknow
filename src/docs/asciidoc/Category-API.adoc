@@ -1,0 +1,14 @@
+[[Category-API]]
+== Category API
+
+[[Category-저장]]
+=== Save 201
+operation::category-controller-test/save_201[snippets='http-request,request-fields,request-body,http-response,response-fields,response-body']
+
+[[Category-삭제]]
+=== Delete 200
+operation::category-controller-test/delete_200[snippets='http-request,path-parameters,http-response,response-fields,response-body']
+
+[[Category-조회]]
+=== findIngredients 200
+operation::category-controller-test/find-ingredients_200[snippets='http-request,path-parameters,http-response,response-fields,response-body']

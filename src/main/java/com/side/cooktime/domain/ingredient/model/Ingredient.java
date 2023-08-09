@@ -26,27 +26,35 @@ public class Ingredient extends BaseEntity {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private Storage storage;
+    private StorageType storageType;
 
     @Column
     @Enumerated(EnumType.STRING)
     private CountType countType;
 
-    public Ingredient(final String name, final String image, final int expirationPeriod, final Storage storage, final String categoryName, final CountType countType) {
+    public Ingredient(final Long id, final String name, final String image, Category category){
+        super(id);
+        this.name = new Name(name);
+        this.image = new Image(image);
+        changeCategory(category);
+    }
+
+    public Ingredient(final String name, final String image, final int expirationPeriod, final StorageType storageType, final String categoryName, final CountType countType) {
         this();
         this.name = new Name(name);
         this.image = new Image(image);
         this.expirationPeriod = new Day(expirationPeriod);
-        this.storage = storage;
+        this.storageType = storageType;
         this.category = new Category(categoryName);
         this.countType = countType;
     }
 
     public void changeCategory(Category category) {
-        if (this.category != null) {
+        if(this.category != null){
             this.category.removeIngredient(this);
         }
         this.category = category;
         category.addIngredient(this);
     }
 }
+
