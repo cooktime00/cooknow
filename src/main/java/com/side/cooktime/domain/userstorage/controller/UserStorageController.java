@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1")
@@ -25,13 +23,13 @@ public class UserStorageController {
 
     @PostMapping("/storage")
     public ResponseEntity<ResponseSaveDto> save(@RequestBody RequestSaveDto requestDto, Authentication authentication) {
-        ResponseSaveDto responseSaveDto = userStorageService.saveAll(OAuth2UserUtils.getEmail(authentication), requestDto);
-        return new ResponseEntity<>(responseSaveDto, HttpStatus.OK);
+        ResponseSaveDto responseSaveDto = userStorageService.save(OAuth2UserUtils.getEmail(authentication), requestDto);
+        return new ResponseEntity<>(responseSaveDto, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/storage/delete")                         /* TODO : RequestSaveDto처럼 묶어서 진행 */
-    public ResponseEntity<ResponseDeleteDto> delete(@RequestBody List<RequestDeleteDto> requestDtos) {
-        ResponseDeleteDto responseDto = userStorageService.delete("test@gmail.com", requestDtos);
+    @DeleteMapping("/storage/delete")
+    public ResponseEntity<ResponseDeleteDto> delete(@RequestBody RequestDeleteDto requestDto) {
+        ResponseDeleteDto responseDto = userStorageService.delete("test@gmail.com", requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 

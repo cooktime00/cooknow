@@ -27,7 +27,7 @@ public class UserStorageService {
     private final MemberService memberService;
     private final IngredientService ingredientService;
 
-    public ResponseSaveDto saveAll(String memberEmail, RequestSaveDto requestDto) {
+    public ResponseSaveDto save(String memberEmail, RequestSaveDto requestDto) {
         Member member = memberService.findByEmail(memberEmail);
         if (member == null) { /*TODO:예외처리*/ }
 
@@ -40,9 +40,9 @@ public class UserStorageService {
         return new ResponseSaveDto(memberEmail, userStorageRepository.saveAll(userStorages));
     }
 
-    public ResponseDeleteDto delete(String memberEmail, List<RequestDeleteDto> requestDtos) {
+    public ResponseDeleteDto delete(String memberEmail, RequestDeleteDto requestDto) {
         Member member = memberService.findByEmail(memberEmail);
-        List<Long> deleteRequestedIds = requestDtos.stream().map(RequestDeleteDto::getId).toList();
+        List<Long> deleteRequestedIds = requestDto.getIds();
         List<UserStorage> userStorages = userStorageRepository.findByIdInAndMember(deleteRequestedIds, member);
         for (UserStorage userStorage : userStorages) {
             userStorage.delete();

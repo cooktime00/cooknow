@@ -25,7 +25,8 @@ public class SecurityConfig {
                     .requestMatchers("/login", "/logout", "/css/**", "/", "/img/**", "/download/**", "/static/**", "/h2-console/**").permitAll()
                     .requestMatchers("/oauth2/**").permitAll()
                     .requestMatchers("/user/**").hasRole(Role.USER.name())
-                    .anyRequest().authenticated()
+//                    .anyRequest().authenticated() //TODO: 개발 편의상 임시 해제
+                    .anyRequest().permitAll()
                 ).oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
                         .defaultSuccessUrl("/user/main")

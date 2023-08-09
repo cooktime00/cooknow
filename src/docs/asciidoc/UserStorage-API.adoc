@@ -1,3 +1,6 @@
+[[UserStorage-API]]
+== UserStorage API
+
 [[UserStorage-삭제]]
 === Delete 200
-operation::user-storage-controller-test/delete_200[snippets='http-request,http-response,request-fields,request-body,response-body']
+operation::user-storage-controller-test/delete_200[snippets='http-request,request-fields,request-body,http-response,response-fields,response-body']

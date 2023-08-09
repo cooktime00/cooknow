@@ -8,11 +8,11 @@ import java.util.List;
 @Getter
 public class ResponseSaveDto {
     private final String memberEmail;
-    private final List<ResponseSaveOneDto> responseSaveDtos;
+    private final List<ResponseSaveOneDto> response;
 
     public ResponseSaveDto(String memberEmail, List<UserStorage> savedUserStorages) {
         this.memberEmail = memberEmail;
-        this.responseSaveDtos = savedUserStorages.stream()
+        this.response = savedUserStorages.stream()
                 .map(ResponseSaveOneDto::new)
                 .toList();
     }

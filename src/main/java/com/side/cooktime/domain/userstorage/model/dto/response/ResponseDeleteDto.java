@@ -8,11 +8,11 @@ import java.util.List;
 @Data
 public class ResponseDeleteDto {
     private String memberEmail;
-    private List<ResponseDeleteOneDto> responseDeleteDtos;
+    private List<ResponseDeleteOneDto> response;
 
     public ResponseDeleteDto(String memberEmail, List<UserStorage> userStorages) {
         this.memberEmail = memberEmail;
-        this.responseDeleteDtos = userStorages.stream()
+        this.response = userStorages.stream()
                 .map(ResponseDeleteOneDto::new)
                 .toList();
     }

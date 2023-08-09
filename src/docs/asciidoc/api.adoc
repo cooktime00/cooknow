@@ -6,6 +6,6 @@
 :toclevels: 2
 :sectlinks:
 
-include::Category-API.adoc[]
-include::Ingredient-API.adoc[]
-include::UserStorage-API.adoc[]
+include::src/docs/asciidoc/Category-API.adoc[]
+include::src/docs/asciidoc/Ingredient-API.adoc[]
+include::src/docs/asciidoc/UserStorage-API.adoc[]
