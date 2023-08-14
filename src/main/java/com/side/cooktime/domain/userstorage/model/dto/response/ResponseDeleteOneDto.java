@@ -6,10 +6,10 @@ import lombok.Data;
 @Data
 public class ResponseDeleteOneDto {
     private Long id;
-    private String ingredient_name;
+    private String ingredientName;
 
     public ResponseDeleteOneDto(UserStorage userStorage){
         this.id = userStorage.getId();
-        this.ingredient_name = userStorage.getIngredient().getName().getName(); /*TODO:메서드체이닝 개선*/
+        this.ingredientName = userStorage.getIngredient().getName().getName(); /*TODO:메서드체이닝 개선*/
     }
 }

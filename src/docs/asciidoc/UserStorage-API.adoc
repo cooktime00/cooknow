@@ -1,6 +1,18 @@
 [[UserStorage-API]]
 == UserStorage API
 
+[[UserStorage-조회]]
+=== Get 200
+operation::user-storage-controller-test/get_200[snippets='http-request,http-response,response-fields']
+
+[[UserStorage-저장]]
+=== Save 201
+operation::user-storage-controller-test/save_201[snippets='http-request,request-fields,http-response,response-fields']
+
+[[UserStorage-수정]]
+=== Update 200
+operation::user-storage-controller-test/update_200[snippets='http-request,request-fields,http-response,response-fields']
+
 [[UserStorage-삭제]]
 === Delete 200
-operation::user-storage-controller-test/delete_200[snippets='http-request,request-fields,request-body,http-response,response-fields,response-body']
+operation::user-storage-controller-test/delete_200[snippets='http-request,request-fields,http-response,response-fields']

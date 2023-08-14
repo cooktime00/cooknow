@@ -16,7 +16,7 @@ public class RequestSaveOneDto {
     private String storage_type;
 
     public void setStorage_type(String storage_type) {
-        if(StorageType.valueOf(storage_type) == null){
+        if (StorageType.find(storage_type) == null) {
             //TODO: 예외처리 임시
             throw new IllegalArgumentException("잘못된 보관방식 값");
         }
@@ -32,6 +32,4 @@ public class RequestSaveOneDto {
                 .storageType(StorageType.valueOf(storage_type))
                 .build();
     }
-
-
 }

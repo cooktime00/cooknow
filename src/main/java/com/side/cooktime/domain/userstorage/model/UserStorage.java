@@ -4,10 +4,12 @@ import com.side.cooktime.domain.ingredient.model.Ingredient;
 import com.side.cooktime.domain.ingredient.model.StorageType;
 import com.side.cooktime.domain.member.model.Member;
 import com.side.cooktime.domain.model.BaseEntity;
+import com.side.cooktime.domain.userstorage.model.dto.request.RequestUpdateOneDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
 import java.time.LocalDate;
 
 @NoArgsConstructor
@@ -35,4 +37,10 @@ public class UserStorage extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private StorageType storageType;
 
+    public UserStorage update(RequestUpdateOneDto requestOne) {
+        this.quantity = requestOne.getQuantity();
+        this.expirationDate = requestOne.getExpiration_date();
+        this.storageType = requestOne.getEnumStorageType();
+        return this;
+    }
 }

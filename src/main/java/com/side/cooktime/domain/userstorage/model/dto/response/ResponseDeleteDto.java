@@ -1,11 +1,11 @@
 package com.side.cooktime.domain.userstorage.model.dto.response;
 
 import com.side.cooktime.domain.userstorage.model.UserStorage;
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 
-@Data
+@Getter
 public class ResponseDeleteDto {
     private String memberEmail;
     private List<ResponseDeleteOneDto> response;
