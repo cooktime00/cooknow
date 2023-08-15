@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class ResponseDeleteDto {
 
-    private Long id;
+    private int size;
 
-    public ResponseDeleteDto(Long id){
-        this.id = id;
+    public ResponseDeleteDto(final int size){
+        this.size = size;
     }
 }

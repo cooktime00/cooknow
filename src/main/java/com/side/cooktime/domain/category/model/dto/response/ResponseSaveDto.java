@@ -1,21 +1,13 @@
 package com.side.cooktime.domain.category.model.dto.response;
 
-import com.side.cooktime.domain.category.model.Category;
 import lombok.Data;
 
 @Data
 public class ResponseSaveDto {
 
-    private Long id;
-    private String name;
+    private int size;
 
-    public ResponseSaveDto(Category category) {
-        this.id = category.getId();
-        this.name = category.getName().getName();
-    }
-
-    public ResponseSaveDto(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    public ResponseSaveDto(int size) {
+        this.size = size;
     }
 }

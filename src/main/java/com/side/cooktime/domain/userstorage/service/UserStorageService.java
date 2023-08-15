@@ -7,6 +7,7 @@ import com.side.cooktime.domain.member.model.Member;
 import com.side.cooktime.domain.member.service.MemberService;
 import com.side.cooktime.domain.model.BaseEntity;
 import com.side.cooktime.domain.userstorage.model.UserStorage;
+import com.side.cooktime.domain.userstorage.model.UserStorages;
 import com.side.cooktime.domain.userstorage.model.dto.request.RequestDeleteDto;
 import com.side.cooktime.domain.userstorage.model.dto.request.RequestSaveDto;
 import com.side.cooktime.domain.userstorage.model.dto.request.RequestUpdateDto;
@@ -41,43 +42,41 @@ public class UserStorageService {
         return memberService.findByEmail(OAuth2UserUtils.getEmail(SecurityContextHolder.getContext().getAuthentication()));
     }
 
-    public ResponseSaveDto save(RequestSaveDto requestDto) {
+    public List<UserStorage> save(RequestSaveDto requestDto) {
         Member member = getCurrentMember();
-        if (member == null) { /*TODO:예외처리*/ }
         List<Long> ingredientIds = requestDto.getIngredientIds();
         List<Ingredient> ingredients = ingredientIds.stream()
                 .map(ingredientService::getReferenceById) /*TODO:예외처리*/
                 .toList();
-        List<UserStorage> userStorages = requestDto.toEntities(member, ingredients);
-        return new ResponseSaveDto(member.getEmail().getEmail(), userStorageRepository.saveAll(userStorages));
+        return requestDto.toEntities(member, ingredients);
     }
 
-    public ResponseUpdateDto update(RequestUpdateDto requestDto) {
+    public UserStorages update(RequestUpdateDto requestDto) {
         Member member = getCurrentMember();
         List<UserStorage> updatedUserStorages = new ArrayList<>();
         for (RequestUpdateOneDto requestOne : requestDto.getRequest()) {
             UserStorage userStorage = userStorageRepository.findByIdAndMember(requestOne.getId(), member);
             updatedUserStorages.add(userStorage.update(requestOne));
         }
-        return new ResponseUpdateDto(member.getEmail().getEmail(), updatedUserStorages);
+        return new UserStorages(updatedUserStorages);
     }
 
     public ResponseDeleteDto delete(RequestDeleteDto requestDto) {
         Member member = getCurrentMember();
         List<UserStorage> userStorages = userStorageRepository.findByIdInAndMember(requestDto.getIds(), member);
         userStorages.forEach(BaseEntity::delete);
-        return new ResponseDeleteDto(member.getEmail().getEmail(), userStorages);
+        return new ResponseDeleteDto(userStorages.size());
     }
 
-    public ResponseGetDto get() {
+    public UserStorages get() {
         Member member = getCurrentMember();
         List<UserStorage> userStorages = userStorageRepository.findAllByMemberAndDeletedAtIsNull(member);
-        return new ResponseGetDto(member.getEmail().getEmail(), userStorages);
+        return new UserStorages(userStorages);
     }
 
-    public ResponseGetDto get(Pageable pageable) {
+    public UserStorages get(Pageable pageable) {
         Member member = getCurrentMember();
         List<UserStorage> userStorages = userStorageRepository.findByMemberAndDeletedAtIsNullOrderByIdDesc(member, pageable).getContent();
-        return new ResponseGetDto(member.getEmail().getEmail(), userStorages);
+        return new UserStorages(userStorages);
     }
 }

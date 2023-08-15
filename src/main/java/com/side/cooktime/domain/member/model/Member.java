@@ -1,6 +1,7 @@
 package com.side.cooktime.domain.member.model;
 
 import com.side.cooktime.domain.model.BaseEntity;
+import com.side.cooktime.domain.userstorage.model.UserStorages;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -15,7 +16,7 @@ public abstract class Member extends BaseEntity {
     @Embedded
     protected Password password;
     @Embedded
-    protected Name name;
+    protected FullName fullName;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", updatable = false)
@@ -33,7 +34,7 @@ public abstract class Member extends BaseEntity {
         this.role = role;
         this.email = new Email(email);
         this.password = new Password(password);
-        this.name = new Name(firstName, lastName);
+        this.fullName = new FullName(firstName, lastName);
     }
 
     protected Member(final Role role, final String provider, final String providerId, final String email, final String password, final String firstName, final String lastName) {
@@ -43,7 +44,7 @@ public abstract class Member extends BaseEntity {
         this.providerId = providerId;
         this.email = new Email(email);
         this.password = new Password(password);
-        this.name = new Name(firstName, lastName);
+        this.fullName = new FullName(firstName, lastName);
     }
 
     public String getRoleKey() {

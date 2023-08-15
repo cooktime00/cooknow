@@ -14,7 +14,7 @@ public class ResponseFindIngredientsDto {
     public ResponseFindIngredientsDto(Ingredient ingredient) {
         this.ingredientId = ingredient.getId();
         this.categoryId = ingredient.getCategory().getId();
-        this.name = ingredient.getName().getName();
+        this.name = ingredient.getName();
         this.imageUrl = ingredient.getImage().getUrl();
     }
 }

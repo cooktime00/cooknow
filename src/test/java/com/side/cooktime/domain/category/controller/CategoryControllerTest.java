@@ -39,8 +39,7 @@ class CategoryControllerTest extends RestDocsTestSupport {
                                         fieldWithPath("name").description("재료 대분류 이름").optional()
                                 ),
                                 responseFields(
-                                        fieldWithPath("id").description("ID"),
-                                        fieldWithPath("name").description("재료 대분류 이름")
+                                        fieldWithPath("size").description("Save 된 갯수")
                                 )
                         ));
     }
@@ -56,7 +55,7 @@ class CategoryControllerTest extends RestDocsTestSupport {
                                 parameterWithName("id").description("카테고리 Id")
                         ),
                         responseFields(
-                                fieldWithPath("id").description("삭제된 Id")
+                                fieldWithPath("size").description("Delete 된 갯수")
                         )
                 ));
     }

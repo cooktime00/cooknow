@@ -6,6 +6,7 @@ import com.side.cooktime.domain.ingredient.model.Ingredient;
 import com.side.cooktime.domain.member.model.Member;
 import com.side.cooktime.domain.member.model.User;
 import com.side.cooktime.domain.userstorage.model.UserStorage;
+import com.side.cooktime.domain.userstorage.model.UserStorages;
 import com.side.cooktime.domain.userstorage.model.dto.request.RequestSaveOneDto;
 import com.side.cooktime.domain.userstorage.model.dto.response.ResponseDeleteDto;
 import com.side.cooktime.domain.userstorage.model.dto.response.ResponseGetDto;
@@ -34,6 +35,7 @@ public class UserStorageControllerTest extends RestDocsTestSupport {
     //TODO: Authentication이 null이라서 현재 테스트 불가
 
     private final List<UserStorage> userStorages = new ArrayList<>();
+    private UserStorages userStorageList;
 
     @BeforeEach
     void setUp() {
@@ -67,6 +69,8 @@ public class UserStorageControllerTest extends RestDocsTestSupport {
         userStorages.add(userStorage1);
         userStorages.add(userStorage2);
         userStorages.add(userStorage3);
+
+        userStorageList = new UserStorages(userStorages);
     }
 
     @AfterEach
@@ -77,9 +81,9 @@ public class UserStorageControllerTest extends RestDocsTestSupport {
     @Test
     @DisplayName("Save 201")
     public void save_201() throws Exception {
-        ResponseSaveDto responseSaveDto = new ResponseSaveDto("test@gmail.com", userStorages);
+        ResponseSaveDto responseSaveDto = new ResponseSaveDto(3);
 
-        when(userStorageService.save(any())).thenReturn(responseSaveDto);
+        when(userStorageService.save(any())).thenReturn(userStorages);
 
         this.mockMvc.perform(post("/api/v1/storage")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -94,10 +98,7 @@ public class UserStorageControllerTest extends RestDocsTestSupport {
                                         fieldWithPath("request[].storage_type").description("보관 방식")
                                 ),
                                 responseFields(
-                                        fieldWithPath("memberEmail").description("저장 요청한 유저 email"),
-                                        fieldWithPath("response[].id").description("저장한 유저스토리지 id"),
-                                        fieldWithPath("response[].ingredientName").description("재료 이름"),
-                                        fieldWithPath("response[].quantity").description("재료 양")
+                                        fieldWithPath("size").description("Save 된 갯수")
                                 )
                         )
                 );
@@ -106,7 +107,7 @@ public class UserStorageControllerTest extends RestDocsTestSupport {
     @Test
     @DisplayName("Delete 200")
     public void delete_200() throws Exception {
-        ResponseDeleteDto responseDeleteDto = new ResponseDeleteDto("test@gmail.com", userStorages);
+        ResponseDeleteDto responseDeleteDto = new ResponseDeleteDto(3);
 
         when(userStorageService.delete(any())).thenReturn(responseDeleteDto);
 
@@ -120,9 +121,7 @@ public class UserStorageControllerTest extends RestDocsTestSupport {
                                         fieldWithPath("request[].id").description("삭제할 유저스토리지 id")
                                 ),
                                 responseFields(
-                                        fieldWithPath("memberEmail").description("삭제 요청한 유저 email"),
-                                        fieldWithPath("response[].id").description("삭제한 유저스토리지 id"),
-                                        fieldWithPath("response[].ingredientName").description("재료 이름")
+                                        fieldWithPath("size").description("Delete 된 갯수")
                                 )
                         )
                 );
@@ -131,9 +130,9 @@ public class UserStorageControllerTest extends RestDocsTestSupport {
     @Test
     @DisplayName("Update 200")
     public void update_200() throws Exception {
-        ResponseUpdateDto responseUpdateDto = new ResponseUpdateDto("test@gmail.com", userStorages);
+        ResponseUpdateDto responseUpdateDto = new ResponseUpdateDto(userStorageList.getSize());
 
-        when(userStorageService.update(any())).thenReturn(responseUpdateDto);
+        when(userStorageService.update(any())).thenReturn(userStorageList);
 
         this.mockMvc.perform(put("/api/v1/storage")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -148,10 +147,7 @@ public class UserStorageControllerTest extends RestDocsTestSupport {
                                         fieldWithPath("request[].storage_type").description("보관 방식")
                                 ),
                                 responseFields(
-                                        fieldWithPath("memberEmail").description("수정 요청한 유저 email"),
-                                        fieldWithPath("response[].id").description("수정한 유저스토리지 id"),
-                                        fieldWithPath("response[].ingredientName").description("재료 이름"),
-                                        fieldWithPath("response[].quantity").description("재료 양")
+                                        fieldWithPath("size").description("Update 된 갯수")
                                 )
                         )
                 );
@@ -160,22 +156,19 @@ public class UserStorageControllerTest extends RestDocsTestSupport {
     @Test
     @DisplayName("Get 200")
     public void get_200() throws Exception {
-        ResponseGetDto responseGetDto = new ResponseGetDto("test@gmail.com", userStorages);
-
-        when(userStorageService.get()).thenReturn(responseGetDto);
+        when(userStorageService.get()).thenReturn(userStorageList);
 
         this.mockMvc.perform(get("/api/v1/storage"))
                 .andExpect(status().isOk())
                 .andDo(
                         restDocs.document(
                                 responseFields(
-                                        fieldWithPath("memberEmail").description("요청한 유저 email"),
-                                        fieldWithPath("response[].id").description("유저스토리지 id"),
-                                        fieldWithPath("response[].ingredientName").description("재료 이름"),
-                                        fieldWithPath("response[].ingredientImageUrl").description("재료 이미지 url"),
-                                        fieldWithPath("response[].quantity").description("재료 양"),
-                                        fieldWithPath("response[].expiration_date").description("유통 기한"),
-                                        fieldWithPath("response[].storage_type").description("보관 방식")
+                                        fieldWithPath("[].id").description("유저스토리지 id"),
+                                        fieldWithPath("[].ingredientName").description("재료 이름"),
+                                        fieldWithPath("[].ingredientImageUrl").description("재료 이미지 url"),
+                                        fieldWithPath("[].quantity").description("재료 양"),
+                                        fieldWithPath("[].expiration_date").description("유통 기한"),
+                                        fieldWithPath("[].storage_type").description("보관 방식")
                                 )
                         )
                 );
