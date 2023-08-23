@@ -1,6 +1,6 @@
 package com.side.cooktime.domain.member.model;
 
-import com.side.cooktime.domain.model.BaseEntity;
+import com.side.cooktime.global.model.BaseEntity;
 import com.side.cooktime.domain.userstorage.model.UserStorages;
 import jakarta.persistence.*;
 import lombok.Getter;

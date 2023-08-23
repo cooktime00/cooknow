@@ -3,7 +3,7 @@ package com.side.cooktime.domain.userstorage.model;
 import com.side.cooktime.domain.ingredient.model.Ingredient;
 import com.side.cooktime.domain.ingredient.model.StorageType;
 import com.side.cooktime.domain.member.model.Member;
-import com.side.cooktime.domain.model.BaseEntity;
+import com.side.cooktime.global.model.BaseEntity;
 import com.side.cooktime.domain.userstorage.model.dto.request.RequestUpdateOneDto;
 import jakarta.persistence.*;
 import lombok.Getter;

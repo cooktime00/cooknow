@@ -1,11 +1,11 @@
 package com.side.cooktime.domain.userstorage.service;
 
-import com.side.cooktime.config.auth.OAuth2UserUtils;
+import com.side.cooktime.global.config.auth.OAuth2UserUtils;
 import com.side.cooktime.domain.ingredient.model.Ingredient;
 import com.side.cooktime.domain.ingredient.service.IngredientService;
 import com.side.cooktime.domain.member.model.Member;
 import com.side.cooktime.domain.member.service.MemberService;
-import com.side.cooktime.domain.model.BaseEntity;
+import com.side.cooktime.global.model.BaseEntity;
 import com.side.cooktime.domain.userstorage.model.UserStorage;
 import com.side.cooktime.domain.userstorage.model.UserStorages;
 import com.side.cooktime.domain.userstorage.model.dto.request.RequestDeleteDto;
@@ -13,16 +13,12 @@ import com.side.cooktime.domain.userstorage.model.dto.request.RequestSaveDto;
 import com.side.cooktime.domain.userstorage.model.dto.request.RequestUpdateDto;
 import com.side.cooktime.domain.userstorage.model.dto.request.RequestUpdateOneDto;
 import com.side.cooktime.domain.userstorage.model.dto.response.ResponseDeleteDto;
-import com.side.cooktime.domain.userstorage.model.dto.response.ResponseGetDto;
-import com.side.cooktime.domain.userstorage.model.dto.response.ResponseSaveDto;
-import com.side.cooktime.domain.userstorage.model.dto.response.ResponseUpdateDto;
 import com.side.cooktime.domain.userstorage.repository.UserStorageRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package com.side.cooktime.domain.ingredient.service;
 
-import com.side.cooktime.config.aws.S3UploadService;
+import com.side.cooktime.global.config.aws.S3UploadService;
 import com.side.cooktime.domain.category.model.Category;
 import com.side.cooktime.domain.category.service.CategoryService;
 import com.side.cooktime.domain.ingredient.model.Ingredient;

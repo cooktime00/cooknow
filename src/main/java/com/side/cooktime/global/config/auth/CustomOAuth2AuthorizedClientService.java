@@ -1,4 +1,4 @@
-package com.side.cooktime.config.auth;
+package com.side.cooktime.global.config.auth;
 
 import com.side.cooktime.domain.member.model.Member;
 import com.side.cooktime.domain.member.model.User;

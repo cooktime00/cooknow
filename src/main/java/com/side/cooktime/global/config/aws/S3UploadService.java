@@ -1,4 +1,4 @@
-package com.side.cooktime.config.aws;
+package com.side.cooktime.global.config.aws;
 
 
 import com.amazonaws.services.s3.AmazonS3;

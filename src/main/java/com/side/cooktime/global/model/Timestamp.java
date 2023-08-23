@@ -1,4 +1,4 @@
-package com.side.cooktime.domain.model;
+package com.side.cooktime.global.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
