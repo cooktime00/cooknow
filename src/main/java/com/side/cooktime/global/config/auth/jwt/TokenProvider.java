@@ -1,4 +1,4 @@
-package com.side.cooktime.config.auth.jwt;
+package com.side.cooktime.global.config.auth.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.extern.log4j.Log4j2;

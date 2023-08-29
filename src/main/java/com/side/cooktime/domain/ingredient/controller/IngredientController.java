@@ -3,8 +3,11 @@ package com.side.cooktime.domain.ingredient.controller;
 
 
 import com.side.cooktime.domain.ingredient.model.Ingredient;
+import com.side.cooktime.domain.ingredient.model.Ingredients;
+import com.side.cooktime.domain.ingredient.model.dto.request.RequestGetIngredientsDto;
 import com.side.cooktime.domain.ingredient.model.dto.request.RequestSaveDto;
 import com.side.cooktime.domain.ingredient.model.dto.response.ResponseDeleteDto;
+import com.side.cooktime.domain.ingredient.model.dto.response.ResponseGetIngredients;
 import com.side.cooktime.domain.ingredient.model.dto.response.ResponseSaveDto;
 import com.side.cooktime.domain.ingredient.service.IngredientService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,6 +31,12 @@ public class IngredientController {
         Ingredient ingredient = ingredientService.save(requestDto);
         ResponseSaveDto responseDto = new ResponseSaveDto(ingredient);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/ingredients")
+    public ResponseEntity<List<ResponseGetIngredients>> getIngredients(@RequestBody RequestGetIngredientsDto requestDto){
+        Ingredients ingredients = ingredientService.getIngredients(requestDto.getIds());
+        return new ResponseEntity<>(ingredients.toDtos(ResponseGetIngredients::new), HttpStatus.OK);
     }
 
     @DeleteMapping("/ingredient/{id}")

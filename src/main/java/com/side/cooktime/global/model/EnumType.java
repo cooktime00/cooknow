@@ -1,4 +1,4 @@
-package com.side.cooktime.controller;
+package com.side.cooktime.global.model;
 
 public interface EnumType {
     String getName();

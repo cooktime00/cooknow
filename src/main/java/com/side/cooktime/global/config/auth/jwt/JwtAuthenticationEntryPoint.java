@@ -1,4 +1,4 @@
-package com.side.cooktime.config.auth.jwt;
+package com.side.cooktime.global.config.auth.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

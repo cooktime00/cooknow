@@ -1,5 +1,6 @@
 package com.side.cooktime.domain.userstorage.repository;
 
+import com.side.cooktime.domain.ingredient.model.StorageType;
 import com.side.cooktime.domain.member.model.Member;
 import com.side.cooktime.domain.userstorage.model.UserStorage;
 import org.springframework.data.domain.Page;
@@ -17,5 +18,8 @@ public interface UserStorageRepository extends JpaRepository<UserStorage, Long> 
 
     List<UserStorage> findAllByMemberAndDeletedAtIsNull(Member member);
 
+    List<UserStorage> findByMemberAndStorageType(Member member, StorageType storageType);
+
     Page<UserStorage> findByMemberAndDeletedAtIsNullOrderByIdDesc(Member member, Pageable pageable);
+
 }

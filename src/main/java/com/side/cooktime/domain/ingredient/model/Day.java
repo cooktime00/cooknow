@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @Embeddable
 public class Day {
@@ -14,6 +16,10 @@ public class Day {
     public Day(final int day) {
         validateDay(day);
         this.day = day;
+    }
+
+    public LocalDate calculateExpirationDate(){
+        return LocalDate.now().plusDays(day);
     }
 
     private void validateDay(final int day) {

@@ -43,4 +43,12 @@ public class UserStorage extends BaseEntity {
         this.storageType = requestOne.getEnumStorageType();
         return this;
     }
+
+    public String getIngredientName(){
+        return ingredient.getName();
+    }
+
+    public String getIngredientImage(){
+        return ingredient.getImageUrl();
+    }
 }

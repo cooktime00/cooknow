@@ -1,9 +1,9 @@
 package com.side.cooktime.global.config.auth;
 
-import com.side.cooktime.config.auth.jwt.JwtAccessDeniedHandler;
-import com.side.cooktime.config.auth.jwt.JwtAuthenticationEntryPoint;
-import com.side.cooktime.config.auth.jwt.JwtSecurityConfig;
-import com.side.cooktime.config.auth.jwt.TokenProvider;
+import com.side.cooktime.global.config.auth.jwt.JwtAccessDeniedHandler;
+import com.side.cooktime.global.config.auth.jwt.JwtAuthenticationEntryPoint;
+import com.side.cooktime.global.config.auth.jwt.JwtSecurityConfig;
+import com.side.cooktime.global.config.auth.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;

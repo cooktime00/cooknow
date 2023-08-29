@@ -1,6 +1,6 @@
 package com.side.cooktime;
 
-import com.side.cooktime.controller.EnumType;
+import com.side.cooktime.global.model.EnumType;
 import com.side.cooktime.document.ApiResponseDto;
 import com.side.cooktime.document.EnumDocs;
 import com.side.cooktime.domain.ingredient.model.CountType;

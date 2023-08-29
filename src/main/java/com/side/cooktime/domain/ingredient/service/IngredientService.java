@@ -1,5 +1,6 @@
 package com.side.cooktime.domain.ingredient.service;
 
+import com.side.cooktime.domain.ingredient.model.Ingredients;
 import com.side.cooktime.global.config.aws.S3UploadService;
 import com.side.cooktime.domain.category.model.Category;
 import com.side.cooktime.domain.category.service.CategoryService;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -36,5 +38,10 @@ public class IngredientService {
 
     public void delete(Long ingredientId) {
         ingredientRepository.deleteById(ingredientId);
+    }
+
+    public Ingredients getIngredients(List<Long> ids) {
+        List<Ingredient> ingredients = ingredientRepository.findAllById(ids);
+        return new Ingredients(ingredients);
     }
 }

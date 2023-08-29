@@ -1,4 +1,4 @@
-package com.side.cooktime.config.auth.jwt;
+package com.side.cooktime.global.config.auth.jwt;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;

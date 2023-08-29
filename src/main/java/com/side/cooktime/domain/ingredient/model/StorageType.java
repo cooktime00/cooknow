@@ -1,7 +1,7 @@
 package com.side.cooktime.domain.ingredient.model;
 
 
-import com.side.cooktime.controller.EnumType;
+import com.side.cooktime.global.model.EnumType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

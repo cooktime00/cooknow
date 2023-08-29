@@ -3,8 +3,8 @@ package com.side.cooktime.domain.member.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.side.cooktime.config.auth.LoginResponse;
-import com.side.cooktime.config.auth.jwt.TokenProvider;
+import com.side.cooktime.global.config.auth.LoginResponse;
+import com.side.cooktime.global.config.auth.jwt.TokenProvider;
 import com.side.cooktime.domain.member.model.Member;
 import com.side.cooktime.domain.member.model.User;
 import com.side.cooktime.domain.member.model.dto.GoogleUserDto;
@@ -33,7 +33,6 @@ import java.util.Optional;
 public class GoogleService {
 
     private final String GRANT_TYPE = "authorization_code";
-    private final String REDIRECT_URI = "http://localhost/api/v1/callback";
     private final String ACCESS_TOKEN_URL = "https://oauth2.googleapis.com/token";
     private final String USER_INFO_URL = "https://www.googleapis.com/oauth2/v1/userinfo";
 
@@ -46,11 +45,12 @@ public class GoogleService {
     private final MemberRepository memberRepository;
     private final TokenProvider tokenProvider;
 
-    public Member login(String authorizationCode) throws JsonProcessingException {
-        log.info("## [REQUEST] authorizationCode : {}", authorizationCode);
+    public Member login(String authorizationCode, String redirectUri) throws JsonProcessingException {
+        log.info("## [REQUEST] authorizationCode : {} / redirectUri : {}", authorizationCode, redirectUri);
+
         Member loginUser = null;
 
-        String accessToken = getGoogleAccessToken(authorizationCode);
+        String accessToken = getGoogleAccessToken(authorizationCode, redirectUri);
         GoogleUserDto googleUserDto = getGoogleUser(accessToken);
 
         Optional<Member> optionalMember = memberRepository.findByEmail(googleUserDto.getEmail());
@@ -72,7 +72,7 @@ public class GoogleService {
      * @param authorizationCode
      * @return Access Token
      */
-    private String getGoogleAccessToken(String authorizationCode) throws JsonProcessingException {
+    private String getGoogleAccessToken(String authorizationCode, String redirectUri) throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
@@ -80,7 +80,7 @@ public class GoogleService {
         requestBody.add("code", authorizationCode);
         requestBody.add("client_id", CLIENT_ID);
         requestBody.add("client_secret", CLIENT_SECRET);
-        requestBody.add("redirect_uri", REDIRECT_URI);
+        requestBody.add("redirect_uri", redirectUri);
         requestBody.add("grant_type", GRANT_TYPE);
 
         HttpEntity<MultiValueMap<String, String>> restRequest = new HttpEntity<>(requestBody, headers);

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @Getter
 @SuperBuilder
@@ -63,6 +65,10 @@ public class Ingredient extends BaseEntity {
 
     public String getImageUrl(){
         return image.getUrl();
+    }
+
+    public LocalDate getExpirationDate(){
+        return expirationPeriod.calculateExpirationDate();
     }
 }
 

@@ -9,7 +9,6 @@ import com.side.cooktime.domain.userstorage.model.dto.response.*;
 import com.side.cooktime.domain.userstorage.service.UserStorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +33,12 @@ public class UserStorageController {
     public ResponseEntity<ResponseUpdateDto> update(@RequestBody RequestUpdateDto requestDto) {
         UserStorages userStorages = userStorageService.update(requestDto);
         return new ResponseEntity<>(new ResponseUpdateDto(userStorages.getSize()), HttpStatus.OK);
+    }
+
+    @GetMapping("/storages")
+    public ResponseEntity<List<ResponseFindStorageDto>> findStorages(@RequestParam("type") String type){
+        UserStorages userStorages = userStorageService.findStorages(type);
+        return new ResponseEntity<>(userStorages.toDtos(ResponseFindStorageDto::new), HttpStatus.OK);
     }
 
     @DeleteMapping("/storage/delete")

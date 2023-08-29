@@ -1,7 +1,7 @@
 package com.side.cooktime.domain.userstorage.service;
 
-import com.side.cooktime.global.config.auth.OAuth2UserUtils;
 import com.side.cooktime.domain.ingredient.model.Ingredient;
+import com.side.cooktime.domain.ingredient.model.StorageType;
 import com.side.cooktime.domain.ingredient.service.IngredientService;
 import com.side.cooktime.domain.member.model.Member;
 import com.side.cooktime.domain.member.service.MemberService;
@@ -18,7 +18,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -69,6 +68,12 @@ public class UserStorageService {
     public UserStorages get(Pageable pageable) {
         Member member = memberService.getCurrentMember();
         List<UserStorage> userStorages = userStorageRepository.findByMemberAndDeletedAtIsNullOrderByIdDesc(member, pageable).getContent();
+        return new UserStorages(userStorages);
+    }
+
+    public UserStorages findStorages(String type) {
+        Member member = memberService.getCurrentMember();
+        List<UserStorage> userStorages = userStorageRepository.findByMemberAndStorageType(member, StorageType.find(type));
         return new UserStorages(userStorages);
     }
 }
