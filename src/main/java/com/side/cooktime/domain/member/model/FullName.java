@@ -2,12 +2,16 @@ package com.side.cooktime.domain.member.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class FullName {
+
+    @Transient
+    private static final String KOREAN_REGEX = ".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*";
 
     @Column(name = "first_name", length = 50, nullable = false)
     private String firstName;
@@ -28,6 +32,9 @@ public class FullName {
 
     @Override
     public String toString() {
-        return lastName + firstName;
+        if(firstName.matches(KOREAN_REGEX)) {
+            return lastName + firstName;
+        }
+        return firstName + " " + lastName;
     }
 }

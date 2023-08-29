@@ -12,7 +12,8 @@
 
 <div th:if="${session.user != null}">
     <span>세션 담음</span>
-    [[${session.user.email}]]<br>[[${session.user.name}]]<br>
+    <img th:src="${session.user.picture}"/>
+    <br>[[${session.user.email}]]<br>[[${session.user.name}]]<br>
     <a th:href="@{/logout}">로그아웃</a>
 </div>
 </body>

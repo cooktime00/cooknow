@@ -34,12 +34,8 @@ public class UserStorageService {
     private final MemberService memberService;
     private final IngredientService ingredientService;
 
-    private Member getCurrentMember() {
-        return memberService.findByEmail(OAuth2UserUtils.getEmail(SecurityContextHolder.getContext().getAuthentication()));
-    }
-
     public List<UserStorage> save(RequestSaveDto requestDto) {
-        Member member = getCurrentMember();
+        Member member = memberService.getCurrentMember();
         List<Long> ingredientIds = requestDto.getIngredientIds();
         List<Ingredient> ingredients = ingredientIds.stream()
                 .map(ingredientService::getReferenceById) /*TODO:예외처리*/
@@ -48,7 +44,7 @@ public class UserStorageService {
     }
 
     public UserStorages update(RequestUpdateDto requestDto) {
-        Member member = getCurrentMember();
+        Member member = memberService.getCurrentMember();
         List<UserStorage> updatedUserStorages = new ArrayList<>();
         for (RequestUpdateOneDto requestOne : requestDto.getRequest()) {
             UserStorage userStorage = userStorageRepository.findByIdAndMember(requestOne.getId(), member);
@@ -58,20 +54,20 @@ public class UserStorageService {
     }
 
     public ResponseDeleteDto delete(RequestDeleteDto requestDto) {
-        Member member = getCurrentMember();
+        Member member = memberService.getCurrentMember();
         List<UserStorage> userStorages = userStorageRepository.findByIdInAndMember(requestDto.getIds(), member);
         userStorages.forEach(BaseEntity::delete);
         return new ResponseDeleteDto(userStorages.size());
     }
 
     public UserStorages get() {
-        Member member = getCurrentMember();
+        Member member = memberService.getCurrentMember();
         List<UserStorage> userStorages = userStorageRepository.findAllByMemberAndDeletedAtIsNull(member);
         return new UserStorages(userStorages);
     }
 
     public UserStorages get(Pageable pageable) {
-        Member member = getCurrentMember();
+        Member member = memberService.getCurrentMember();
         List<UserStorage> userStorages = userStorageRepository.findByMemberAndDeletedAtIsNullOrderByIdDesc(member, pageable).getContent();
         return new UserStorages(userStorages);
     }

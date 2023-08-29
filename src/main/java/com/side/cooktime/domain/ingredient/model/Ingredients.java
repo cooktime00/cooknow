@@ -1,4 +1,4 @@
-package com.side.cooktime.domain.category.model;
+package com.side.cooktime.domain.ingredient.model;
 
 import com.side.cooktime.domain.ingredient.model.Ingredient;
 import jakarta.persistence.CascadeType;
@@ -32,11 +32,11 @@ public class Ingredients {
                 .collect(Collectors.toList());
     }
 
-    protected void remove(Ingredient ingredient) {
+    public void remove(Ingredient ingredient) {
         ingredients.remove(ingredient);
     }
 
-    protected void add(Ingredient ingredient) {
+    public void add(Ingredient ingredient) {
         ingredients.add(ingredient);
     }
 

@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @SuperBuilder
 @Getter
 @Entity
-@Table(name = "user_storage")
+@Table(name = "user_storage")   //TODO: UserStorage -> UserItem 으로 도메인 명 변경 예정
 public class UserStorage extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)

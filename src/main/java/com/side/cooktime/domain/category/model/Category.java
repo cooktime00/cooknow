@@ -1,6 +1,7 @@
 package com.side.cooktime.domain.category.model;
 
 import com.side.cooktime.domain.ingredient.model.Ingredient;
+import com.side.cooktime.domain.ingredient.model.Ingredients;
 import com.side.cooktime.domain.ingredient.model.Name;
 import com.side.cooktime.global.model.BaseEntity;
 import jakarta.persistence.Embedded;
@@ -41,5 +42,9 @@ public class Category extends BaseEntity {
 
     public void removeIngredient(Ingredient ingredient) {
         ingredients.remove(ingredient);
+    }
+
+    public String getName(){
+        return name.getName();
     }
 }

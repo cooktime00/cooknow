@@ -48,6 +48,12 @@ public class UserStorageController {
         return new ResponseEntity<>(userStorages.toDtos(ResponseGetDto::new), HttpStatus.OK);
     }
 
+    //TODO: 보관 장소 별 유저 스토리지 조회
+
+    //TODO: 유통기한 임박(혹은 지난 상태) 유저 스토리지 조회    -> get()에서 함께 Response 할지 결정 필요
+
+
+
     //TODO:페이징
 //    @GetMapping("/storage")
 //    public ResponseEntity<ResponseGetDto> get(Pageable pageable) {

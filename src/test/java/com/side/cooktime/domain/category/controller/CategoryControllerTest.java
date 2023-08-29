@@ -1,8 +1,9 @@
 package com.side.cooktime.domain.category.controller;
 
 import com.side.cooktime.document.RestDocsTestSupport;
+import com.side.cooktime.domain.category.model.Categories;
 import com.side.cooktime.domain.category.model.Category;
-import com.side.cooktime.domain.category.model.Ingredients;
+import com.side.cooktime.domain.ingredient.model.Ingredients;
 import com.side.cooktime.domain.ingredient.model.Ingredient;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -45,19 +46,34 @@ class CategoryControllerTest extends RestDocsTestSupport {
     }
 
     @Test
-    @DisplayName("Delete 200")
-    public void delete_200() throws Exception {
-        doNothing().when(categoryService).delete(1L);
-        this.mockMvc.perform(delete("/api/v1/category/{id}", 1L))
+    @DisplayName("getAll 200")
+    public void getAll_200() throws Exception {
+
+        Category category1 = new Category(1L, "고기");
+        Category category2 = new Category(2L, "채소");
+        Category category3 = new Category(3L, "해산물");
+        Category category4 = new Category(4L, "음료");
+
+        Categories categories = new Categories();
+        categories.add(category1);
+        categories.add(category2);
+        categories.add(category3);
+        categories.add(category4);
+
+
+        when(categoryService.getAll()).thenReturn(categories);
+
+        this.mockMvc.perform(get("/api/v1/categories")
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andDo(restDocs.document(
-                        pathParameters(
-                                parameterWithName("id").description("카테고리 Id")
-                        ),
-                        responseFields(
-                                fieldWithPath("size").description("Delete 된 갯수")
-                        )
-                ));
+                .andExpect(jsonPath("$", hasSize(4)))
+                .andDo(
+                        restDocs.document(
+                                responseFields(
+                                        fieldWithPath("[].id").description("카테고리 Id"),
+                                        fieldWithPath("[].name").description("카테고리 이름")
+                                )
+                        ));
     }
 
     @Test
@@ -89,4 +105,22 @@ class CategoryControllerTest extends RestDocsTestSupport {
                                 )
                         ));
     }
+
+    @Test
+    @DisplayName("Delete 200")
+    public void delete_200() throws Exception {
+        doNothing().when(categoryService).delete(1L);
+        this.mockMvc.perform(delete("/api/v1/category/{id}", 1L))
+                .andExpect(status().isOk())
+                .andDo(restDocs.document(
+                        pathParameters(
+                                parameterWithName("id").description("카테고리 Id")
+                        ),
+                        responseFields(
+                                fieldWithPath("size").description("Delete 된 갯수")
+                        )
+                ));
+    }
+
+
 }

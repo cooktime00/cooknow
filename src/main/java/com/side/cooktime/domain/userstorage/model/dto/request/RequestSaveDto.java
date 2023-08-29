@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 @Data
 public class RequestSaveDto {
-    private List<RequestSaveOneDto> request;
+    private List<RequestSaveOneDto> request;    //TODO: 명칭 변경 예정 (request -> userItemList)
 
     public List<UserStorage> toEntities(Member member, List<Ingredient> ingredients) {
         return IntStream.range(0, request.size())

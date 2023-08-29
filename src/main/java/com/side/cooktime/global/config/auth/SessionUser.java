@@ -10,11 +10,13 @@ public class SessionUser implements Serializable {
     private Long id;
     private String email;
     private String name;
+    private String picture;
 
     public SessionUser(User user) {
         this.id = user.getId();
-        this.email = user.getEmail().getEmail();
+        this.email = user.getEmailValue();
         this.name = user.getFullName().toString();
+        this.picture = user.getUserGoogleInfo().getPicture();
     }
 
     public SessionUser(String email, String given_name, String family_name) {
