@@ -62,6 +62,7 @@ public class SecurityConfig {
                                 .requestMatchers("/oauth2/**").permitAll()
 //                        .requestMatchers("/api/user/**").hasRole(Role.ADMIN.name())
                                 .requestMatchers("/api/hello", "/api/authenticate", "/api/signup", "/error").permitAll()
+                                .requestMatchers("/docs/api.html").permitAll()
                                 .requestMatchers("/api/v1/callback", "/api/v1/google-login", "/favicon.ico").permitAll()
                                 .anyRequest().authenticated()
 //                                .anyRequest().permitAll() //TODO: 개발 편의상 임시 해제
