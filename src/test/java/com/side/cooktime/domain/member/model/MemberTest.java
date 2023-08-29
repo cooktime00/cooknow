@@ -13,7 +13,8 @@ class MemberTest {
 
     @Test
     public void user_생성() {
-        Member member = new User("user@gmail.com", "password1234", "길동", "홍", Gender.MALE, 30);
+        UserGoogleInfo userGoogleInfo = new UserGoogleInfo("1548653124865123", "picture", "kr");
+        Member member = new User(userGoogleInfo, "user@gmail.com", "길동", "홍");
         assertAll(
                 () -> assertThat(member instanceof User).isTrue(),
                 () -> assertThat(member instanceof Admin).isFalse()
@@ -33,25 +34,7 @@ class MemberTest {
     @NullAndEmptySource
     @ValueSource(strings = {"user", "user@"})
     void email_유효성검사(String email) {
-        assertThatThrownBy(() -> new User(email, "password1234", "길동", "홍", Gender.MALE, 30)).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @ParameterizedTest(name = "password 입력값: {0}")
-    @NullAndEmptySource
-    @ValueSource(strings = {"shortPw"})
-    void password_유효성검사(String password) {
-        assertThatThrownBy(() -> new User("user@gmail.com", password, "길동", "홍", Gender.MALE, 30)).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @ParameterizedTest(name = "firstName 입력값: {0}")
-    @NullAndEmptySource
-    void firstName_유효성검사(String firstName) {
-        assertThatThrownBy(() -> new User("user@gmail.com", "password1234", firstName, "홍", Gender.MALE, 30)).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    @ParameterizedTest(name = "age 입력값: {0}")
-    @ValueSource(ints = {-1, -10})
-    void age_유효성검사(int age) {
-        assertThatThrownBy(() -> new User("user@gmail.com", "password1234", "길동", "홍", Gender.MALE, age)).isInstanceOf(IllegalArgumentException.class);
+        UserGoogleInfo userGoogleInfo = new UserGoogleInfo("1548653124865123", "picture", "kr");
+        assertThatThrownBy(() -> new User(userGoogleInfo, email, "길동", "홍")).isInstanceOf(IllegalArgumentException.class);
     }
 }

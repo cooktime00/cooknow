@@ -5,6 +5,7 @@ import com.side.cooktime.domain.category.model.Category;
 import com.side.cooktime.domain.ingredient.model.Ingredient;
 import com.side.cooktime.domain.member.model.Member;
 import com.side.cooktime.domain.member.model.User;
+import com.side.cooktime.domain.member.model.UserGoogleInfo;
 import com.side.cooktime.domain.userstorage.model.UserStorage;
 import com.side.cooktime.domain.userstorage.model.UserStorages;
 import com.side.cooktime.domain.userstorage.model.dto.request.RequestSaveOneDto;
@@ -39,7 +40,8 @@ public class UserStorageControllerTest extends RestDocsTestSupport {
 
     @BeforeEach
     void setUp() {
-        Member member = new User("google", "test", "test@gmail.com", "test123456", "길동", "홍", "MALE", 29);
+        UserGoogleInfo userGoogleInfo = new UserGoogleInfo("655465123156156", "picture", "kr");
+        Member member = new User(userGoogleInfo, "test@gmail.com", "수정", "김");
         Long categoryId = 1L;
         Category category = new Category(categoryId, "고기");
         Ingredient ingredient1 = new Ingredient(1L, "안심", "testUrl", category);

@@ -1,8 +1,8 @@
 package com.side.cooktime.domain.member.service;
 
-import com.side.cooktime.config.auth.OAuth2UserUtils;
 import com.side.cooktime.domain.member.model.Member;
 import com.side.cooktime.domain.member.repository.MemberRepository;
+import com.side.cooktime.global.config.auth.OAuth2UserUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
