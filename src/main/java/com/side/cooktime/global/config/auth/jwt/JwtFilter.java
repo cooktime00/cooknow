@@ -29,12 +29,12 @@ public class JwtFilter extends GenericFilterBean {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         String jwtToken = resolveToken(httpServletRequest);
         String requestURI = httpServletRequest.getRequestURI();
-        log.info("jwtToken : {}", jwtToken);
-        log.info("requestURI : {}", requestURI);
+        log.info("Request URI : {}", requestURI);
 
         if (jwtToken != null && tokenProvider.validateToken(jwtToken)) {
             String username = tokenProvider.getUsernameFromToken(jwtToken);
             String role = tokenProvider.getRoleFromToken(jwtToken);
+            log.info("jwtToken : {} / username : {} / role : {}", jwtToken, username, role);
             CustomUserDetails userDetails = new CustomUserDetails(username, role); // 사용자 정보와 권한으로 UserDetails 생성
             SecurityContextHolder.getContext().setAuthentication(
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities())

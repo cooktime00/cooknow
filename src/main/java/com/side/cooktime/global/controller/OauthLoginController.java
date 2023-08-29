@@ -1,9 +1,9 @@
 package com.side.cooktime.global.controller;
 
-import com.side.cooktime.global.config.auth.LoginResponse;
-import com.side.cooktime.global.config.auth.jwt.JwtFilter;
 import com.side.cooktime.domain.member.model.Member;
 import com.side.cooktime.domain.member.service.GoogleService;
+import com.side.cooktime.global.config.auth.LoginResponse;
+import com.side.cooktime.global.config.auth.jwt.JwtFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +46,7 @@ public class OauthLoginController {
     @ResponseBody
     public ResponseEntity<LoginResponse> googleLogin(@RequestBody Map<String, String> requestMap) throws Exception {
         log.info("googleLogin");
-        Member loginMember  = googleService.login(requestMap.get("authorizationCode"), requestMap.get("redirectUri"));
+        Member loginMember = googleService.login(requestMap.get("authorizationCode"), requestMap.get("redirectUri"));
         LoginResponse loginResponse = googleService.getJwtResponse(loginMember);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + loginResponse.getToken());
