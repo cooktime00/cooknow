@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -21,5 +22,7 @@ public interface UserStorageRepository extends JpaRepository<UserStorage, Long> 
     List<UserStorage> findByMemberAndStorageType(Member member, StorageType storageType);
 
     Page<UserStorage> findByMemberAndDeletedAtIsNullOrderByIdDesc(Member member, Pageable pageable);
+
+    List<UserStorage> findAllByMemberAndDeletedAtIsNullAndExpirationDateBefore(Member member, LocalDate date);
 
 }
