@@ -3,16 +3,16 @@
 
 [[Category-저장]]
 === Save 201
-operation::category-controller-test/save_201[snippets='http-request,request-fields,request-body,http-response,response-fields,response-body']
+operation::category-controller-test/save_201[snippets='http-request,request-fields,http-response,response-fields']
 
 [[Category-getAll]]
 === GetAll 200
-operation::category-controller-test/get-all_200[snippets='http-request,http-response,response-fields,response-body']
+operation::category-controller-test/get-all_200[snippets='http-request,http-response,response-fields']
 
 [[Category-조회]]
 === findIngredients 200
-operation::category-controller-test/find-ingredients_200[snippets='http-request,path-parameters,http-response,response-fields,response-body']
+operation::category-controller-test/find-ingredients_200[snippets='http-request,path-parameters,http-response,response-fields']
 
 [[Category-삭제]]
 === Delete 200
-operation::category-controller-test/delete_200[snippets='http-request,path-parameters,http-response,response-fields,response-body']
+operation::category-controller-test/delete_200[snippets='http-request,path-parameters,http-response,response-fields']
