@@ -3,12 +3,9 @@ package com.side.cooktime.domain.category.controller;
 
 import com.side.cooktime.domain.category.model.Categories;
 import com.side.cooktime.domain.category.model.Category;
+import com.side.cooktime.domain.category.model.dto.response.*;
 import com.side.cooktime.domain.ingredient.model.Ingredients;
 import com.side.cooktime.domain.category.model.dto.request.RequestSaveDto;
-import com.side.cooktime.domain.category.model.dto.response.ResponseDeleteDto;
-import com.side.cooktime.domain.category.model.dto.response.ResponseFindIngredientsDto;
-import com.side.cooktime.domain.category.model.dto.response.ResponseGetAllDto;
-import com.side.cooktime.domain.category.model.dto.response.ResponseSaveDto;
 import com.side.cooktime.domain.category.service.CategoryService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -50,5 +47,12 @@ public class CategoryController {
     public ResponseEntity<ResponseDeleteDto> delete(@PathVariable("id") Long categoryId) {
         categoryService.delete(categoryId);
         return new ResponseEntity<>(new ResponseDeleteDto(1), HttpStatus.OK);
+    }
+
+    @Transactional
+    @GetMapping("/category/all/ingredients")
+    public ResponseEntity<List<ResponseGetAllWithIngredientsDto>> getAllWithIngredients() {
+        Categories categories = categoryService.getAllWithIngredients();
+        return new ResponseEntity<>(categories.toDtosResponseGetAllWithIngredientsDto(), HttpStatus.OK);
     }
 }

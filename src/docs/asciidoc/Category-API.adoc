@@ -9,6 +9,10 @@ operation::category-controller-test/save_201[snippets='http-request,request-fiel
 === GetAll 200
 operation::category-controller-test/get-all_200[snippets='http-request,http-response,response-fields']
 
+[[Category-getAllWithIngredients]]
+=== GetAllWithIngredients 200
+operation::category-controller-test/get-all-with-ingredients_200[snippets='http-request,http-response,response-fields']
+
 [[Category-조회]]
 === findIngredients 200
 operation::category-controller-test/find-ingredients_200[snippets='http-request,path-parameters,http-response,response-fields']

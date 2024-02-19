@@ -122,5 +122,45 @@ class CategoryControllerTest extends RestDocsTestSupport {
                 ));
     }
 
+    @Test
+    @DisplayName("getAllWithIngredients 200")
+    public void getAllWithIngredients_200() throws Exception {
+
+        Category category1 = new Category(1L, "고기");
+        new Ingredient(1L, "안심", "https://testUrl/Img/1.jpg", category1);
+        new Ingredient(2L, "등심", "https://testUrl/Img/2.jpg", category1);
+
+        Category category2 = new Category(2L, "채소");
+        new Ingredient(3L, "대파", "https://testUrl/Img/3.jpg", category2);
+        new Ingredient(4L, "마늘", "https://testUrl/Img/4.jpg", category2);
+        new Ingredient(5L, "쌍추", "https://testUrl/Img/5.jpg", category2);
+
+        Category category3 = new Category(3L, "과일");
+        new Ingredient(6L, "레몬", "https://testUrl/Img/6.jpg", category3);
+
+        Categories categories = new Categories();
+        categories.add(category1);
+        categories.add(category2);
+        categories.add(category3);
+
+        when(categoryService.getAllWithIngredients()).thenReturn(categories);
+
+        this.mockMvc.perform(get("/api/v1/category/all/ingredients")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andDo(
+                        restDocs.document(
+                                responseFields(
+                                        fieldWithPath("[].id").description("카테고리 Id"),
+                                        fieldWithPath("[].name").description("카테고리 이름"),
+                                        fieldWithPath("[].ingredients[].ingredientId").description("재료 Id"),
+                                        fieldWithPath("[].ingredients[].categoryId").description("카테고리 Id"),
+                                        fieldWithPath("[].ingredients[].name").description("재료 이름"),
+                                        fieldWithPath("[].ingredients[].imageUrl").description("이미지 URL")
+                                )
+                        ));
+    }
+
 
 }

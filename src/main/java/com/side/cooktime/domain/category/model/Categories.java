@@ -1,6 +1,7 @@
 package com.side.cooktime.domain.category.model;
 
-import com.side.cooktime.domain.ingredient.model.Ingredient;
+import com.side.cooktime.domain.category.model.dto.response.ResponseFindIngredientsDto;
+import com.side.cooktime.domain.category.model.dto.response.ResponseGetAllWithIngredientsDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -31,5 +32,14 @@ public class Categories {
 
     public void add(Category category){
         categories.add(category);
+    }
+
+    public List<ResponseGetAllWithIngredientsDto> toDtosResponseGetAllWithIngredientsDto() {
+        return categories.stream()
+                .map(category -> {
+                    List<ResponseFindIngredientsDto> ingredientsDto = category.getIngredients().toDtos(ResponseFindIngredientsDto::new);
+                    return new ResponseGetAllWithIngredientsDto(category, ingredientsDto);
+                })
+                .collect(Collectors.toList());
     }
 }

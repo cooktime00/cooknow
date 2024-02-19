@@ -42,4 +42,9 @@ public class CategoryService {
         List<Category> categories = categoryRepository.findAll();
         return new Categories(categories);
     }
+
+    public Categories getAllWithIngredients() {
+        List<Category> categories = categoryRepository.findAllWithIngredients();
+        return new Categories(categories);
+    }
 }

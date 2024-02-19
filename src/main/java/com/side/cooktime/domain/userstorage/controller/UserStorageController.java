@@ -7,6 +7,7 @@ import com.side.cooktime.domain.userstorage.model.dto.request.RequestSaveDto;
 import com.side.cooktime.domain.userstorage.model.dto.request.RequestUpdateDto;
 import com.side.cooktime.domain.userstorage.model.dto.response.*;
 import com.side.cooktime.domain.userstorage.service.UserStorageService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,7 @@ public class UserStorageController {
         return new ResponseEntity<>(new ResponseUpdateDto(userStorages.getSize()), HttpStatus.OK);
     }
 
+    @Transactional
     @GetMapping("/storages")
     public ResponseEntity<List<ResponseFindStorageDto>> findStorages(@RequestParam("type") String type){
         UserStorages userStorages = userStorageService.findStorages(type);
@@ -47,6 +49,7 @@ public class UserStorageController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
+    @Transactional
     @GetMapping("/storage")
     public ResponseEntity<List<ResponseGetDto>> get() {
         UserStorages userStorages = userStorageService.get();
