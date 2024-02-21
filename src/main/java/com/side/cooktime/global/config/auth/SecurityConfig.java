@@ -64,8 +64,8 @@ public class SecurityConfig {
                                 .requestMatchers("/api/hello", "/api/authenticate", "/api/signup", "/error").permitAll()
                                 .requestMatchers("/docs/api.html").permitAll()
                                 .requestMatchers("/api/v1/callback", "/api/v1/google-login", "/favicon.ico").permitAll()
-                                .anyRequest().authenticated()
-//                                .anyRequest().permitAll() //TODO: 개발 편의상 임시 해제
+//                                .anyRequest().authenticated() //TODO: ADMIN, USER 접근 api 구분 필요
+                                .anyRequest().permitAll() //TODO: 개발 편의상 임시 해제
                 )
 
                 // 세션을 사용하지 않기 때문에 STATELESS로 설정
