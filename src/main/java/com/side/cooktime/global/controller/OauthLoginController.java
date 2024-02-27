@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Log4j2
 @Controller
@@ -27,6 +28,9 @@ public class OauthLoginController {
 
     @Value("${google.redirectUri}")
     private String REDIRECT_URI;
+
+    @Value("${postman-cooktime000.secretkey}")
+    private String postmanTestSecretKey;
 
     //서버 확인용
     //https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=595159133596-ibjnkksdef8bumsndm9vjn0cd4790jtr.apps.googleusercontent.com&scope=email%20profile&redirect_uri=http://localhost/api/v1/callback
@@ -48,6 +52,21 @@ public class OauthLoginController {
         log.info("googleLogin");
         Member loginMember = googleService.login(requestMap.get("authorizationCode"), requestMap.get("redirectUri"));
         LoginResponse loginResponse = googleService.getJwtResponse(loginMember);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + loginResponse.getToken());
+        return new ResponseEntity<>(loginResponse, httpHeaders, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/login-cooktime000-get-token-for-test")
+    @ResponseBody
+    public ResponseEntity<?> get_cooktime000_token_for_test(String key){
+        if(!postmanTestSecretKey.equals(key)){
+            log.error("포스트맨 테스트용 키가 다름");
+            return new ResponseEntity<>("포스트맨 테스트용 키가 다름", HttpStatus.BAD_REQUEST);
+        }
+        Member cooktime000 = googleService.loginForTest("cooktime000@gmail.com");
+        LoginResponse loginResponse = googleService.getJwtResponse(cooktime000);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + loginResponse.getToken());
         return new ResponseEntity<>(loginResponse, httpHeaders, HttpStatus.OK);

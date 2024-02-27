@@ -250,3 +250,5 @@ gradle-app.setting
 .idea/*
 
 *.log.gz
+
+*.sql

@@ -132,4 +132,10 @@ public class GoogleService {
         log.info("JWT Token: {}", jwtToken);
         return new LoginResponse(jwtToken, loginMember.getFullName(), false, false, false);
     }
+
+    //TODO: postman 테스트용 메서드이므로 삭제 필요
+    public Member loginForTest(String email) {
+        Optional<Member> loginUser = memberRepository.findByEmail(email);
+        return loginUser.get();
+    }
 }

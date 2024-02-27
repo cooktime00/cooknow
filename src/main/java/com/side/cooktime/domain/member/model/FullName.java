@@ -32,6 +32,9 @@ public class FullName {
 
     @Override
     public String toString() {
+        if(lastName == null || lastName.trim().isEmpty()){
+            return firstName;
+        }
         if(firstName.matches(KOREAN_REGEX)) {
             return lastName + firstName;
         }
