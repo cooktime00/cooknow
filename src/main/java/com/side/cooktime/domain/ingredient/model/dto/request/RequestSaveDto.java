@@ -18,7 +18,7 @@ public class RequestSaveDto {
     public Ingredient toEntity(Category category, String s3ImageUrl){
         return Ingredient.builder()
                 .category(category)
-                .name(new Name(name))
+                .korName(new Name(name))
                 .image(new Image(s3ImageUrl))
                 .expirationPeriod(new Day(expirationPeriod))
                 .storageType(StorageType.find(storage))

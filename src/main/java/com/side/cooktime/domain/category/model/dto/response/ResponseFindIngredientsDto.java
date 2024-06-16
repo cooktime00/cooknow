@@ -3,6 +3,8 @@ package com.side.cooktime.domain.category.model.dto.response;
 import com.side.cooktime.domain.ingredient.model.Ingredient;
 import lombok.Data;
 
+import java.util.Locale;
+
 @Data
 public class ResponseFindIngredientsDto {
 
@@ -11,10 +13,17 @@ public class ResponseFindIngredientsDto {
     private String name;
     private String imageUrl;
 
-    public ResponseFindIngredientsDto(Ingredient ingredient) {
+    public ResponseFindIngredientsDto(Ingredient ingredient, Locale locale) {
         this.ingredientId = ingredient.getId();
         this.categoryId = ingredient.getCategory().getId();
-        this.name = ingredient.getName();
+        this.name = getNameByLocale(ingredient, locale);
         this.imageUrl = ingredient.getImage().getUrl();
+    }
+
+    private String getNameByLocale(Ingredient ingredient, Locale locale) {
+        if (locale.getLanguage().equals("en")) {
+            return ingredient.getEngName();
+        }
+        return ingredient.getKorName();
     }
 }

@@ -45,7 +45,7 @@ public class UserStorage extends BaseEntity {
     }
 
     public String getIngredientName(){
-        return ingredient.getName();
+        return ingredient.getKorName();
     }
 
     public String getIngredientImage(){

@@ -1,7 +1,6 @@
 package com.side.cooktime.domain.ingredient.controller;
 
 
-
 import com.side.cooktime.domain.ingredient.model.Ingredient;
 import com.side.cooktime.domain.ingredient.model.Ingredients;
 import com.side.cooktime.domain.ingredient.model.dto.request.RequestGetIngredientsDto;
@@ -11,6 +10,7 @@ import com.side.cooktime.domain.ingredient.model.dto.response.ResponseGetIngredi
 import com.side.cooktime.domain.ingredient.model.dto.response.ResponseSaveDto;
 import com.side.cooktime.domain.ingredient.service.IngredientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 @RequiredArgsConstructor
 @RestController
@@ -34,13 +35,14 @@ public class IngredientController {
     }
 
     @GetMapping("/ingredients")
-    public ResponseEntity<List<ResponseGetIngredients>> getIngredients(@RequestBody RequestGetIngredientsDto requestDto){
+    public ResponseEntity<List<ResponseGetIngredients>> getIngredients(@RequestBody RequestGetIngredientsDto requestDto) {
+        Locale requestLocale = LocaleContextHolder.getLocale();
         Ingredients ingredients = ingredientService.getIngredients(requestDto.getIds());
-        return new ResponseEntity<>(ingredients.toDtos(ResponseGetIngredients::new), HttpStatus.OK);
+        return new ResponseEntity<>(ingredients.toDtos(ResponseGetIngredients::new, requestLocale), HttpStatus.OK);
     }
 
     @DeleteMapping("/ingredient/{id}")
-    public ResponseEntity<ResponseDeleteDto> delete(@PathVariable("id") Long ingredientId){
+    public ResponseEntity<ResponseDeleteDto> delete(@PathVariable("id") Long ingredientId) {
         ingredientService.delete(ingredientId);
         return new ResponseEntity<>(new ResponseDeleteDto(ingredientId), HttpStatus.OK);
     }

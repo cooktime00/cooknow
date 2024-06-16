@@ -12,7 +12,7 @@ public class ResponseSaveDto {
 
     public ResponseSaveDto(Ingredient ingredient){
         this.id = ingredient.getId();
-        this.category = ingredient.getCategory().getName();
-        this.name = ingredient.getName();
+        this.category = ingredient.getCategory().getKorName();
+        this.name = ingredient.getKorName();
     }
 }
