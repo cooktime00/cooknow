@@ -20,7 +20,7 @@ public class ResponseGetNearExpiryDto {
         this.id = userStorage.getId();
 
         Ingredient ingredient = userStorage.getIngredient();
-        this.ingredientName = ingredient.getName();
+        this.ingredientName = ingredient.getKorName();
         this.ingredientImageUrl = ingredient.getImageUrl();
 
         this.quantity = userStorage.getQuantity();

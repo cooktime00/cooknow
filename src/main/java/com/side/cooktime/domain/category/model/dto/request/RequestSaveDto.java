@@ -15,7 +15,7 @@ public class RequestSaveDto {
 
     public Category toEntity() {
         return Category.builder()
-                .name(new Name(name))
+                .korName(new Name(name))
                 .build();
     }
 

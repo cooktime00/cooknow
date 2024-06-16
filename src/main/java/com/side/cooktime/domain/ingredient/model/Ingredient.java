@@ -13,13 +13,21 @@ import java.time.LocalDate;
 @Getter
 @SuperBuilder
 @Entity
+@Table(name = "ingredient")
 public class Ingredient extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
+
     @Embedded
-    private Name name;
+    @AttributeOverride(name = "name", column = @Column(name = "kor_name", length = 100, nullable = false))
+    private Name korName;
+
+    @Embedded
+    @AttributeOverride(name = "name", column = @Column(name = "eng_name", length = 100))
+    private Name engName;
+
     @Embedded
     private Image image;
     @Embedded
@@ -34,16 +42,17 @@ public class Ingredient extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private CountType countType;
 
-    public Ingredient(final Long id, final String name, final String image, Category category){
+    public Ingredient(final Long id, final String korName, final String image, final Category category) {
         super(id);
-        this.name = new Name(name);
+        this.korName = new Name(korName);
+        this.engName = new Name("temp");
         this.image = new Image(image);
         changeCategory(category);
     }
 
-    public Ingredient(final String name, final String image, final int expirationPeriod, final StorageType storageType, final String categoryName, final CountType countType) {
+    public Ingredient(final String korName, final String image, final int expirationPeriod, final StorageType storageType, final String categoryName, final CountType countType) {
         this();
-        this.name = new Name(name);
+        this.korName = new Name(korName);
         this.image = new Image(image);
         this.expirationPeriod = new Day(expirationPeriod);
         this.storageType = storageType;
@@ -51,23 +60,27 @@ public class Ingredient extends BaseEntity {
         this.countType = countType;
     }
 
-    public void changeCategory(Category category) {
-        if(this.category != null){
+    public void changeCategory(final Category category) {
+        if (this.category != null) {
             this.category.removeIngredient(this);
         }
         this.category = category;
         category.addIngredient(this);
     }
 
-    public String getName(){
-        return name.getName();
+    public String getKorName() {
+        return korName.getName();
     }
 
-    public String getImageUrl(){
+    public String getEngName() {
+        return engName.getName();
+    }
+
+    public String getImageUrl() {
         return image.getUrl();
     }
 
-    public LocalDate getExpirationDate(){
+    public LocalDate getExpirationDate() {
         return expirationPeriod.calculateExpirationDate();
     }
 }

@@ -9,11 +9,13 @@ import com.side.cooktime.domain.category.model.dto.request.RequestSaveDto;
 import com.side.cooktime.domain.category.service.CategoryService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Locale;
 
 @RequiredArgsConstructor
 @RestController
@@ -31,16 +33,18 @@ public class CategoryController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<List<ResponseGetAllDto>> getAll(){
+    public ResponseEntity<List<ResponseGetAllDto>> getAll() {
+        Locale requestLocale = LocaleContextHolder.getLocale();
         Categories categories = categoryService.getAll();
-        return new ResponseEntity<>(categories.toDtos(ResponseGetAllDto::new), HttpStatus.OK);
+        return new ResponseEntity<>(categories.toDtos(ResponseGetAllDto::new, requestLocale), HttpStatus.OK);
     }
 
     @Transactional
     @GetMapping("/category/{id}/ingredients")
     public ResponseEntity<List<ResponseFindIngredientsDto>> findIngredients(@PathVariable("id") Long categoryId) {
+        Locale requestLocale = LocaleContextHolder.getLocale();
         Ingredients ingredients = categoryService.getIngredients(categoryId);
-        return new ResponseEntity<>(ingredients.toDtos(ResponseFindIngredientsDto::new), HttpStatus.OK);
+        return new ResponseEntity<>(ingredients.toDtos(ResponseFindIngredientsDto::new, requestLocale), HttpStatus.OK);
     }
 
     @DeleteMapping("/category/{id}")
@@ -52,7 +56,8 @@ public class CategoryController {
     @Transactional
     @GetMapping("/category/all/ingredients")
     public ResponseEntity<List<ResponseGetAllWithIngredientsDto>> getAllWithIngredients() {
+        Locale requestLocale = LocaleContextHolder.getLocale();
         Categories categories = categoryService.getAllWithIngredients();
-        return new ResponseEntity<>(categories.toDtosResponseGetAllWithIngredientsDto(), HttpStatus.OK);
+        return new ResponseEntity<>(categories.toDtosResponseGetAllWithIngredientsDto(requestLocale), HttpStatus.OK);
     }
 }

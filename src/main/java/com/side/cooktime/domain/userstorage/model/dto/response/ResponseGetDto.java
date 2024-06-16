@@ -5,7 +5,6 @@ import com.side.cooktime.domain.userstorage.model.UserStorage;
 import lombok.Getter;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 public class ResponseGetDto {
@@ -20,7 +19,7 @@ public class ResponseGetDto {
         this.id = userStorage.getId();
 
         Ingredient ingredient = userStorage.getIngredient();
-        this.ingredientName = ingredient.getName();
+        this.ingredientName = ingredient.getKorName();
         this.ingredientImageUrl = ingredient.getImageUrl();
 
         this.quantity = userStorage.getQuantity();
