@@ -10,6 +10,7 @@ import com.side.cooktime.global.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,10 +33,11 @@ public class RefreshTokenService {
         return refreshToken;
     }
 
+    @Transactional
     public void delete() {
         Long userId = authenticationFacade.getAuthenticatedUserId();
         User user = userService.findByUserId(userId);
-        refreshTokenRepository.updateEmailByUsername(user);
+        refreshTokenRepository.updateEmailByUser(user);
     }
 
     public RefreshToken findByToken(final String token) {
