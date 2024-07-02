@@ -1,21 +1,73 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <title>Sample FirebaseUI App</title>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth-compat.js"></script>
+    <!-- Firebase 초기화 스니펫 붙여넣기 -->
+    <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet"
+          href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css"/>
+    <script type="text/javascript">
+        // Firebase 초기화 설정
+        const firebaseConfig = {
+            apiKey: "AIzaSyCnYFWAo_cq823YG-nXVyiSPU6DAAa_8UU",
+            authDomain: "cooknow-fb.firebaseapp.com",
+            projectId: "cooknow-fb",
+            storageBucket: "cooknow-fb.appspot.com",
+            messagingSenderId: "538188027740",
+            appId: "1:538188027740:web:1489bd0697ab68659b5399",
+            measurementId: "G-XX2SN9J12W"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        // FirebaseUI config
+        var uiConfig = {
+            signInFlow: 'popup',
+            signInOptions: [
+                // Leave the lines as is for the providers you want to offer your users.
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                "apple.com"
+            ],
+            callbacks: {
+                signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                    // 인증 토큰을 얻기 위해 getIdToken을 호출
+                    authResult.user.getIdToken().then(function(idToken) {
+                        // API 요청을 생성하고 Authorization 헤더에 토큰을 포함
+                        fetch('/oauth/sign-in', {
+                            method: 'POST', // 또는 POST, PUT, DELETE 등 필요한 HTTP 메서드
+                            headers: {
+                                'Authorization': 'Bearer ' + idToken,
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(function(response) {
+                            if (response.ok) {
+                                console.log(response);
+                                return response.json();
+                            } else {
+                                throw new Error('Network response was not ok.');
+                            }
+                        }).catch(function(error) {
+                            console.error('There has been a problem with your fetch operation:', error);
+                        });
+                    });
+                    // 페이지 리다이렉트를 취소
+                    return false;
+                }
+            }
+        };
+
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // The start method will wait until the DOM is loaded.
+        ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
+</head>
 <body>
-
-<div class="login-container" >
-    <img th:src="@{/img/logo.png}" style="width: 100px">
-    <h1>COOKTIME</h1>
-    <div class="login-buttons">
-<!--        <a href="#" class="naver-button">네이버 로그인</a>-->
-<!--        <a th:href="@{/oauth2/authorization/google}" class="google-button">구글 로그인</a>-->
-        <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=595159133596-ibjnkksdef8bumsndm9vjn0cd4790jtr.apps.googleusercontent.com&scope=email%20profile&redirect_uri=http://localhost/api/v1/callback" class="google-button">구글 로그인(Local)(JWT토큰)</a>
-        <a href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=595159133596-ibjnkksdef8bumsndm9vjn0cd4790jtr.apps.googleusercontent.com&scope=email%20profile&redirect_uri=http://ec2-43-202-30-201.ap-northeast-2.compute.amazonaws.com/api/v1/callback" class="google-button">구글 로그인(QA)(JWT토큰)</a>
-    </div>
-</div>
-
+<!-- The surrounding HTML is left untouched by FirebaseUI.
+     Your app may use that space for branding, controls and other customizations.-->
+<h1>Welcome to My Awesome App</h1>
+<div id="firebaseui-auth-container"></div>
 </body>
 </html>

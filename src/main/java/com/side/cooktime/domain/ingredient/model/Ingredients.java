@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -26,9 +28,9 @@ public class Ingredients {
         ingredients = list;
     }
 
-    public <T> List<T> toDtos(Function<Ingredient, T> mapper) {
+    public <T> List<T> toDtos(BiFunction<Ingredient, Locale, T> mapper, Locale locale) {
         return ingredients.stream()
-                .map(mapper)
+                .map(ingredient -> mapper.apply(ingredient, locale))
                 .collect(Collectors.toList());
     }
 

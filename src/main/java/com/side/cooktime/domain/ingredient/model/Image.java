@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class Image {
 
-    @Column(length = 100)
+    @Column(length = 100, name = "image_url")
     private String url;
 
     public Image(final String url) {

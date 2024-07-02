@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.ArgumentMatchers.any;
@@ -24,10 +25,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class CategoryControllerTest extends RestDocsTestSupport {
 
+    private Locale[] locales = {Locale.KOREAN, Locale.ENGLISH};
+
     @Test
     @DisplayName("Save 201")
     public void save_201() throws Exception {
-        final Category category = new Category(1L,"채소");
+        final Category category = new Category(1L, "채소");
         when(categoryService.save(any())).thenReturn(category);
 
         this.mockMvc.perform(post("/api/v1/category")
@@ -60,10 +63,10 @@ class CategoryControllerTest extends RestDocsTestSupport {
         categories.add(category3);
         categories.add(category4);
 
-
         when(categoryService.getAll()).thenReturn(categories);
 
         this.mockMvc.perform(get("/api/v1/categories")
+                        .locale(locales)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(4)))
@@ -89,6 +92,7 @@ class CategoryControllerTest extends RestDocsTestSupport {
         when(categoryService.getIngredients(1L)).thenReturn(ingredients);
 
         this.mockMvc.perform(get("/api/v1/category/{id}/ingredients", 1L)
+                        .locale(locales)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -126,16 +130,16 @@ class CategoryControllerTest extends RestDocsTestSupport {
     @DisplayName("getAllWithIngredients 200")
     public void getAllWithIngredients_200() throws Exception {
 
-        Category category1 = new Category(1L, "고기");
+        Category category1 = new Category(1L, "고기", "Meat");
         new Ingredient(1L, "안심", "https://testUrl/Img/1.jpg", category1);
         new Ingredient(2L, "등심", "https://testUrl/Img/2.jpg", category1);
 
-        Category category2 = new Category(2L, "채소");
+        Category category2 = new Category(2L, "채소", "Vegetable");
         new Ingredient(3L, "대파", "https://testUrl/Img/3.jpg", category2);
         new Ingredient(4L, "마늘", "https://testUrl/Img/4.jpg", category2);
         new Ingredient(5L, "쌍추", "https://testUrl/Img/5.jpg", category2);
 
-        Category category3 = new Category(3L, "과일");
+        Category category3 = new Category(3L, "과일", "Fruit");
         new Ingredient(6L, "레몬", "https://testUrl/Img/6.jpg", category3);
 
         Categories categories = new Categories();
@@ -146,6 +150,7 @@ class CategoryControllerTest extends RestDocsTestSupport {
         when(categoryService.getAllWithIngredients()).thenReturn(categories);
 
         this.mockMvc.perform(get("/api/v1/category/all/ingredients")
+                        .locale(locales)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)))
