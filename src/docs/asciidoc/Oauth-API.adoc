@@ -1,0 +1,14 @@
+[[UserStorage-API]]
+== OAuth API
+
+[[Oauth-가입]]
+=== Sign-in 200
+operation::o-auth-controller-test/sign-in_200[snippets='http-request,http-response,response-fields']
+
+[[Oauth-갱신]]
+=== Refresh 200
+operation::o-auth-controller-test/refresh_200[snippets='http-request,http-response,response-fields']
+
+[[Oauth-로그아웃]]
+=== Sign-out 200
+operation::o-auth-controller-test/signout_200[snippets='http-request,http-response,response-fields']
