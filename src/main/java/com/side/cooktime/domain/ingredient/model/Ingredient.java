@@ -31,7 +31,7 @@ public class Ingredient extends BaseEntity {
     @Embedded
     private Image image;
     @Embedded
-    @AttributeOverride(name = "day", column = @Column(name = "expiration_Period"))
+    @AttributeOverride(name = "day", column = @Column(name = "expiration_period"))
     private Day expirationPeriod;
 
     @Column
