@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
-import java.util.Optional;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -81,7 +80,7 @@ public class JwtTokenService {
                 .claims()
                 .issuer("CookNow")
                 .subject(subject)
-                .audience().add(user.getEmail()).and()
+                .audience().add(user.getEmailValue()).and()
                 .expiration(new Date(System.currentTimeMillis() + validityInMilliseconds))
                 .add("userId", user.getId()).and()
                 .signWith(key)

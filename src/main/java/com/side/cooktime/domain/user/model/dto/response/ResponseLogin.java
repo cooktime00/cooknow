@@ -13,7 +13,7 @@ public class ResponseLogin {
 
     public ResponseLogin(User user) {
         this.id = user.getId();
-        this.email = user.getEmail();
+        this.email = user.getEmailValue();
         this.name = user.getFullName();
         this.provider = user.getProvider();
     }

@@ -45,7 +45,7 @@ public class User extends BaseEntity {
         return role.getKey();
     }
 
-    public String getEmail() {
+    public String getEmailValue() {
         return email.getEmail();
     }
 
