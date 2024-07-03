@@ -28,6 +28,7 @@ public class OAuthController {
 
     @PostMapping("/sign-in")
     public ResponseEntity<ResponseSignIn> signIn() throws FirebaseAuthException {
+        userService.save();
         String accessToken = jwtTokenService.createAccessToken();
         RefreshToken refreshToken = refreshTokenService.createToken();
         refreshTokenService.save(refreshToken);

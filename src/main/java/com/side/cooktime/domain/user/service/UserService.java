@@ -18,9 +18,16 @@ public class UserService {
     private final FirebaseService firebaseService;
     private final AuthenticationFacade authenticationFacade;
 
+    public void save() throws FirebaseAuthException {
+        User user = firebaseService.getUserRecord();
+        if (!userRepository.existsByEmail(user.getEmail())) {
+            userRepository.save(user);
+        }
+    }
+
     public User find() throws FirebaseAuthException {
         User user = firebaseService.getUserRecord();
-        return userRepository.findByEmail(user.getEmail()).orElseGet(() -> userRepository.save(user));
+        return userRepository.findByEmail(user.getEmailValue()).orElseGet(() -> userRepository.save(user));
     }
 
     public User findByEmail(String email) {
