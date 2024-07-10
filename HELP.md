@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.side.cooktime' is invalid and this project uses 'com.side.cooktime' instead.
+* The original package name 'com.side.cooktime' is invalid and this project uses 'com.side.cooknow' instead.
 
 # Getting Started
 
