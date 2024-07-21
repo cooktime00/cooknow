@@ -28,8 +28,8 @@ public class OAuthControllerTest extends RestDocsTestSupport {
         final RefreshToken refreshToken = new RefreshToken(user);
 
         when(userService.findByEmail(any())).thenReturn(user);
-        when(jwtTokenService.createAccessToken()).thenReturn(ACCESS_TOKEN);
         when(firebaseService.verifyToken(any())).thenReturn(true);
+        when(jwtTokenService.createAccessToken()).thenReturn(ACCESS_TOKEN);
         when(refreshTokenService.createToken()).thenReturn(refreshToken);
 
         MvcResult result = this.mockMvc.perform(post("/oauth/sign-in")

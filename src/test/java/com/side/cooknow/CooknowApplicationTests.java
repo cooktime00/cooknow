@@ -3,7 +3,7 @@ package com.side.cooknow;
 import org.junit.jupiter.api.Test;
 
 //@SpringBootTest
-class CooktimeApplicationTests {
+class CooknowApplicationTests {
 
 	@Test
 	void contextLoads() {
