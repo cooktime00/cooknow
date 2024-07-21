@@ -1,4 +1,4 @@
-package com.side.cooknow.global.security;
+package com.side.cooknow.global.service;
 
 import com.side.cooknow.domain.user.model.User;
 import com.side.cooknow.domain.user.service.UserService;
@@ -60,8 +60,8 @@ public class JwtTokenService {
         return false;
     }
 
-    private String generateToken(User user) {
-        return createToken(user, accessTokenExpiration);
+    public String generateToken(User user) {
+        return createToken(user);
     }
 
     private User getAuthenticatedUser() {
@@ -74,14 +74,14 @@ public class JwtTokenService {
         return userService.findByUserId(userId);
     }
 
-    private String createToken(final User user, final Long validityInMilliseconds) {
+    private String createToken(final User user) {
         return Jwts.builder()
                 .header().type("JWT").and()
                 .claims()
                 .issuer("CookNow")
                 .subject(ACCESS_TOKEN)
                 .audience().add(user.getEmailValue()).and()
-                .expiration(new Date(System.currentTimeMillis() + validityInMilliseconds))
+                .expiration(new Date(System.currentTimeMillis() + accessTokenExpiration))
                 .add("userId", user.getId()).and()
                 .signWith(key)
                 .compact();

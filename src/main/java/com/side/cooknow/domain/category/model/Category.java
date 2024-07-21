@@ -45,7 +45,6 @@ public class Category extends BaseEntity {
     }
 
     public Category(final String korName, final String engName) {
-        this();
         this.korName = new Name(korName);
         this.engName = new Name(engName);
     }

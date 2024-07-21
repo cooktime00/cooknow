@@ -7,7 +7,7 @@ import com.side.cooknow.global.model.dto.response.ResponseSignIn;
 import com.side.cooknow.global.model.dto.response.ResponseRefresh;
 import com.side.cooknow.global.model.dto.response.ResponseSignOut;
 import com.side.cooknow.global.model.security.RefreshToken;
-import com.side.cooknow.global.security.JwtTokenService;
+import com.side.cooknow.global.service.JwtTokenService;
 import com.side.cooknow.global.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

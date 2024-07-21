@@ -15,10 +15,9 @@ import com.side.cooknow.domain.useritem.controller.UserItemController;
 import com.side.cooknow.domain.useritem.repository.UserItemRepository;
 import com.side.cooknow.domain.useritem.service.UserItemService;
 import com.side.cooknow.global.FirebaseService;
-import com.side.cooknow.global.config.auth.AuthenticationFilter;
 import com.side.cooknow.global.controller.OAuthController;
 import com.side.cooknow.global.repository.RefreshTokenRepository;
-import com.side.cooknow.global.security.JwtTokenService;
+import com.side.cooknow.global.service.JwtTokenService;
 import com.side.cooknow.global.service.RefreshTokenService;
 import org.junit.jupiter.api.Disabled;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,9 +81,6 @@ public abstract class ControllerTest {
 
     @MockBean
     protected SecurityFilterChain devProtectedSecurityFilterChain;
-
-    @MockBean
-    protected AuthenticationFilter authenticationFilter;
 
     public String createJson(Object dto) throws JsonProcessingException {
         return objectMapper.writeValueAsString(dto);
