@@ -1,13 +1,15 @@
 package com.side.cooknow.domain.user.service;
 
 import com.google.firebase.auth.FirebaseAuthException;
+import com.side.cooknow.domain.user.exception.UserErrorCode;
+import com.side.cooknow.domain.user.exception.UserException;
+import com.side.cooknow.domain.user.model.Email;
 import com.side.cooknow.domain.user.model.User;
 import com.side.cooknow.domain.user.repository.UserRepository;
 import com.side.cooknow.global.FirebaseService;
-import com.side.cooknow.global.config.auth.AuthenticationFacade;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @RequiredArgsConstructor
@@ -16,31 +18,25 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final FirebaseService firebaseService;
-    private final AuthenticationFacade authenticationFacade;
 
-    public void save() throws FirebaseAuthException {
-        User user = firebaseService.getUserRecord();
-        if (!userRepository.existsByEmail(user.getEmail())) {
-            userRepository.save(user);
-        }
+    public User save(final Email email) throws FirebaseAuthException {
+        User user = firebaseService.getUserRecord(email);
+        userRepository.save(user);
+        return user;
     }
 
-    public User find() throws FirebaseAuthException {
-        User user = firebaseService.getUserRecord();
-        return userRepository.findByEmail(user.getEmailValue()).orElseGet(() -> userRepository.save(user));
+    @Transactional(readOnly = true)
+    public boolean existsByEmail(Email email) {
+        return userRepository.existsByEmail(email);
     }
 
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow();
+    @Transactional(readOnly = true)
+    public User findByEmail(Email email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
     }
 
-    public User findByUserId(Long userId) {
-        return userRepository.findById(userId).orElseThrow();
-    }
-
-    public void delete() {
-        Long id = authenticationFacade.getAuthenticatedUserId();
-        userRepository.deleteById(id);
+    public void delete(final User user) {
+        userRepository.deleteById(user.getId());
     }
 
 }

@@ -1,5 +1,6 @@
 package com.side.cooknow.global.config.auth;
 
+import com.side.cooknow.domain.user.model.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -7,23 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthenticationFacade {
 
-    public String getAuthenticatedUserEmail() {
+    public User getAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof FirebaseAuthenticationToken) {
-            return ((FirebaseAuthenticationToken) authentication).getEmail();
-        }
-
-        if(authentication instanceof OauthAuthenticationToken){
-            return ((OauthAuthenticationToken) authentication).getEmail();
-        }
-        return null;
-    }
-
-    public Long getAuthenticatedUserId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof OauthAuthenticationToken) {
-            return ((OauthAuthenticationToken) authentication).getId();
-        }
-        return null;
+        return ((OauthAuthenticationToken) authentication).getUser();
     }
 }

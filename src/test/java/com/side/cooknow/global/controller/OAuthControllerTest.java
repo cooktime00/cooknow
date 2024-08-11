@@ -27,12 +27,14 @@ public class OAuthControllerTest extends RestDocsTestSupport {
 
         final RefreshToken refreshToken = new RefreshToken(user);
 
-        when(userService.findByEmail(any())).thenReturn(user);
-        when(firebaseService.verifyToken(any())).thenReturn(true);
-        when(jwtTokenService.createAccessToken()).thenReturn(ACCESS_TOKEN);
-        when(refreshTokenService.createToken()).thenReturn(refreshToken);
+        when(authenticationFacade.getAuthenticatedUser()).thenReturn(user);
+        when(userService.existsByEmail(any())).thenReturn(true);
+        when(firebaseService.verifyToken(any())).thenReturn("test@cooknow.com");
+        when(jwtTokenService.createAccessToken(any())).thenReturn(ACCESS_TOKEN);
+        when(refreshTokenService.createToken(any())).thenReturn(refreshToken);
 
-        MvcResult result = this.mockMvc.perform(post("/oauth/sign-in")
+
+        this.mockMvc.perform(post("/oauth/sign-in")
                         .header("Authorization", "Bearer FirebaseToken"))
                 .andExpect(status().isOk())
                 .andDo(
@@ -50,11 +52,11 @@ public class OAuthControllerTest extends RestDocsTestSupport {
     public void refresh_200() throws Exception {
         final User user = new User(1L, "email", "test@cooknow.com", "Cook", "Now", Role.USER);
 
-        final RefreshToken refreshToken = new RefreshToken(user);
+        final RefreshToken refreshToken = new RefreshToken(user, 1209600000);
 
-        when(jwtTokenService.createAccessToken()).thenReturn(ACCESS_TOKEN);
-        when(refreshTokenService.existsByToken(any())).thenReturn(true);
         when(refreshTokenService.findByToken(any())).thenReturn(refreshToken);
+        when(authenticationFacade.getAuthenticatedUser()).thenReturn(user);
+        when(jwtTokenService.refreshAccessToken(user)).thenReturn(ACCESS_TOKEN);
 
         this.mockMvc.perform(post("/oauth/refresh")
                         .header("Authorization", "Bearer RefreshToken"))
@@ -75,14 +77,7 @@ public class OAuthControllerTest extends RestDocsTestSupport {
         final RefreshToken refreshToken = new RefreshToken(user);
 
         doNothing().when(firebaseService).deleteUser();
-        doNothing().when(refreshTokenService).delete();
-        doNothing().when(userService).delete();
-
-
-//        when(userService.findByEmail(any())).thenReturn(user);
-//        when(jwtTokenService.createAccessToken()).thenReturn(ACCESS_TOKEN);
-//
-//        when(refreshTokenService.createToken()).thenReturn(refreshToken);
+        doNothing().when(refreshTokenService).deleteAllByUser(user);
 
         this.mockMvc.perform(post("/oauth/sign-out")
                         .header("Authorization", "Bearer AccessToken"))
@@ -91,6 +86,24 @@ public class OAuthControllerTest extends RestDocsTestSupport {
                         restDocs.document(
                                 responseFields(
                                         fieldWithPath("result").description("Successfully signed out")
+                                )
+                        ));
+    }
+
+    @Test
+    @DisplayName("Withdraw 200")
+    public void withdraw_200() throws Exception {
+        final User user = new User(1L, "email", "test@cooknow.com", "Cook", "Now", Role.USER);
+
+        when(authenticationFacade.getAuthenticatedUser()).thenReturn(user);
+
+        this.mockMvc.perform(post("/oauth/sign-out")
+                        .header("Authorization", "Bearer AccessToken"))
+                .andExpect(status().isOk())
+                .andDo(
+                        restDocs.document(
+                                responseFields(
+                                        fieldWithPath("result").description("SuccessFully withdrawn")
                                 )
                         ));
     }

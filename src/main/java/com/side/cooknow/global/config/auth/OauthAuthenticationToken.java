@@ -1,5 +1,6 @@
 package com.side.cooknow.global.config.auth;
 
+import com.side.cooknow.domain.user.model.User;
 import lombok.Getter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,13 +10,11 @@ import java.util.Collection;
 @Getter
 public class OauthAuthenticationToken extends AbstractAuthenticationToken {
 
-    private final Long id;
-    private final String email;
+    private final User user;
 
-    public OauthAuthenticationToken(Long id, String email, Collection<? extends GrantedAuthority> authorities) {
+    public OauthAuthenticationToken(User user, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
-        this.id = id;
-        this.email = email;
+        this.user = user;
         setAuthenticated(true);
     }
 
@@ -26,6 +25,6 @@ public class OauthAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public Object getPrincipal() {
-        return id;
+        return null;
     }
 }

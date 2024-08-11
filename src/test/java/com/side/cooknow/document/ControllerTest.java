@@ -15,6 +15,7 @@ import com.side.cooknow.domain.useritem.controller.UserItemController;
 import com.side.cooknow.domain.useritem.repository.UserItemRepository;
 import com.side.cooknow.domain.useritem.service.UserItemService;
 import com.side.cooknow.global.FirebaseService;
+import com.side.cooknow.global.config.auth.AuthenticationFacade;
 import com.side.cooknow.global.controller.OAuthController;
 import com.side.cooknow.global.repository.RefreshTokenRepository;
 import com.side.cooknow.global.service.JwtTokenService;
@@ -78,6 +79,9 @@ public abstract class ControllerTest {
 
     @MockBean
     protected FirebaseService firebaseService;
+
+    @MockBean
+    protected AuthenticationFacade authenticationFacade;
 
     @MockBean
     protected SecurityFilterChain devProtectedSecurityFilterChain;

@@ -55,7 +55,8 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/oauth/sign-in", "/oauth/refresh").permitAll() // 이미 처리된 경로 제외
+                        .requestMatchers("/oauth/sign-in", "/oauth/refresh", "/docs/**").permitAll() // 이미 처리된 경로 제외
+                        .requestMatchers("/css/**", "/js/**", "/img/**").denyAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(new AccessFilter(jwtTokenService), UsernamePasswordAuthenticationFilter.class);
         return http.build();

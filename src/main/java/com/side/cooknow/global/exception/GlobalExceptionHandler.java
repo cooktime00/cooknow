@@ -38,11 +38,17 @@ public class GlobalExceptionHandler {
         return ErrorResponseEntity.toResponseEntity(ex.getErrorCode());
     }
 
-    @ExceptionHandler(FirebaseAuthException.class)
-    protected ResponseEntity<ErrorResponseEntity> handleUserException(FirebaseAuthException ex) {
-        log.info("FirebaseAuthException 발생");
-        AuthErrorCode errorCode = ex.getAuthErrorCode();
-        return ErrorResponseEntity.toResponseEntity(FirebaseAuthErrorCode.fromName(errorCode.name()));
+    @ExceptionHandler(OauthException.class)
+    protected ResponseEntity<ErrorResponseEntity> handleRefreshException(OauthException ex) {
+        log.info("RefreshException 발생");
+        return ErrorResponseEntity.toResponseEntity(ex.getErrorCode());
     }
+
+//    @ExceptionHandler(FirebaseAuthException.class)
+//    protected ResponseEntity<ErrorResponseEntity> handleUserException(FirebaseAuthException ex) {
+//        log.info("FirebaseAuthException 발생");
+//        AuthErrorCode errorCode = ex.getAuthErrorCode();
+//        return ErrorResponseEntity.toResponseEntity(FirebaseAuthErrorCode.fromName(errorCode.name()));
+//    }
 
 }

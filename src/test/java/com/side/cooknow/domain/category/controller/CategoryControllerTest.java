@@ -7,6 +7,7 @@ import com.side.cooknow.domain.ingredient.model.Ingredients;
 import com.side.cooknow.domain.ingredient.model.Ingredient;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.stubbing.answers.DoesNothing;
 import org.springframework.http.MediaType;
 
 import java.util.Arrays;
@@ -32,7 +33,7 @@ class CategoryControllerTest extends RestDocsTestSupport {
     public void save_201() throws Exception {
         final Category category = new Category(1L, "채소");
         when(categoryService.save(any())).thenReturn(category);
-        when(jwtTokenService.verifyAccessToken(any())).thenReturn(true);
+        doNothing().when(jwtTokenService).verifyAccessToken(any());
 
         this.mockMvc.perform(post("/api/v1/category")
                         .header("Authorization", "Bearer AccessToken")
@@ -66,7 +67,8 @@ class CategoryControllerTest extends RestDocsTestSupport {
         categories.add(category4);
 
         when(categoryService.getAll()).thenReturn(categories);
-        when(jwtTokenService.verifyAccessToken(any())).thenReturn(true);
+
+        doNothing().when(jwtTokenService).verifyAccessToken(any());
 
         this.mockMvc.perform(get("/api/v1/categories")
                         .header("Authorization", "Bearer AccessToken")
@@ -94,7 +96,7 @@ class CategoryControllerTest extends RestDocsTestSupport {
         Ingredients ingredients = new Ingredients(Arrays.asList(ingredient1, ingredient2));
 
         when(categoryService.getIngredients(1L)).thenReturn(ingredients);
-        when(jwtTokenService.verifyAccessToken(any())).thenReturn(true);
+        doNothing().when(jwtTokenService).verifyAccessToken(any());
 
         this.mockMvc.perform(get("/api/v1/category/{id}/ingredients", 1L)
                         .locale(locales)
@@ -154,7 +156,7 @@ class CategoryControllerTest extends RestDocsTestSupport {
         categories.add(category3);
 
         when(categoryService.getAllWithIngredients()).thenReturn(categories);
-        when(jwtTokenService.verifyAccessToken(any())).thenReturn(true);
+//        doNothing().when(jwtTokenService.verifyAccessToken(any()));
 
         this.mockMvc.perform(get("/api/v1/category/all/ingredients")
                         .header("Authorization", "Bearer AccessToken")

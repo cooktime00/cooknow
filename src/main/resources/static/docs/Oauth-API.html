@@ -466,7 +466,7 @@ Content-Length: 390
 
 {
   "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDb29rTm93Iiwic3ViIjoiQWNjZXNzIFRva2VuIiwiYXVkIjpbInRlc3RAY29va25vdy5jb20iXSwiaWF0IjoxNzE5Njc1MTkwLCJleHAiOjE3MTk2Nzg3OTAsImp0aSI6IjU5YzQzMTI1LTI2YTUtNGMwYi04NzBjLTYwNGY1YzM0NDU1YSIsInVzZXJJZCI6MSwicm9sZSI6IlVTRVIifQ.Rr0nOa5k8IuXrJV_IiOzMJiy18GT82Nk4yFbBmb3ZXc",
-  "refreshToken" : "d2c3863d-8057-4db2-9bd7-38ef0b061eb6"
+  "refreshToken" : "0c3ad421-355c-411c-a404-c0cb4c990a08"
 }</code></pre>
 </div>
 </div>
@@ -520,10 +520,10 @@ Content-Type: application/x-www-form-urlencoded</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 26
+Content-Length: 331
 
 {
-  "accessToken" : null
+  "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDb29rTm93Iiwic3ViIjoiQWNjZXNzIFRva2VuIiwiYXVkIjpbInRlc3RAY29va25vdy5jb20iXSwiaWF0IjoxNzE5Njc1MTkwLCJleHAiOjE3MTk2Nzg3OTAsImp0aSI6IjU5YzQzMTI1LTI2YTUtNGMwYi04NzBjLTYwNGY1YzM0NDU1YSIsInVzZXJJZCI6MSwicm9sZSI6IlVTRVIifQ.Rr0nOa5k8IuXrJV_IiOzMJiy18GT82Nk4yFbBmb3ZXc"
 }</code></pre>
 </div>
 </div>
@@ -546,7 +546,7 @@ Content-Length: 26
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>accessToken</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Access Token</p></td>
 </tr>
 </tbody>
@@ -605,13 +605,65 @@ Content-Length: 42
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Oauth-탈퇴">Withdraw 200</h3>
+<div class="sect3">
+<h4 id="Oauth-탈퇴_http_request">HTTP request</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /oauth/sign-out HTTP/1.1
+Authorization: Bearer AccessToken
+Host: localhost:8080
+Content-Type: application/x-www-form-urlencoded</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Oauth-탈퇴_http_response">HTTP response</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 42
+
+{
+  "result" : "SuccessFully signed out"
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Oauth-탈퇴_response_fields">Response fields</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SuccessFully withdrawn</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2024-07-02 22:07:16 +0900
+Last updated 2024-08-11 15:23:55 +0900
 </div>
 </div>
 </body>
