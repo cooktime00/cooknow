@@ -25,6 +25,10 @@ public class Email {
         this.email = email;
     }
 
+    public boolean sameValueAs(final String email){
+        return this.email.equals(email);
+    }
+
     private void validate(String email) {
         if (email == null || email.isBlank()) {
             throw new IllegalArgumentException("이메일(email) 값이 공백이거나 Null 값입니다.");

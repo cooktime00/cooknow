@@ -46,8 +46,7 @@ public class RefreshToken extends BaseEntity {
         return token.getToken();
     }
 
-    public Long getUserId(){
-        return user.getId();
+    public boolean isExpired() {
+        return expirationDate.isBefore(LocalDateTime.now());
     }
-
 }

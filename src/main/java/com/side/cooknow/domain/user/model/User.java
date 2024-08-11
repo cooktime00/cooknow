@@ -5,6 +5,8 @@ import com.side.cooknow.domain.useritem.model.UserItems;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import static java.time.LocalDateTime.now;
+
 @Entity
 @Getter
 @Table(name = "user")
@@ -23,22 +25,32 @@ public class User extends BaseEntity {
     private final UserItems userItems = new UserItems();
 
     public User() {
-        ;
     }
-    public User(final Long id, final String provider, final String email, final String firstName, final String lastName, final Role role) {
-        super(id);
-        this.provider = provider;
-        this.role = role;
+
+    // 생성자 체이닝을 사용하여 중복 제거
+    public User(final Long userId, final String email) {
+        super(userId);
         this.email = new Email(email);
-        this.fullName = new FullName(firstName, lastName);
+    }
+
+    public User(final String email) {
+        this.email = new Email(email);
     }
 
     public User(final String provider, final String email, final String firstName, final String lastName, final Role role) {
-        super();
+        this(null, provider, email, firstName, lastName, role);
+    }
+
+    public User(final Long id, final String provider, final String email, final String firstName, final String lastName, final Role role) {
+        super(id);
         this.provider = provider;
-        this.role = role;
         this.email = new Email(email);
         this.fullName = new FullName(firstName, lastName);
+        this.role = role;
+    }
+
+    public boolean isValidateRequest(final String email){
+        return this.email.sameValueAs(email);
     }
 
     public String getRoleKey() {
@@ -53,7 +65,4 @@ public class User extends BaseEntity {
         return fullName.toString();
     }
 
-    public String getRole() {
-        return role.getKey();
-    }
 }

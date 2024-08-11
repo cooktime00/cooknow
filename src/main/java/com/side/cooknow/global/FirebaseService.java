@@ -4,9 +4,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.UserRecord;
+import com.side.cooknow.domain.user.model.Email;
 import com.side.cooknow.domain.user.model.Role;
 import com.side.cooknow.domain.user.model.User;
 import com.side.cooknow.global.config.auth.AuthenticationFacade;
+import com.side.cooknow.global.exception.OauthErrorCode;
+import com.side.cooknow.global.exception.OauthException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,25 +19,30 @@ import java.util.Optional;
 @Service
 public class FirebaseService {
 
-    private FirebaseToken firebaseToken;
     private final FirebaseAuth firebaseAuth;
     private final AuthenticationFacade authenticationFacade;
 
-    public User getUserRecord() throws FirebaseAuthException {
-        String email = authenticationFacade.getAuthenticatedUserEmail();
-        UserRecord userRecord = firebaseAuth.getUserByEmail(email);
-        return buildUser(userRecord);
+    public User getUserRecord(Email email) throws FirebaseAuthException {
+        try {
+            UserRecord userRecord = firebaseAuth.getUserByEmail(email.getEmail());
+            return buildUser(userRecord);
+        } catch (FirebaseAuthException e) {
+            throw new OauthException(OauthErrorCode.USER_NOT_FOUND);
+        }
     }
 
-    public String getUserEmail() {
-        return firebaseToken.getEmail();
+    public String verifyToken(String idToken) {
+        FirebaseToken token = verifyFirebaseToken(idToken)
+                .orElseThrow(() -> new OauthException(OauthErrorCode.INVALID_ID_TOKEN));
+        return token.getEmail();
     }
 
-    public boolean verifyToken(String idToken) {
-        return verifyFirebaseToken(idToken).map(token -> {
-            this.firebaseToken = token;
-            return true;
-        }).orElse(false);
+    private Optional<FirebaseToken> verifyFirebaseToken(String token) {
+        try {
+            return Optional.of(firebaseAuth.verifyIdToken(token));
+        } catch (FirebaseAuthException e) {
+            throw new OauthException(OauthErrorCode.EXPIRED_ID_TOKEN);
+        }
     }
 
     public void deleteUser() throws FirebaseAuthException {
@@ -43,18 +51,10 @@ public class FirebaseService {
     }
 
     private String getUid() throws FirebaseAuthException {
-        String userEmail = authenticationFacade.getAuthenticatedUserEmail();
-        UserRecord userRecord = firebaseAuth.getUserByEmail(userEmail);
+        User user = authenticationFacade.getAuthenticatedUser();
+        Email email = user.getEmail();
+        UserRecord userRecord = firebaseAuth.getUserByEmail(email.getEmail());
         return userRecord.getUid();
-    }
-
-
-    private Optional<FirebaseToken> verifyFirebaseToken(String token) {
-        try {
-            return Optional.of(firebaseAuth.verifyIdToken(token));
-        } catch (FirebaseAuthException e) {
-            return Optional.empty();
-        }
     }
 
     private User buildUser(UserRecord userRecord) {

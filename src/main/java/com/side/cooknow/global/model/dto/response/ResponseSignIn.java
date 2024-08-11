@@ -1,6 +1,7 @@
 package com.side.cooknow.global.model.dto.response;
 
 import com.side.cooknow.global.model.security.RefreshToken;
+import com.side.cooknow.global.model.security.Token;
 import lombok.Data;
 
 @Data
