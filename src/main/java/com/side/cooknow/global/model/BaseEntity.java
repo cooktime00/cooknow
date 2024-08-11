@@ -19,7 +19,7 @@ public abstract class BaseEntity {
     protected Timestamp timestamp;
 
     @Column(nullable = true)
-    private LocalDateTime deletedAt;
+    protected LocalDateTime deletedAt;
 
     protected BaseEntity(final Long id){
         this.id = id;

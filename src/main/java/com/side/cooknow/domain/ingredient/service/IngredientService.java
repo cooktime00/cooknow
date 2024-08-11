@@ -9,10 +9,12 @@ import com.side.cooknow.domain.ingredient.model.dto.request.RequestSaveDto;
 import com.side.cooknow.domain.ingredient.repository.IngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class IngredientService {
@@ -28,10 +30,12 @@ public class IngredientService {
         return ingredientRepository.save(ingredient);
     }
 
+    @Transactional(readOnly = true)
     public Ingredient findById(Long id){
         return ingredientRepository.findById(id).orElse(null);
     }
 
+    @Transactional(readOnly = true)
     public Ingredient getReferenceById(Long id){
         return ingredientRepository.getReferenceById(id);
     }
@@ -40,6 +44,7 @@ public class IngredientService {
         ingredientRepository.deleteById(ingredientId);
     }
 
+    @Transactional(readOnly = true)
     public Ingredients getIngredients(List<Long> ids) {
         List<Ingredient> ingredients = ingredientRepository.findAllById(ids);
         return new Ingredients(ingredients);

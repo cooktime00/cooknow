@@ -5,6 +5,6 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class FirebaseAuthException extends RuntimeException{
-    FirebaseAuthErrorCode errorCode;
+public class OauthException extends RuntimeException{
+    OauthErrorCode errorCode;
 }

@@ -29,4 +29,8 @@ public class Token {
         return new Token(token);
     }
 
+    @Override
+    public String toString() {
+        return token;
+    }
 }

@@ -14,9 +14,7 @@ public class JwtTokenServiceTest {
 
     @Test
     public void createAccessToken() {
-        User user = new User(4L, "google.com", "alex970902@gmail.com", "정혁", "", Role.USER);
-
-        System.out.println(jwtTokenService.generateToken(user));
+        User user = new User(5L, "google.com", "jpark0902@kookmin.ac.kr", "정환", "박", Role.USER);
     }
 
 }
