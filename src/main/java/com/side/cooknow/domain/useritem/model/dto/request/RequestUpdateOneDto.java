@@ -9,14 +9,14 @@ import java.time.LocalDate;
 public class RequestUpdateOneDto {
     private Long id;
     private int quantity;
-    private LocalDate expiration_date;
-    private String storage_type;
+    private LocalDate expirationDate;
+    private String storageType;
 
     public StorageType getEnumStorageType() {
-        if (StorageType.find(storage_type) == null) {
+        if (StorageType.find(storageType) == null) {
             //TODO: 예외처리 임시
             throw new IllegalArgumentException("잘못된 보관방식 값");
         }
-        return StorageType.find(storage_type);
+        return StorageType.find(storageType);
     }
 }

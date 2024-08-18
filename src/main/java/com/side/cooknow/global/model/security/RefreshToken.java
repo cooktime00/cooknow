@@ -18,7 +18,7 @@ public class RefreshToken extends BaseEntity {
 
     @Embedded
     private Token token;
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     private LocalDateTime expirationDate;
