@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.Locale;
 
 @NoArgsConstructor
 @Getter
@@ -66,6 +67,10 @@ public class Ingredient extends BaseEntity {
         }
         this.category = category;
         category.addIngredient(this);
+    }
+
+    public String getName(Locale locale) {
+        return locale.getLanguage().equals("en") ? engName.getName() : korName.getName();
     }
 
     public String getKorName() {

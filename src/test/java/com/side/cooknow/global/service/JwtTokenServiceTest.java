@@ -9,8 +9,8 @@ public class JwtTokenServiceTest {
 
 
 
-    public void createAccessToken() {
-        User user = new User(5L, "google.com", "jpark0902@kookmin.ac.kr", "정환", "박", Role.USER);
-    }
+//    public void createAccessToken() {
+//        User user = new User(5L, "google.com", "jpark0902@kookmin.ac.kr", "정환", "박", Role.USER);
+//    }
 
 }

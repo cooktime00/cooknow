@@ -10,18 +10,17 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserItemRepository extends JpaRepository<UserItem, Long> {
-    List<UserItem> findByIdInAndUser(List<Long> ids, User user);
+    List<UserItem> findAllByIdInAndDeletedAtIsNull(List<Long> ids);
 
-    UserItem findByIdAndUser(Long id, User user);
+    Optional<UserItem> findByIdAndDeletedAtIsNull(Long id);
 
     List<UserItem> findAllByUserAndDeletedAtIsNull(User user);
 
-    List<UserItem> findByUserAndStorageType(User user, StorageType storageType);
-
-    Page<UserItem> findByUserAndDeletedAtIsNullOrderByIdDesc(User user, Pageable pageable);
+    List<UserItem> findAllByUserAndStorageType(User user, StorageType storageType);
 
     List<UserItem> findAllByUserAndDeletedAtIsNullAndExpirationDateBefore(User user, LocalDate date);
 

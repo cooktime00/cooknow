@@ -9,5 +9,5 @@
 include::src/docs/asciidoc/Oauth-API.adoc[]
 include::src/docs/asciidoc/Category-API.adoc[]
 include::src/docs/asciidoc/Ingredient-API.adoc[]
-include::src/docs/asciidoc/UserStorage-API.adoc[]
+include::src/docs/asciidoc/UserItem-API.adoc[]
 

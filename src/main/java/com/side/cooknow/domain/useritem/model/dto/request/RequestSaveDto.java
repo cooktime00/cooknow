@@ -10,11 +10,12 @@ import java.util.stream.IntStream;
 
 @Data
 public class RequestSaveDto {
-    private List<RequestSaveOneDto> request;    //TODO: 명칭 변경 예정 (request -> userItemList)
+    private Long userId;
+    private List<RequestSaveOneDto> items;
 
     public List<UserItem> toEntities(User user, List<Ingredient> ingredients) {
-        return IntStream.range(0, request.size())
-                .mapToObj(index -> getUserStorage(request.get(index), user, ingredients.get(index)))
+        return IntStream.range(0, this.items.size())
+                .mapToObj(index -> getUserStorage(this.items.get(index), user, ingredients.get(index)))
                 .toList();
     }
 
@@ -23,8 +24,8 @@ public class RequestSaveDto {
     }
 
     public List<Long> getIngredientIds() {
-        return request.stream()
-                .map(RequestSaveOneDto::getIngredient_id)
+        return items.stream()
+                .map(RequestSaveOneDto::getId)
                 .toList();
     }
 }
