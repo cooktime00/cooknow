@@ -7,7 +7,6 @@ import com.side.cooknow.domain.ingredient.model.Ingredients;
 import com.side.cooknow.domain.ingredient.model.Ingredient;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.stubbing.answers.DoesNothing;
 import org.springframework.http.MediaType;
 
 import java.util.Arrays;
@@ -26,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class CategoryControllerTest extends RestDocsTestSupport {
 
-    private Locale[] locales = {Locale.KOREAN, Locale.ENGLISH};
+    private Locale[] locales = {Locale.KOREA, Locale.US};
 
     @Test
     @DisplayName("Save 201")

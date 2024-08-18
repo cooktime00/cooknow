@@ -9,8 +9,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
+import java.util.Locale;
 
 @NoArgsConstructor
 @SuperBuilder
@@ -37,15 +39,19 @@ public class UserItem extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private StorageType storageType;
 
+    public UserItem (User user){
+        this.user = user;
+    }
+
     public UserItem update(RequestUpdateOneDto requestOne) {
         this.quantity = requestOne.getQuantity();
-        this.expirationDate = requestOne.getExpiration_date();
+        this.expirationDate = requestOne.getExpirationDate();
         this.storageType = requestOne.getEnumStorageType();
         return this;
     }
 
-    public String getIngredientName(){
-        return ingredient.getKorName();
+    public String getIngredientName(Locale locale){
+        return ingredient.getName(locale);
     }
 
     public String getIngredientImage(){

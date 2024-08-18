@@ -6,12 +6,7 @@ import com.side.cooknow.domain.user.exception.UserException;
 import com.side.cooknow.domain.user.model.User;
 import com.side.cooknow.domain.user.service.UserService;
 import com.side.cooknow.global.config.auth.AuthenticationFacade;
-import com.side.cooknow.global.model.dto.request.RequestRefresh;
-import com.side.cooknow.global.model.dto.request.RequestWithdraw;
-import com.side.cooknow.global.model.dto.response.ResponseSignIn;
-import com.side.cooknow.global.model.dto.response.ResponseRefresh;
-import com.side.cooknow.global.model.dto.response.ResponseSignOut;
-import com.side.cooknow.global.model.dto.response.ResponseWithdraw;
+import com.side.cooknow.global.model.dto.response.*;
 import com.side.cooknow.global.model.security.RefreshToken;
 import com.side.cooknow.global.service.JwtTokenService;
 import com.side.cooknow.global.service.RefreshTokenService;
@@ -20,8 +15,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Stack;
 
 @Log4j2
 @RestController
@@ -73,6 +66,11 @@ public class OAuthController {
         userService.delete(user);
         refreshTokenService.deleteAllByUser(user);
         return ResponseEntity.ok(new ResponseWithdraw());
+    }
+
+    @PostMapping("/verify-token")
+    public ResponseEntity<ResponseVerifyToken> verifyToken() {
+        return ResponseEntity.ok(new ResponseVerifyToken());
     }
 
     private void isValidateRequest(final User user, final String email) {

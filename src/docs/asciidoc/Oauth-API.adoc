@@ -16,3 +16,7 @@ operation::o-auth-controller-test/signout_200[snippets='http-request,http-respon
 [[Oauth-탈퇴]]
 === Withdraw 200
 operation::o-auth-controller-test/withdraw_200[snippets='http-request,http-response,response-fields']
+
+[[Oauth-토큰검증]]
+=== Veryfy-Token
+operation::o-auth-controller-test/verify-token[snippets='http-request,http-response,response-fields']

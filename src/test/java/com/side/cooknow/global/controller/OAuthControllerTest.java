@@ -6,7 +6,6 @@ import com.side.cooknow.domain.user.model.User;
 import com.side.cooknow.global.model.security.RefreshToken;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.DisplayName;
-import org.springframework.test.web.servlet.MvcResult;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
@@ -98,6 +97,20 @@ public class OAuthControllerTest extends RestDocsTestSupport {
         when(authenticationFacade.getAuthenticatedUser()).thenReturn(user);
 
         this.mockMvc.perform(post("/oauth/sign-out")
+                        .header("Authorization", "Bearer AccessToken"))
+                .andExpect(status().isOk())
+                .andDo(
+                        restDocs.document(
+                                responseFields(
+                                        fieldWithPath("result").description("SuccessFully withdrawn")
+                                )
+                        ));
+    }
+
+    @Test
+    @DisplayName("Verify Token")
+    public void verifyToken() throws Exception{
+        this.mockMvc.perform(post("/oauth/verify-token")
                         .header("Authorization", "Bearer AccessToken"))
                 .andExpect(status().isOk())
                 .andDo(

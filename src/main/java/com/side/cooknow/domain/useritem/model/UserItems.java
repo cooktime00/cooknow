@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -25,6 +27,12 @@ public class UserItems {
 
     public int getSize(){
         return this.userItems.size();
+    }
+
+    public <T> List<T> toDtos(BiFunction<UserItem, Locale, T> mapper, Locale locale) {
+        return userItems.stream()
+                .map(userItem -> mapper.apply(userItem, locale))
+                .collect(Collectors.toList());
     }
 
     public <T> List<T> toDtos(Function<UserItem, T> mapper){

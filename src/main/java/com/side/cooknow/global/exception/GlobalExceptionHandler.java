@@ -1,7 +1,5 @@
 package com.side.cooknow.global.exception;
 
-import com.google.firebase.auth.AuthErrorCode;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.side.cooknow.domain.category.exception.CategoryException;
 import com.side.cooknow.domain.ingredient.exception.IngredientException;
 import com.side.cooknow.domain.user.exception.UserException;
@@ -39,8 +37,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(OauthException.class)
-    protected ResponseEntity<ErrorResponseEntity> handleRefreshException(OauthException ex) {
-        log.info("RefreshException 발생");
+    protected ResponseEntity<ErrorResponseEntity> handleOauthException(OauthException ex) {
+        log.info("OauthException 발생");
         return ErrorResponseEntity.toResponseEntity(ex.getErrorCode());
     }
 

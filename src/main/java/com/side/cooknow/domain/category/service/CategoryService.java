@@ -26,7 +26,8 @@ public class CategoryService {
 
     @Transactional(readOnly = true)
     public Category findById(Long id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new CategoryException(CategoryErrorCode.USER_NOT_FOUND));
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new CategoryException(CategoryErrorCode.USER_NOT_FOUND));
     }
 
     @Transactional(readOnly = true)
