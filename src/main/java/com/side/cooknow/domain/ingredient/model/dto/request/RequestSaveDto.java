@@ -9,7 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class RequestSaveDto {
 
     private Long categoryId;
-    private String name;
+    private String korName;
+    private String engName;
     private MultipartFile url;
     private int expirationPeriod;
     private String storage;
@@ -18,13 +19,12 @@ public class RequestSaveDto {
     public Ingredient toEntity(Category category, String s3ImageUrl){
         return Ingredient.builder()
                 .category(category)
-                .korName(new Name(name))
+                .korName(new Name(korName))
+                .engName(new Name(engName))
                 .image(new Image(s3ImageUrl))
                 .expirationPeriod(new Day(expirationPeriod))
                 .storageType(StorageType.find(storage))
                 .countType(CountType.find(countType))
                 .build();
     }
-
-
 }

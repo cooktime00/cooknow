@@ -6,12 +6,12 @@ import lombok.Data;
 import java.util.Locale;
 
 @Data
-public class ResponseGetAllDto {
+public class FindAllResponse {
 
     private Long id;
     private String name;
 
-    public ResponseGetAllDto(Category category, Locale locale) {
+    public FindAllResponse(Category category, Locale locale) {
         this.id = category.getId();
         this.name = getNameByLocale(category, locale);
     }

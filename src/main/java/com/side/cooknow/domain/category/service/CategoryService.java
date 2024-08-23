@@ -31,24 +31,23 @@ public class CategoryService {
     }
 
     @Transactional(readOnly = true)
-    public Ingredients getIngredients(Long id) {
-        Category category = findById(id);
-        return category.getIngredients();
-    }
-
-    public void delete(Long categoryId) {
-        categoryRepository.deleteById(categoryId);
-    }
-
-    @Transactional(readOnly = true)
-    public Categories getAll() {
+    public Categories findAll() {
         List<Category> categories = categoryRepository.findAll();
         return new Categories(categories);
     }
 
     @Transactional(readOnly = true)
-    public Categories getAllWithIngredients() {
-        List<Category> categories = categoryRepository.findAllWithIngredients();
-        return new Categories(categories);
+    public Category findOneIngredients(Long id) {
+        Category category = findById(id);
+        return category;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Category> findAllWithIngredients() {
+        return categoryRepository.findAllWithIngredients();
+    }
+
+    public void delete(Long categoryId) {
+        categoryRepository.deleteById(categoryId);
     }
 }

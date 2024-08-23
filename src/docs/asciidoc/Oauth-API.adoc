@@ -3,20 +3,20 @@
 
 [[Oauth-가입]]
 === Sign-in 200
-operation::o-auth-controller-test/sign-in_200[snippets='http-request,http-response,response-fields']
+operation::o-auth-controller-test/sign-in[snippets='http-request,http-response,response-fields']
 
 [[Oauth-갱신]]
-=== Refresh 200
-operation::o-auth-controller-test/refresh_200[snippets='http-request,http-response,response-fields']
+=== 토큰 갱신
+operation::o-auth-controller-test/refresh[snippets='http-request,http-response,response-fields']
 
 [[Oauth-로그아웃]]
-=== Sign-out 200
-operation::o-auth-controller-test/signout_200[snippets='http-request,http-response,response-fields']
+=== 로그아웃
+operation::o-auth-controller-test/signout[snippets='http-request,http-response,response-fields']
 
 [[Oauth-탈퇴]]
-=== Withdraw 200
-operation::o-auth-controller-test/withdraw_200[snippets='http-request,http-response,response-fields']
+=== 탈퇴
+operation::o-auth-controller-test/withdraw[snippets='http-request,http-response,response-fields']
 
 [[Oauth-토큰검증]]
-=== Veryfy-Token
+=== 토큰 검증
 operation::o-auth-controller-test/verify-token[snippets='http-request,http-response,response-fields']

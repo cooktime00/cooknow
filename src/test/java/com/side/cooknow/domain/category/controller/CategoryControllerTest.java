@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
@@ -23,36 +24,39 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@DisplayName("Category Controller 테스트")
 class CategoryControllerTest extends RestDocsTestSupport {
 
     private Locale[] locales = {Locale.KOREA, Locale.US};
 
     @Test
-    @DisplayName("Save 201")
-    public void save_201() throws Exception {
+    @DisplayName("저장")
+    public void save() throws Exception {
         final Category category = new Category(1L, "채소");
         when(categoryService.save(any())).thenReturn(category);
-        doNothing().when(jwtTokenService).verifyAccessToken(any());
 
         this.mockMvc.perform(post("/api/v1/category")
                         .header("Authorization", "Bearer AccessToken")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\": \"채소\"}"))
-                .andExpect(status().isCreated())
+                        .content("{\"korName\":\"과일\",\"engName\":\"Fruit\"}"))
+                .andExpect(status().isOk())
                 .andDo(
                         restDocs.document(
                                 requestFields(
-                                        fieldWithPath("name").description("재료 대분류 이름").optional()
+                                        fieldWithPath("korName").description("대분류 한글 이름"),
+                                        fieldWithPath("engName").description("대분류 영어 이름")
                                 ),
-                                responseFields(
-                                        fieldWithPath("size").description("Save 된 갯수")
+                                relaxedResponseFields(
+                                        fieldWithPath("data.id").description("대분류 id"),
+                                        fieldWithPath("data.korName").description("대분류 한글 이름"),
+                                        fieldWithPath("data.engName").description("대분류 영어 이름")
                                 )
                         ));
     }
 
     @Test
-    @DisplayName("getAll 200")
-    public void getAll_200() throws Exception {
+    @DisplayName("조회 All")
+    public void findAll() throws Exception {
 
         Category category1 = new Category(1L, "고기");
         Category category2 = new Category(2L, "채소");
@@ -65,28 +69,25 @@ class CategoryControllerTest extends RestDocsTestSupport {
         categories.add(category3);
         categories.add(category4);
 
-        when(categoryService.getAll()).thenReturn(categories);
-
-        doNothing().when(jwtTokenService).verifyAccessToken(any());
+        when(categoryService.findAll()).thenReturn(categories);
 
         this.mockMvc.perform(get("/api/v1/categories")
                         .header("Authorization", "Bearer AccessToken")
                         .locale(locales)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(4)))
                 .andDo(
                         restDocs.document(
-                                responseFields(
-                                        fieldWithPath("[].id").description("카테고리 Id"),
-                                        fieldWithPath("[].name").description("카테고리 이름")
+                                relaxedResponseFields(
+                                        fieldWithPath("data.[].id").description("대분류 Id"),
+                                        fieldWithPath("data.[].name").description("대분류 이름")
                                 )
                         ));
     }
 
     @Test
-    @DisplayName("findIngredients 200")
-    public void findIngredients_200() throws Exception {
+    @DisplayName("조회 with 재료")
+    public void findIngredients() throws Exception {
         Long categoryId = 1L;
         Category category = new Category(categoryId, "고기");
 
@@ -94,48 +95,31 @@ class CategoryControllerTest extends RestDocsTestSupport {
         Ingredient ingredient2 = new Ingredient(2L, "등심", "testUrl", category);
         Ingredients ingredients = new Ingredients(Arrays.asList(ingredient1, ingredient2));
 
-        when(categoryService.getIngredients(1L)).thenReturn(ingredients);
-        doNothing().when(jwtTokenService).verifyAccessToken(any());
+        when(categoryService.findOneIngredients(1L)).thenReturn(category);
 
         this.mockMvc.perform(get("/api/v1/category/{id}/ingredients", 1L)
+                        .header("Authorization", "Bearer AccessToken")
                         .locale(locales)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
                 .andDo(
                         restDocs.document(
                                 pathParameters(
                                         parameterWithName("id").description("카테고리 Id")
                                 ),
-                                responseFields(
-                                        fieldWithPath("[].ingredientId").description("재료 Id"),
-                                        fieldWithPath("[].categoryId").description("카테고리 Id"),
-                                        fieldWithPath("[].name").description("재료 이름"),
-                                        fieldWithPath("[].imageUrl").description("이미지 URL")
+                                relaxedResponseFields(
+                                        fieldWithPath("data.id").description("대분류 Id"),
+                                        fieldWithPath("data.name").description("대분류 이름"),
+                                        fieldWithPath("data.ingredientList[].id").description("재료 Id"),
+                                        fieldWithPath("data.ingredientList[].name").description("재료 이름"),
+                                        fieldWithPath("data.ingredientList[].imageUrl").description("재료 이미지")
                                 )
                         ));
     }
 
     @Test
-    @DisplayName("Delete 200")
-    public void delete_200() throws Exception {
-        doNothing().when(categoryService).delete(1L);
-        this.mockMvc.perform(delete("/api/v1/category/{id}", 1L)
-                        .header("Authorization", "Bearer AccessToken"))
-                .andExpect(status().isOk())
-                .andDo(restDocs.document(
-                        pathParameters(
-                                parameterWithName("id").description("카테고리 Id")
-                        ),
-                        responseFields(
-                                fieldWithPath("size").description("Delete 된 갯수")
-                        )
-                ));
-    }
-
-    @Test
-    @DisplayName("getAllWithIngredients 200")
-    public void getAllWithIngredients_200() throws Exception {
+    @DisplayName("조회 All with 재료")
+    public void findAllWithIngredients() throws Exception {
 
         Category category1 = new Category(1L, "고기", "Meat");
         new Ingredient(1L, "안심", "https://testUrl/Img/1.jpg", category1);
@@ -149,32 +133,40 @@ class CategoryControllerTest extends RestDocsTestSupport {
         Category category3 = new Category(3L, "과일", "Fruit");
         new Ingredient(6L, "레몬", "https://testUrl/Img/6.jpg", category3);
 
-        Categories categories = new Categories();
-        categories.add(category1);
-        categories.add(category2);
-        categories.add(category3);
+        List<Category> categories = Arrays.asList(category1, category2, category3);
+        when(categoryService.findAllWithIngredients()).thenReturn(categories);
 
-        when(categoryService.getAllWithIngredients()).thenReturn(categories);
-//        doNothing().when(jwtTokenService.verifyAccessToken(any()));
-
-        this.mockMvc.perform(get("/api/v1/category/all/ingredients")
+        this.mockMvc.perform(get("/api/v1/categories/ingredients")
                         .header("Authorization", "Bearer AccessToken")
                         .locale(locales)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)))
                 .andDo(
                         restDocs.document(
-                                responseFields(
-                                        fieldWithPath("[].id").description("카테고리 Id"),
-                                        fieldWithPath("[].name").description("카테고리 이름"),
-                                        fieldWithPath("[].ingredients[].ingredientId").description("재료 Id"),
-                                        fieldWithPath("[].ingredients[].categoryId").description("카테고리 Id"),
-                                        fieldWithPath("[].ingredients[].name").description("재료 이름"),
-                                        fieldWithPath("[].ingredients[].imageUrl").description("이미지 URL")
+                                relaxedResponseFields(
+                                        fieldWithPath("data.categoryList[].id").description("대분류 Id"),
+                                        fieldWithPath("data.categoryList[].name").description("대분류 이름"),
+                                        fieldWithPath("data.categoryList[].ingredientList[].id").description("재료 Id"),
+                                        fieldWithPath("data.categoryList[].ingredientList[].name").description("재료 이름"),
+                                        fieldWithPath("data.categoryList[].ingredientList[].imageUrl").description("재료 이미지")
                                 )
                         ));
     }
 
-
+    @Test
+    @DisplayName("삭제")
+    public void categoryDelete() throws Exception {
+        doNothing().when(categoryService).delete(1L);
+        this.mockMvc.perform(delete("/api/v1/category/{id}", 1L)
+                        .header("Authorization", "Bearer AccessToken"))
+                .andExpect(status().isOk())
+                .andDo(restDocs.document(
+                        pathParameters(
+                                parameterWithName("id").description("카테고리 Id")
+                        ),
+                        relaxedResponseFields(
+                                fieldWithPath("data.size").description("Delete 된 갯수")
+                        )
+                ));
+    }
 }

@@ -2,9 +2,9 @@
 == Ingredient API
 
 [[Ingredient-저장]]
-=== Save 201
-operation::ingredient-controller-test/save_201[snippets='http-request,request-fields,http-response,response-fields']
+=== 조회
+operation::ingredient-controller-test/find-ingredient[snippets='http-request,path-parameters,http-response,response-fields']
 
 [[Ingredient-삭제]]
-=== Delete 200
-operation::ingredient-controller-test/delete_200[snippets='http-request,path-parameters,http-response,response-fields']
+=== 조회 All
+operation::ingredient-controller-test/find-ingredients[snippets='http-request,query-parameters,http-response,response-fields']

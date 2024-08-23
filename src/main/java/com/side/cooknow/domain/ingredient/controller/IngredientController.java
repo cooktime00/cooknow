@@ -3,12 +3,12 @@ package com.side.cooknow.domain.ingredient.controller;
 
 import com.side.cooknow.domain.ingredient.model.Ingredient;
 import com.side.cooknow.domain.ingredient.model.Ingredients;
-import com.side.cooknow.domain.ingredient.model.dto.request.RequestGetIngredientsDto;
 import com.side.cooknow.domain.ingredient.model.dto.request.RequestSaveDto;
-import com.side.cooknow.domain.ingredient.model.dto.response.ResponseDeleteDto;
-import com.side.cooknow.domain.ingredient.model.dto.response.ResponseGetIngredients;
-import com.side.cooknow.domain.ingredient.model.dto.response.ResponseSaveDto;
+import com.side.cooknow.domain.ingredient.model.dto.response.DeleteResponse;
+import com.side.cooknow.domain.ingredient.model.dto.response.FindIngredientResponse;
+import com.side.cooknow.domain.ingredient.model.dto.response.SaveResponse;
 import com.side.cooknow.domain.ingredient.service.IngredientService;
+import com.side.cooknow.global.model.dto.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -28,23 +28,35 @@ public class IngredientController {
     private final IngredientService ingredientService;
 
     @PostMapping(value = "/ingredient", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ResponseSaveDto> save(RequestSaveDto requestDto) throws IOException {
+    public ResponseEntity<ApiResponse<SaveResponse>> save(RequestSaveDto requestDto) throws IOException {
         Ingredient ingredient = ingredientService.save(requestDto);
-        ResponseSaveDto responseDto = new ResponseSaveDto(ingredient);
-        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+        SaveResponse responseDto = new SaveResponse(ingredient);
+        return createResponse("Ingredient saved successfully", responseDto);
+    }
+
+    @GetMapping("/ingredient/{id}")
+    public ResponseEntity<ApiResponse<FindIngredientResponse>> findIngredient(@PathVariable("id") Long ingredientId) {
+        Locale requestLocale = LocaleContextHolder.getLocale();
+        Ingredient ingredient = ingredientService.findById(ingredientId);
+        return createResponse("Find ingredient successfully", new FindIngredientResponse(ingredient, requestLocale));
     }
 
     @GetMapping("/ingredients")
-    public ResponseEntity<List<ResponseGetIngredients>> getIngredients(@RequestBody RequestGetIngredientsDto requestDto) {
+    public ResponseEntity<ApiResponse<List<FindIngredientResponse>>> findIngredients(@RequestParam List<Long> ids) {
         Locale requestLocale = LocaleContextHolder.getLocale();
-        Ingredients ingredients = ingredientService.getIngredients(requestDto.getIds());
-        return new ResponseEntity<>(ingredients.toDtos(ResponseGetIngredients::new, requestLocale), HttpStatus.OK);
+        Ingredients ingredients = ingredientService.findByIds(ids);
+        return createResponse("Find all ingredients successfully", ingredients.toDtos(FindIngredientResponse::new, requestLocale));
     }
 
     @DeleteMapping("/ingredient/{id}")
-    public ResponseEntity<ResponseDeleteDto> delete(@PathVariable("id") Long ingredientId) {
+    public ResponseEntity<ApiResponse<DeleteResponse>> delete(@PathVariable("id") Long ingredientId) {
         ingredientService.delete(ingredientId);
-        return new ResponseEntity<>(new ResponseDeleteDto(ingredientId), HttpStatus.OK);
+        return createResponse("Ingredient deleted successfully", new DeleteResponse(ingredientId));
+    }
+
+    private <T> ResponseEntity<ApiResponse<T>> createResponse(String message, T data) {
+        ApiResponse<T> response = new ApiResponse<>(HttpStatus.OK.value(), message, data);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }
