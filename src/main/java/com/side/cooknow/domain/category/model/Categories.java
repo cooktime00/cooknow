@@ -1,7 +1,5 @@
 package com.side.cooknow.domain.category.model;
 
-import com.side.cooknow.domain.category.model.dto.response.ResponseFindIngredientsDto;
-import com.side.cooknow.domain.category.model.dto.response.ResponseGetAllWithIngredientsDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -35,12 +33,6 @@ public class Categories {
         categories.add(category);
     }
 
-    public List<ResponseGetAllWithIngredientsDto> toDtosResponseGetAllWithIngredientsDto(Locale requestLocale) {
-        return categories.stream()
-                .map(category -> {
-                    List<ResponseFindIngredientsDto> ingredientsDto = category.getIngredients().toDtos(ResponseFindIngredientsDto::new, requestLocale);
-                    return new ResponseGetAllWithIngredientsDto(category, ingredientsDto, requestLocale);
-                })
-                .collect(Collectors.toList());
-    }
+    
+
 }

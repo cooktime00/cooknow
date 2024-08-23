@@ -32,7 +32,14 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User findByEmail(Email email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
+    }
+
+    @Transactional(readOnly = true)
+    public User findById(Long id){
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
     }
 
     public void delete(final User user) {

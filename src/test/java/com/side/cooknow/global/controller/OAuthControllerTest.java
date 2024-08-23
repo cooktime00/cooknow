@@ -14,13 +14,14 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@DisplayName("OAuth Controller 테스트")
 public class OAuthControllerTest extends RestDocsTestSupport {
 
     private final static String ACCESS_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDb29rTm93Iiwic3ViIjoiQWNjZXNzIFRva2VuIiwiYXVkIjpbInRlc3RAY29va25vdy5jb20iXSwiaWF0IjoxNzE5Njc1MTkwLCJleHAiOjE3MTk2Nzg3OTAsImp0aSI6IjU5YzQzMTI1LTI2YTUtNGMwYi04NzBjLTYwNGY1YzM0NDU1YSIsInVzZXJJZCI6MSwicm9sZSI6IlVTRVIifQ.Rr0nOa5k8IuXrJV_IiOzMJiy18GT82Nk4yFbBmb3ZXc";
 
     @Test
-    @DisplayName("Sign-In 200")
-    public void signIn_200() throws Exception {
+    @DisplayName("Sign-In")
+    public void signIn() throws Exception {
 
         final User user = new User(1L, "email", "test@cooknow.com", "Cook", "Now", Role.USER);
 
@@ -38,17 +39,17 @@ public class OAuthControllerTest extends RestDocsTestSupport {
                 .andExpect(status().isOk())
                 .andDo(
                         restDocs.document(
-                                responseFields(
-                                        fieldWithPath("accessToken").description("Access Token"),
-                                        fieldWithPath("refreshToken").description("Refresh Token")
+                                relaxedResponseFields(
+                                        fieldWithPath("data.accessToken").description("Access Token"),
+                                        fieldWithPath("data.refreshToken").description("Refresh Token")
                                 )
                         ))
                 .andReturn();
     }
 
     @Test
-    @DisplayName("Refresh 200")
-    public void refresh_200() throws Exception {
+    @DisplayName("토큰 갱신")
+    public void refresh() throws Exception {
         final User user = new User(1L, "email", "test@cooknow.com", "Cook", "Now", Role.USER);
 
         final RefreshToken refreshToken = new RefreshToken(user, 1209600000);
@@ -62,18 +63,16 @@ public class OAuthControllerTest extends RestDocsTestSupport {
                 .andExpect(status().isOk())
                 .andDo(
                         restDocs.document(
-                                responseFields(
-                                        fieldWithPath("accessToken").description("Access Token")
+                                relaxedResponseFields(
+                                        fieldWithPath("data.accessToken").description("Access Token")
                                 )
                         ));
     }
 
     @Test
-    @DisplayName("Sign-Out 200")
-    public void signout_200() throws Exception {
+    @DisplayName("로그아웃")
+    public void signout() throws Exception {
         final User user = new User(1L, "email", "test@cooknow.com", "Cook", "Now", Role.USER);
-
-        final RefreshToken refreshToken = new RefreshToken(user);
 
         doNothing().when(firebaseService).deleteUser();
         doNothing().when(refreshTokenService).deleteAllByUser(user);
@@ -83,15 +82,15 @@ public class OAuthControllerTest extends RestDocsTestSupport {
                 .andExpect(status().isOk())
                 .andDo(
                         restDocs.document(
-                                responseFields(
-                                        fieldWithPath("result").description("Successfully signed out")
+                                relaxedResponseFields(
+                                        fieldWithPath("data.result").description("Successfully signed out")
                                 )
                         ));
     }
 
     @Test
-    @DisplayName("Withdraw 200")
-    public void withdraw_200() throws Exception {
+    @DisplayName("탈퇴")
+    public void withdraw() throws Exception {
         final User user = new User(1L, "email", "test@cooknow.com", "Cook", "Now", Role.USER);
 
         when(authenticationFacade.getAuthenticatedUser()).thenReturn(user);
@@ -101,22 +100,22 @@ public class OAuthControllerTest extends RestDocsTestSupport {
                 .andExpect(status().isOk())
                 .andDo(
                         restDocs.document(
-                                responseFields(
-                                        fieldWithPath("result").description("SuccessFully withdrawn")
+                                relaxedResponseFields(
+                                        fieldWithPath("data.result").description("SuccessFully withdrawn")
                                 )
                         ));
     }
 
     @Test
-    @DisplayName("Verify Token")
+    @DisplayName("토큰 검증")
     public void verifyToken() throws Exception{
         this.mockMvc.perform(post("/oauth/verify-token")
                         .header("Authorization", "Bearer AccessToken"))
                 .andExpect(status().isOk())
                 .andDo(
                         restDocs.document(
-                                responseFields(
-                                        fieldWithPath("result").description("SuccessFully withdrawn")
+                                relaxedResponseFields(
+                                        fieldWithPath("data.result").description("Token is valid")
                                 )
                         ));
     }
