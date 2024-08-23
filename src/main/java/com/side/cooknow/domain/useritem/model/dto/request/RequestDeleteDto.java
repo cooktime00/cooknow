@@ -6,5 +6,5 @@ import java.util.List;
 
 @Data
 public class RequestDeleteDto {
-    private List<Long> id;
+    private List<Long> ids;
 }

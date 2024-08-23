@@ -46,7 +46,7 @@ public class UserItem extends BaseEntity {
     public UserItem update(RequestUpdateOneDto requestOne) {
         this.quantity = requestOne.getQuantity();
         this.expirationDate = requestOne.getExpirationDate();
-        this.storageType = requestOne.getEnumStorageType();
+        this.storageType = StorageType.find(requestOne.getStorageType());
         return this;
     }
 

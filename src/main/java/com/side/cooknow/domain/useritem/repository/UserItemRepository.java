@@ -18,9 +18,7 @@ public interface UserItemRepository extends JpaRepository<UserItem, Long> {
 
     Optional<UserItem> findByIdAndDeletedAtIsNull(Long id);
 
-    List<UserItem> findAllByUserAndDeletedAtIsNull(User user);
-
-    List<UserItem> findAllByUserAndStorageType(User user, StorageType storageType);
+    List<UserItem> findAllByUserAndStorageTypeAndDeletedAtIsNull(User user, StorageType storageType);
 
     List<UserItem> findAllByUserAndDeletedAtIsNullAndExpirationDateBefore(User user, LocalDate date);
 

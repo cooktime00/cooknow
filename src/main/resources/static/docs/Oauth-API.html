@@ -462,11 +462,16 @@ Content-Type: application/x-www-form-urlencoded</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 390
+Content-Length: 513
 
 {
-  "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDb29rTm93Iiwic3ViIjoiQWNjZXNzIFRva2VuIiwiYXVkIjpbInRlc3RAY29va25vdy5jb20iXSwiaWF0IjoxNzE5Njc1MTkwLCJleHAiOjE3MTk2Nzg3OTAsImp0aSI6IjU5YzQzMTI1LTI2YTUtNGMwYi04NzBjLTYwNGY1YzM0NDU1YSIsInVzZXJJZCI6MSwicm9sZSI6IlVTRVIifQ.Rr0nOa5k8IuXrJV_IiOzMJiy18GT82Nk4yFbBmb3ZXc",
-  "refreshToken" : "f0727631-c047-4c2a-a2f7-db8f48d0f7b2"
+  "status" : 200,
+  "message" : "Sign in successfully",
+  "data" : {
+    "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDb29rTm93Iiwic3ViIjoiQWNjZXNzIFRva2VuIiwiYXVkIjpbInRlc3RAY29va25vdy5jb20iXSwiaWF0IjoxNzE5Njc1MTkwLCJleHAiOjE3MTk2Nzg3OTAsImp0aSI6IjU5YzQzMTI1LTI2YTUtNGMwYi04NzBjLTYwNGY1YzM0NDU1YSIsInVzZXJJZCI6MSwicm9sZSI6IlVTRVIifQ.Rr0nOa5k8IuXrJV_IiOzMJiy18GT82Nk4yFbBmb3ZXc",
+    "refreshToken" : "dbe832cf-5eba-470b-b50f-27b6a74fbe71"
+  },
+  "timestamp" : "2024-08-23T23:38:24.071636"
 }</code></pre>
 </div>
 </div>
@@ -488,12 +493,12 @@ Content-Length: 390
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>accessToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.accessToken</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Access Token</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>refreshToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.refreshToken</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Refresh Token</p></td>
 </tr>
@@ -502,7 +507,7 @@ Content-Length: 390
 </div>
 </div>
 <div class="sect2">
-<h3 id="Oauth-갱신">Refresh 200</h3>
+<h3 id="Oauth-갱신">토큰 갱신</h3>
 <div class="sect3">
 <h4 id="Oauth-갱신_http_request">HTTP request</h4>
 <div class="listingblock">
@@ -520,10 +525,15 @@ Content-Type: application/x-www-form-urlencoded</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 331
+Content-Length: 458
 
 {
-  "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDb29rTm93Iiwic3ViIjoiQWNjZXNzIFRva2VuIiwiYXVkIjpbInRlc3RAY29va25vdy5jb20iXSwiaWF0IjoxNzE5Njc1MTkwLCJleHAiOjE3MTk2Nzg3OTAsImp0aSI6IjU5YzQzMTI1LTI2YTUtNGMwYi04NzBjLTYwNGY1YzM0NDU1YSIsInVzZXJJZCI6MSwicm9sZSI6IlVTRVIifQ.Rr0nOa5k8IuXrJV_IiOzMJiy18GT82Nk4yFbBmb3ZXc"
+  "status" : 200,
+  "message" : "Refresh token successfully",
+  "data" : {
+    "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDb29rTm93Iiwic3ViIjoiQWNjZXNzIFRva2VuIiwiYXVkIjpbInRlc3RAY29va25vdy5jb20iXSwiaWF0IjoxNzE5Njc1MTkwLCJleHAiOjE3MTk2Nzg3OTAsImp0aSI6IjU5YzQzMTI1LTI2YTUtNGMwYi04NzBjLTYwNGY1YzM0NDU1YSIsInVzZXJJZCI6MSwicm9sZSI6IlVTRVIifQ.Rr0nOa5k8IuXrJV_IiOzMJiy18GT82Nk4yFbBmb3ZXc"
+  },
+  "timestamp" : "2024-08-23T23:38:24.113553"
 }</code></pre>
 </div>
 </div>
@@ -545,7 +555,7 @@ Content-Length: 331
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>accessToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.accessToken</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Access Token</p></td>
 </tr>
@@ -554,7 +564,7 @@ Content-Length: 331
 </div>
 </div>
 <div class="sect2">
-<h3 id="Oauth-로그아웃">Sign-out 200</h3>
+<h3 id="Oauth-로그아웃">로그아웃</h3>
 <div class="sect3">
 <h4 id="Oauth-로그아웃_http_request">HTTP request</h4>
 <div class="listingblock">
@@ -572,10 +582,15 @@ Content-Type: application/x-www-form-urlencoded</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 42
+Content-Length: 164
 
 {
-  "result" : "SuccessFully signed out"
+  "status" : 200,
+  "message" : "Sign out successfully",
+  "data" : {
+    "result" : "SuccessFully signed out"
+  },
+  "timestamp" : "2024-08-23T23:38:24.141037"
 }</code></pre>
 </div>
 </div>
@@ -597,7 +612,7 @@ Content-Length: 42
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.result</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Successfully signed out</p></td>
 </tr>
@@ -606,7 +621,7 @@ Content-Length: 42
 </div>
 </div>
 <div class="sect2">
-<h3 id="Oauth-탈퇴">Withdraw 200</h3>
+<h3 id="Oauth-탈퇴">탈퇴</h3>
 <div class="sect3">
 <h4 id="Oauth-탈퇴_http_request">HTTP request</h4>
 <div class="listingblock">
@@ -624,10 +639,15 @@ Content-Type: application/x-www-form-urlencoded</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 42
+Content-Length: 164
 
 {
-  "result" : "SuccessFully signed out"
+  "status" : 200,
+  "message" : "Sign out successfully",
+  "data" : {
+    "result" : "SuccessFully signed out"
+  },
+  "timestamp" : "2024-08-23T23:38:24.042116"
 }</code></pre>
 </div>
 </div>
@@ -649,7 +669,7 @@ Content-Length: 42
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.result</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SuccessFully withdrawn</p></td>
 </tr>
@@ -658,7 +678,7 @@ Content-Length: 42
 </div>
 </div>
 <div class="sect2">
-<h3 id="Oauth-토큰검증">Veryfy-Token</h3>
+<h3 id="Oauth-토큰검증">토큰 검증</h3>
 <div class="sect3">
 <h4 id="Oauth-토큰검증_http_request">HTTP request</h4>
 <div class="listingblock">
@@ -676,10 +696,15 @@ Content-Type: application/x-www-form-urlencoded</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 33
+Content-Length: 161
 
 {
-  "result" : "Token is valid"
+  "status" : 200,
+  "message" : "Token verified successfully",
+  "data" : {
+    "result" : "Token is valid"
+  },
+  "timestamp" : "2024-08-23T23:38:24.009784"
 }</code></pre>
 </div>
 </div>
@@ -701,9 +726,9 @@ Content-Length: 33
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>result</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.result</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SuccessFully withdrawn</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Token is valid</p></td>
 </tr>
 </tbody>
 </table>
@@ -715,7 +740,7 @@ Content-Length: 33
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0 - Alpha<br>
-Last updated 2024-08-18 20:11:33 +0900
+Last updated 2024-08-23 23:11:53 +0900
 </div>
 </div>
 </body>

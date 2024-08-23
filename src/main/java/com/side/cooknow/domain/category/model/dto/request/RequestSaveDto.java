@@ -7,7 +7,8 @@ import lombok.Data;
 @Data
 public class RequestSaveDto {
 
-    private String name;
+    private String korName;
+    private String engName;
 
     public RequestSaveDto() {
 
@@ -15,7 +16,8 @@ public class RequestSaveDto {
 
     public Category toEntity() {
         return Category.builder()
-                .korName(new Name(name))
+                .korName(new Name(korName))
+                .engName(new Name(engName))
                 .build();
     }
 

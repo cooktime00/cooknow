@@ -3,11 +3,11 @@ package com.side.cooknow.global.model.dto.response;
 import lombok.Data;
 
 @Data
-public class ResponseSignOut {
+public class SignOutResponse {
 
     private String result = "SuccessFully signed out";
 
-    public ResponseSignOut() {
+    public SignOutResponse() {
 
     }
 }

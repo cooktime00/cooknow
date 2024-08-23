@@ -6,6 +6,5 @@ import java.util.List;
 
 @Data
 public class RequestUpdateDto {
-    private Long userId;
-    private List<RequestUpdateOneDto> items;
+    private List<RequestUpdateOneDto> itemList;
 }

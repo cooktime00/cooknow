@@ -7,28 +7,21 @@ import java.time.LocalDate;
 import java.util.Locale;
 
 @Data
-public class ResponseGetIngredients {
+public class FindIngredientResponse {
 
     private Long id;
-    private String type;
-    private int count;
+    private String name;
     private String imageUrl;
     private LocalDate expirationDate;
-    private String name;
+    private String type;
+    private int count;
 
-    public ResponseGetIngredients(Ingredient ingredient, Locale locale){
+    public FindIngredientResponse(Ingredient ingredient, Locale locale) {
         this.id = ingredient.getId();
         this.type = ingredient.getStorageType().getName();
         this.count = 5;
         this.imageUrl = ingredient.getImageUrl();
         this.expirationDate = ingredient.getExpirationDate();
-        this.name = ingredient.getKorName();
-    }
-
-    private String getNameByLocale(Ingredient ingredient, Locale locale) {
-        if (locale.getLanguage().equals("en")) {
-            return ingredient.getEngName();
-        }
-        return ingredient.getKorName();
+        this.name = ingredient.getName(locale);
     }
 }

@@ -4,13 +4,13 @@ import com.side.cooknow.domain.ingredient.model.Ingredient;
 import lombok.Data;
 
 @Data
-public class ResponseSaveDto {
+public class SaveResponse {
 
     private Long id;
     private String category;
     private String name;
 
-    public ResponseSaveDto(Ingredient ingredient){
+    public SaveResponse(Ingredient ingredient){
         this.id = ingredient.getId();
         this.category = ingredient.getCategory().getKorName();
         this.name = ingredient.getKorName();

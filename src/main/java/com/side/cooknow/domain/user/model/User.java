@@ -4,9 +4,11 @@ import com.side.cooknow.global.model.BaseEntity;
 import com.side.cooknow.domain.useritem.model.UserItems;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
 import static java.time.LocalDateTime.now;
 
+@SuperBuilder
 @Entity
 @Getter
 @Table(name = "user")
@@ -51,10 +53,6 @@ public class User extends BaseEntity {
 
     public boolean isValidateRequest(final String email){
         return this.email.sameValueAs(email);
-    }
-
-    public String getRoleKey() {
-        return role.getKey();
     }
 
     public String getEmailValue() {

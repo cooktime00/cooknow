@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Locale;
+
 @NoArgsConstructor
 @Getter
 @SuperBuilder
@@ -59,6 +61,10 @@ public class Category extends BaseEntity {
 
     public void removeIngredient(Ingredient ingredient) {
         ingredients.remove(ingredient);
+    }
+
+    public String getName(Locale locale) {
+        return locale.getLanguage().equals("en") ? engName.getName() : korName.getName();
     }
 
     public String getKorName() {
