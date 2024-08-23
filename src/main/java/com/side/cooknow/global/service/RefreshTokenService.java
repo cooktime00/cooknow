@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class RefreshTokenService {
@@ -25,30 +26,39 @@ public class RefreshTokenService {
         refreshTokenRepository.save(refreshToken);
     }
 
-    @Transactional
     public RefreshToken createToken(final User user) throws FirebaseAuthException {
         RefreshToken refreshToken = generateUniqueToken(user);
         save(refreshToken);
         return refreshToken;
     }
 
-    @Transactional
     public void deleteAllByUser(final User user) {
         refreshTokenRepository.updateEmailByUser(user);
     }
 
-    @Transactional
     public void deleteAllByEmail(final User user) {
         refreshTokenRepository.updateEmailByUser(user);
     }
 
+    @Transactional(readOnly = true)
     public RefreshToken findByToken(final Token token) {
         return refreshTokenRepository.findByTokenAndDeletedAtIsNull(token)
                 .orElseThrow(() -> new OauthException(OauthErrorCode.REFRESH_TOKEN_NOT_FOUND));
     }
 
+    @Transactional(readOnly = true)
     public boolean existsByToken(final Token token) {
         return refreshTokenRepository.existsByTokenAndDeletedAtIsNull(token);
+    }
+
+    @Transactional(readOnly = true)
+    public User verifyToken(final Token token) {
+        RefreshToken refreshToken = findByToken(token);
+
+        if (refreshToken.isExpired()) {
+            throw new OauthException(OauthErrorCode.EXPIRED_REFRESH_TOKEN);
+        }
+        return refreshToken.getUser();
     }
 
     private RefreshToken generateUniqueToken(final User user) {
