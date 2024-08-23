@@ -6,8 +6,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
-import static java.time.LocalDateTime.now;
-
 @SuperBuilder
 @Entity
 @Getter
