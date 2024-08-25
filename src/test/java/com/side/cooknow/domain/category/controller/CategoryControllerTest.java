@@ -3,8 +3,10 @@ package com.side.cooknow.domain.category.controller;
 import com.side.cooknow.document.RestDocsTestSupport;
 import com.side.cooknow.domain.category.model.Categories;
 import com.side.cooknow.domain.category.model.Category;
+import com.side.cooknow.domain.ingredient.model.Image;
 import com.side.cooknow.domain.ingredient.model.Ingredients;
 import com.side.cooknow.domain.ingredient.model.Ingredient;
+import com.side.cooknow.domain.ingredient.model.Name;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -91,8 +93,8 @@ class CategoryControllerTest extends RestDocsTestSupport {
         Long categoryId = 1L;
         Category category = new Category(categoryId, "고기");
 
-        Ingredient ingredient1 = new Ingredient(1L, "안심", "testUrl", category);
-        Ingredient ingredient2 = new Ingredient(2L, "등심", "testUrl", category);
+        Ingredient ingredient1 = new Ingredient(1L, "안심", "testUrl", 10, category);
+        Ingredient ingredient2 = new Ingredient(2L, "등심", "testUrl", 15, category);
         Ingredients ingredients = new Ingredients(Arrays.asList(ingredient1, ingredient2));
 
         when(categoryService.findOneIngredients(1L)).thenReturn(category);
@@ -112,7 +114,8 @@ class CategoryControllerTest extends RestDocsTestSupport {
                                         fieldWithPath("data.name").description("대분류 이름"),
                                         fieldWithPath("data.ingredientList[].id").description("재료 Id"),
                                         fieldWithPath("data.ingredientList[].name").description("재료 이름"),
-                                        fieldWithPath("data.ingredientList[].imageUrl").description("재료 이미지")
+                                        fieldWithPath("data.ingredientList[].imageUrl").description("재료 이미지"),
+                                        fieldWithPath("data.ingredientList[].expirationDate").description("재료 유통기간")
                                 )
                         ));
     }
@@ -122,16 +125,16 @@ class CategoryControllerTest extends RestDocsTestSupport {
     public void findAllWithIngredients() throws Exception {
 
         Category category1 = new Category(1L, "고기", "Meat");
-        new Ingredient(1L, "안심", "https://testUrl/Img/1.jpg", category1);
-        new Ingredient(2L, "등심", "https://testUrl/Img/2.jpg", category1);
+        new Ingredient(1L, "안심", "https://testUrl/Img/1.jpg", 5, category1);
+        new Ingredient(2L, "등심", "https://testUrl/Img/2.jpg", 10, category1);
 
         Category category2 = new Category(2L, "채소", "Vegetable");
-        new Ingredient(3L, "대파", "https://testUrl/Img/3.jpg", category2);
-        new Ingredient(4L, "마늘", "https://testUrl/Img/4.jpg", category2);
-        new Ingredient(5L, "쌍추", "https://testUrl/Img/5.jpg", category2);
+        new Ingredient(3L, "대파", "https://testUrl/Img/3.jpg", 90, category2);
+        new Ingredient(4L, "마늘", "https://testUrl/Img/4.jpg", 30, category2);
+        new Ingredient(5L, "쌍추", "https://testUrl/Img/5.jpg", 365, category2);
 
         Category category3 = new Category(3L, "과일", "Fruit");
-        new Ingredient(6L, "레몬", "https://testUrl/Img/6.jpg", category3);
+        new Ingredient(6L, "레몬", "https://testUrl/Img/6.jpg", 210, category3);
 
         List<Category> categories = Arrays.asList(category1, category2, category3);
         when(categoryService.findAllWithIngredients()).thenReturn(categories);
@@ -148,7 +151,8 @@ class CategoryControllerTest extends RestDocsTestSupport {
                                         fieldWithPath("data.categoryList[].name").description("대분류 이름"),
                                         fieldWithPath("data.categoryList[].ingredientList[].id").description("재료 Id"),
                                         fieldWithPath("data.categoryList[].ingredientList[].name").description("재료 이름"),
-                                        fieldWithPath("data.categoryList[].ingredientList[].imageUrl").description("재료 이미지")
+                                        fieldWithPath("data.categoryList[].ingredientList[].imageUrl").description("재료 이미지"),
+                                        fieldWithPath("data.categoryList[].ingredientList[].expirationDate").description("재료 유통기간")
                                 )
                         ));
     }
