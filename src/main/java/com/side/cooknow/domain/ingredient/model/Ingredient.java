@@ -47,11 +47,12 @@ public class Ingredient extends BaseEntity {
         this.id = id;
     }
 
-    public Ingredient(final Long id, final String korName, final String image, final Category category) {
+    public Ingredient(final Long id, final String korName, final String image, final int expirationPeriod,final Category category) {
         super(id);
         this.korName = new Name(korName);
         this.engName = new Name("temp");
         this.image = new Image(image);
+        this.expirationPeriod = new Day(expirationPeriod);
         this.storageType = StorageType.COLD;
         this.countType = CountType.AMOUNT;
         changeCategory(category);
@@ -97,6 +98,10 @@ public class Ingredient extends BaseEntity {
 
     public String getImageUrl() {
         return image.getUrl();
+    }
+
+    public int getExpirationPeriod() {
+        return expirationPeriod.getDay();
     }
 
     public LocalDate getExpirationDate() {

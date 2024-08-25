@@ -497,7 +497,7 @@ Host: localhost:8080
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 191
+Content-Length: 192
 
 {
   "status" : 200,
@@ -507,7 +507,7 @@ Content-Length: 191
     "korName" : "채소",
     "engName" : "temp"
   },
-  "timestamp" : "2024-08-23T23:38:23.21261"
+  "timestamp" : "2024-08-25T22:38:16.095242"
 }</code></pre>
 </div>
 </div>
@@ -585,7 +585,7 @@ Content-Length: 306
     "id" : 4,
     "name" : "음료"
   } ],
-  "timestamp" : "2024-08-23T23:38:23.022505"
+  "timestamp" : "2024-08-25T22:38:15.922638"
 }</code></pre>
 </div>
 </div>
@@ -662,7 +662,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 365
+Content-Length: 424
 
 {
   "status" : 200,
@@ -673,14 +673,16 @@ Content-Length: 365
     "ingredientList" : [ {
       "id" : 1,
       "name" : "안심",
-      "imageUrl" : "testUrl"
+      "imageUrl" : "testUrl",
+      "expirationDate" : 10
     }, {
       "id" : 2,
       "name" : "등심",
-      "imageUrl" : "testUrl"
+      "imageUrl" : "testUrl",
+      "expirationDate" : 15
     } ]
   },
-  "timestamp" : "2024-08-23T23:38:23.13518"
+  "timestamp" : "2024-08-25T22:38:16.032558"
 }</code></pre>
 </div>
 </div>
@@ -726,6 +728,11 @@ Content-Length: 365
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">재료 이미지</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.ingredientList[].expirationDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">재료 유통기간</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -750,7 +757,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 1037
+Content-Length: 1224
 
 {
   "status" : 200,
@@ -762,11 +769,13 @@ Content-Length: 1037
       "ingredientList" : [ {
         "id" : 1,
         "name" : "안심",
-        "imageUrl" : "https://testUrl/Img/1.jpg"
+        "imageUrl" : "https://testUrl/Img/1.jpg",
+        "expirationDate" : 5
       }, {
         "id" : 2,
         "name" : "등심",
-        "imageUrl" : "https://testUrl/Img/2.jpg"
+        "imageUrl" : "https://testUrl/Img/2.jpg",
+        "expirationDate" : 10
       } ]
     }, {
       "id" : 2,
@@ -774,15 +783,18 @@ Content-Length: 1037
       "ingredientList" : [ {
         "id" : 3,
         "name" : "대파",
-        "imageUrl" : "https://testUrl/Img/3.jpg"
+        "imageUrl" : "https://testUrl/Img/3.jpg",
+        "expirationDate" : 90
       }, {
         "id" : 4,
         "name" : "마늘",
-        "imageUrl" : "https://testUrl/Img/4.jpg"
+        "imageUrl" : "https://testUrl/Img/4.jpg",
+        "expirationDate" : 30
       }, {
         "id" : 5,
         "name" : "쌍추",
-        "imageUrl" : "https://testUrl/Img/5.jpg"
+        "imageUrl" : "https://testUrl/Img/5.jpg",
+        "expirationDate" : 365
       } ]
     }, {
       "id" : 3,
@@ -790,11 +802,12 @@ Content-Length: 1037
       "ingredientList" : [ {
         "id" : 6,
         "name" : "레몬",
-        "imageUrl" : "https://testUrl/Img/6.jpg"
+        "imageUrl" : "https://testUrl/Img/6.jpg",
+        "expirationDate" : 210
       } ]
     } ]
   },
-  "timestamp" : "2024-08-23T23:38:23.273707"
+  "timestamp" : "2024-08-25T22:38:16.162401"
 }</code></pre>
 </div>
 </div>
@@ -839,6 +852,11 @@ Content-Length: 1037
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.categoryList[].ingredientList[].imageUrl</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">재료 이미지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.categoryList[].ingredientList[].expirationDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">재료 유통기간</p></td>
 </tr>
 </tbody>
 </table>
@@ -892,7 +910,7 @@ Content-Length: 145
   "data" : {
     "size" : 1
   },
-  "timestamp" : "2024-08-23T23:38:23.33482"
+  "timestamp" : "2024-08-25T22:38:16.23181"
 }</code></pre>
 </div>
 </div>

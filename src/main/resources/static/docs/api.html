@@ -513,9 +513,9 @@ Content-Length: 513
   "message" : "Sign in successfully",
   "data" : {
     "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDb29rTm93Iiwic3ViIjoiQWNjZXNzIFRva2VuIiwiYXVkIjpbInRlc3RAY29va25vdy5jb20iXSwiaWF0IjoxNzE5Njc1MTkwLCJleHAiOjE3MTk2Nzg3OTAsImp0aSI6IjU5YzQzMTI1LTI2YTUtNGMwYi04NzBjLTYwNGY1YzM0NDU1YSIsInVzZXJJZCI6MSwicm9sZSI6IlVTRVIifQ.Rr0nOa5k8IuXrJV_IiOzMJiy18GT82Nk4yFbBmb3ZXc",
-    "refreshToken" : "dbe832cf-5eba-470b-b50f-27b6a74fbe71"
+    "refreshToken" : "a0e9d922-63d0-4476-a002-2bf26cabdefb"
   },
-  "timestamp" : "2024-08-23T23:38:24.071636"
+  "timestamp" : "2024-08-25T22:38:17.002805"
 }</code></pre>
 </div>
 </div>
@@ -577,7 +577,7 @@ Content-Length: 458
   "data" : {
     "accessToken" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDb29rTm93Iiwic3ViIjoiQWNjZXNzIFRva2VuIiwiYXVkIjpbInRlc3RAY29va25vdy5jb20iXSwiaWF0IjoxNzE5Njc1MTkwLCJleHAiOjE3MTk2Nzg3OTAsImp0aSI6IjU5YzQzMTI1LTI2YTUtNGMwYi04NzBjLTYwNGY1YzM0NDU1YSIsInVzZXJJZCI6MSwicm9sZSI6IlVTRVIifQ.Rr0nOa5k8IuXrJV_IiOzMJiy18GT82Nk4yFbBmb3ZXc"
   },
-  "timestamp" : "2024-08-23T23:38:24.113553"
+  "timestamp" : "2024-08-25T22:38:17.047705"
 }</code></pre>
 </div>
 </div>
@@ -634,7 +634,7 @@ Content-Length: 164
   "data" : {
     "result" : "SuccessFully signed out"
   },
-  "timestamp" : "2024-08-23T23:38:24.141037"
+  "timestamp" : "2024-08-25T22:38:17.069887"
 }</code></pre>
 </div>
 </div>
@@ -691,7 +691,7 @@ Content-Length: 164
   "data" : {
     "result" : "SuccessFully signed out"
   },
-  "timestamp" : "2024-08-23T23:38:24.042116"
+  "timestamp" : "2024-08-25T22:38:16.957809"
 }</code></pre>
 </div>
 </div>
@@ -748,7 +748,7 @@ Content-Length: 161
   "data" : {
     "result" : "Token is valid"
   },
-  "timestamp" : "2024-08-23T23:38:24.009784"
+  "timestamp" : "2024-08-25T22:38:16.927396"
 }</code></pre>
 </div>
 </div>
@@ -837,7 +837,7 @@ Host: localhost:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 191
+Content-Length: 192
 
 {
   "status" : 200,
@@ -847,7 +847,7 @@ Content-Length: 191
     "korName" : "채소",
     "engName" : "temp"
   },
-  "timestamp" : "2024-08-23T23:38:23.21261"
+  "timestamp" : "2024-08-25T22:38:16.095242"
 }</code></pre>
 </div>
 </div>
@@ -925,7 +925,7 @@ Content-Length: 306
     "id" : 4,
     "name" : "음료"
   } ],
-  "timestamp" : "2024-08-23T23:38:23.022505"
+  "timestamp" : "2024-08-25T22:38:15.922638"
 }</code></pre>
 </div>
 </div>
@@ -1002,7 +1002,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 365
+Content-Length: 424
 
 {
   "status" : 200,
@@ -1013,14 +1013,16 @@ Content-Length: 365
     "ingredientList" : [ {
       "id" : 1,
       "name" : "안심",
-      "imageUrl" : "testUrl"
+      "imageUrl" : "testUrl",
+      "expirationDate" : 10
     }, {
       "id" : 2,
       "name" : "등심",
-      "imageUrl" : "testUrl"
+      "imageUrl" : "testUrl",
+      "expirationDate" : 15
     } ]
   },
-  "timestamp" : "2024-08-23T23:38:23.13518"
+  "timestamp" : "2024-08-25T22:38:16.032558"
 }</code></pre>
 </div>
 </div>
@@ -1066,6 +1068,11 @@ Content-Length: 365
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">재료 이미지</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.ingredientList[].expirationDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">재료 유통기간</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1090,7 +1097,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 1037
+Content-Length: 1224
 
 {
   "status" : 200,
@@ -1102,11 +1109,13 @@ Content-Length: 1037
       "ingredientList" : [ {
         "id" : 1,
         "name" : "안심",
-        "imageUrl" : "https://testUrl/Img/1.jpg"
+        "imageUrl" : "https://testUrl/Img/1.jpg",
+        "expirationDate" : 5
       }, {
         "id" : 2,
         "name" : "등심",
-        "imageUrl" : "https://testUrl/Img/2.jpg"
+        "imageUrl" : "https://testUrl/Img/2.jpg",
+        "expirationDate" : 10
       } ]
     }, {
       "id" : 2,
@@ -1114,15 +1123,18 @@ Content-Length: 1037
       "ingredientList" : [ {
         "id" : 3,
         "name" : "대파",
-        "imageUrl" : "https://testUrl/Img/3.jpg"
+        "imageUrl" : "https://testUrl/Img/3.jpg",
+        "expirationDate" : 90
       }, {
         "id" : 4,
         "name" : "마늘",
-        "imageUrl" : "https://testUrl/Img/4.jpg"
+        "imageUrl" : "https://testUrl/Img/4.jpg",
+        "expirationDate" : 30
       }, {
         "id" : 5,
         "name" : "쌍추",
-        "imageUrl" : "https://testUrl/Img/5.jpg"
+        "imageUrl" : "https://testUrl/Img/5.jpg",
+        "expirationDate" : 365
       } ]
     }, {
       "id" : 3,
@@ -1130,11 +1142,12 @@ Content-Length: 1037
       "ingredientList" : [ {
         "id" : 6,
         "name" : "레몬",
-        "imageUrl" : "https://testUrl/Img/6.jpg"
+        "imageUrl" : "https://testUrl/Img/6.jpg",
+        "expirationDate" : 210
       } ]
     } ]
   },
-  "timestamp" : "2024-08-23T23:38:23.273707"
+  "timestamp" : "2024-08-25T22:38:16.162401"
 }</code></pre>
 </div>
 </div>
@@ -1179,6 +1192,11 @@ Content-Length: 1037
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.categoryList[].ingredientList[].imageUrl</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">재료 이미지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.categoryList[].ingredientList[].expirationDate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">재료 유통기간</p></td>
 </tr>
 </tbody>
 </table>
@@ -1232,7 +1250,7 @@ Content-Length: 145
   "data" : {
     "size" : 1
   },
-  "timestamp" : "2024-08-23T23:38:23.33482"
+  "timestamp" : "2024-08-25T22:38:16.23181"
 }</code></pre>
 </div>
 </div>
@@ -1318,11 +1336,11 @@ Content-Length: 269
     "id" : 1,
     "name" : "사과",
     "imageUrl" : "testUrl",
-    "expirationDate" : "2024-09-22",
+    "expirationDate" : "2024-09-24",
     "type" : "ROOM",
     "count" : 5
   },
-  "timestamp" : "2024-08-23T23:38:23.425951"
+  "timestamp" : "2024-08-25T22:38:16.333053"
 }</code></pre>
 </div>
 </div>
@@ -1427,25 +1445,25 @@ Content-Length: 570
     "id" : 1,
     "name" : "사과",
     "imageUrl" : "testUrl",
-    "expirationDate" : "2024-09-22",
+    "expirationDate" : "2024-09-24",
     "type" : "ROOM",
     "count" : 5
   }, {
     "id" : 2,
     "name" : "사과",
     "imageUrl" : "testUrl",
-    "expirationDate" : "2024-09-22",
+    "expirationDate" : "2024-09-24",
     "type" : "ROOM",
     "count" : 5
   }, {
     "id" : 3,
     "name" : "사과",
     "imageUrl" : "testUrl",
-    "expirationDate" : "2024-09-22",
+    "expirationDate" : "2024-09-24",
     "type" : "ROOM",
     "count" : 5
   } ],
-  "timestamp" : "2024-08-23T23:38:23.477629"
+  "timestamp" : "2024-08-25T22:38:16.390353"
 }</code></pre>
 </div>
 </div>
@@ -1594,23 +1612,23 @@ Content-Length: 595
       "id" : 1,
       "ingredientId" : 1,
       "quantity" : 10,
-      "expirationDate" : "2024-08-23",
+      "expirationDate" : "2024-08-25",
       "storageType" : "COLD"
     }, {
       "id" : 1,
       "ingredientId" : 1,
       "quantity" : 10,
-      "expirationDate" : "2024-08-23",
+      "expirationDate" : "2024-08-25",
       "storageType" : "COLD"
     }, {
       "id" : 1,
       "ingredientId" : 1,
       "quantity" : 10,
-      "expirationDate" : "2024-08-23",
+      "expirationDate" : "2024-08-25",
       "storageType" : "COLD"
     } ]
   },
-  "timestamp" : "2024-08-23T23:38:23.816701"
+  "timestamp" : "2024-08-25T22:38:16.732047"
 }</code></pre>
 </div>
 </div>
@@ -1698,7 +1716,7 @@ Content-Length: 784
       "ingredientId" : 1,
       "name" : "테스트",
       "quantity" : 10,
-      "expirationDate" : "2024-08-23",
+      "expirationDate" : "2024-08-25",
       "storageType" : "COLD",
       "url" : "testUrl"
     }, {
@@ -1706,7 +1724,7 @@ Content-Length: 784
       "ingredientId" : 1,
       "name" : "테스트",
       "quantity" : 10,
-      "expirationDate" : "2024-08-23",
+      "expirationDate" : "2024-08-25",
       "storageType" : "COLD",
       "url" : "testUrl"
     }, {
@@ -1714,12 +1732,12 @@ Content-Length: 784
       "ingredientId" : 1,
       "name" : "테스트",
       "quantity" : 10,
-      "expirationDate" : "2024-08-23",
+      "expirationDate" : "2024-08-25",
       "storageType" : "COLD",
       "url" : "testUrl"
     } ]
   },
-  "timestamp" : "2024-08-23T23:38:23.764012"
+  "timestamp" : "2024-08-25T22:38:16.676434"
 }</code></pre>
 </div>
 </div>
@@ -1873,23 +1891,23 @@ Content-Length: 597
       "id" : 1,
       "ingredientId" : 1,
       "quantity" : 10,
-      "expirationDate" : "2024-08-23",
+      "expirationDate" : "2024-08-25",
       "storageType" : "COLD"
     }, {
       "id" : 1,
       "ingredientId" : 1,
       "quantity" : 10,
-      "expirationDate" : "2024-08-23",
+      "expirationDate" : "2024-08-25",
       "storageType" : "COLD"
     }, {
       "id" : 1,
       "ingredientId" : 1,
       "quantity" : 10,
-      "expirationDate" : "2024-08-23",
+      "expirationDate" : "2024-08-25",
       "storageType" : "COLD"
     } ]
   },
-  "timestamp" : "2024-08-23T23:38:23.692897"
+  "timestamp" : "2024-08-25T22:38:16.598052"
 }</code></pre>
 </div>
 </div>
@@ -1963,7 +1981,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 555
+Content-Length: 554
 
 {
   "status" : 200,
@@ -1975,7 +1993,7 @@ Content-Length: 555
       "ingredientId" : 1,
       "name" : "test",
       "quantity" : 10,
-      "expirationDate" : "2024-08-23",
+      "expirationDate" : "2024-08-25",
       "storageType" : "COLD",
       "url" : "testUrl"
     }, {
@@ -1983,12 +2001,12 @@ Content-Length: 555
       "ingredientId" : 1,
       "name" : "test",
       "quantity" : 10,
-      "expirationDate" : "2024-08-23",
+      "expirationDate" : "2024-08-25",
       "storageType" : "COLD",
       "url" : "testUrl"
     } ]
   },
-  "timestamp" : "2024-08-23T23:38:23.870163"
+  "timestamp" : "2024-08-25T22:38:16.78144"
 }</code></pre>
 </div>
 </div>
@@ -2109,7 +2127,7 @@ Content-Length: 157
   "data" : {
     "ids" : [ 1, 2, 3 ]
   },
-  "timestamp" : "2024-08-23T23:38:23.917152"
+  "timestamp" : "2024-08-25T22:38:16.838307"
 }</code></pre>
 </div>
 </div>

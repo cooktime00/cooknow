@@ -29,7 +29,7 @@ public class FindWithIngredientsResponse {
             this.id = category.getId();
             this.name = category.getName(locale);
             this.ingredientList = category.getIngredients().getIngredients().stream()
-                    .map(ingredient -> new IngredientDto(ingredient.getId(), ingredient.getName(locale), ingredient.getImageUrl()))
+                    .map(ingredient -> new IngredientDto(ingredient.getId(), ingredient.getName(locale), ingredient.getImageUrl(), ingredient.getExpirationPeriod()))
                     .toList();
         }
     }
@@ -40,11 +40,13 @@ public class FindWithIngredientsResponse {
         private Long id;
         private String name;
         private String imageUrl;
+        private int expirationDate;
 
-        public IngredientDto(Long id, String name, String imageUrl) {
+        public IngredientDto(Long id, String name, String imageUrl, int expirationPeriod) {
             this.id = id;
             this.name = name;
             this.imageUrl = imageUrl;
+            this.expirationDate = expirationPeriod;
         }
     }
 
