@@ -3,21 +3,21 @@
 
 [[UserItem-저장]]
 === 저장
-operation::user-item-controller-test/save[snippets='http-request,request-fields,http-response,response-fields']
+operation::user-item-controller-test/save[snippets='http-request,path-parameters,request-fields,http-response,response-fields']
 
 [[UserItem-조회]]
 === 조회
-operation::user-item-controller-test/find[snippets='http-request,http-response,response-fields']
+operation::user-item-controller-test/find[snippets='http-request,path-parameters,http-response,response-fields']
 
 [[UserItem-수정]]
 === 수정
-operation::user-item-controller-test/update_200[snippets='http-request,request-fields,http-response,response-fields']
+operation::user-item-controller-test/update_200[snippets='http-request,path-parameters,request-fields,http-response,response-fields']
 
 [[UserItem-기한임박조회]]
 === 만료 임박 조회
-operation::user-item-controller-test/near_expiry[snippets='http-request,http-response,response-fields']
+operation::user-item-controller-test/near_expiry[snippets='http-request,path-parameters,http-response,response-fields']
 
 [[UserItem-삭제]]
 === 삭제
-operation::user-item-controller-test/delete_200[snippets='http-request,request-fields,http-response,response-fields']
+operation::user-item-controller-test/delete_200[snippets='http-request,path-parameters,request-fields,http-response,response-fields']
 

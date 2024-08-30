@@ -477,6 +477,28 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect3">
+<h4 id="UserItem-저장_path_parameters">Path parameters</h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/v1/user/{userId}/items</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저 id</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
 <h4 id="UserItem-저장_request_fields">Request fields</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -521,7 +543,7 @@ Host: localhost:8080
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 595
+Content-Length: 594
 
 {
   "status" : 200,
@@ -548,7 +570,7 @@ Content-Length: 595
       "storageType" : "COLD"
     } ]
   },
-  "timestamp" : "2024-08-30T21:47:11.789664"
+  "timestamp" : "2024-08-30T22:22:41.40802"
 }</code></pre>
 </div>
 </div>
@@ -609,7 +631,7 @@ Content-Length: 595
 <h4 id="UserItem-조회_http_request">HTTP request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/user/1/items?type=COLD HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /api/v1/user/1/items HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Authorization: Bearer AccessToken
 Accept-Language: ko, en-us
@@ -618,23 +640,45 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
+<h4 id="UserItem-조회_path_parameters">Path parameters</h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/v1/user/{userId}/items</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저 id</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
 <h4 id="UserItem-조회_http_response">HTTP response</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 784
+Content-Length: 828
 
 {
   "status" : 200,
   "message" : "User items found successfully",
   "data" : {
     "userId" : 1,
-    "type" : "COLD",
     "itemList" : [ {
       "id" : null,
       "ingredientId" : 1,
       "name" : "테스트",
+      "type" : null,
       "quantity" : 10,
       "expirationDate" : "2024-08-30",
       "storageType" : "COLD",
@@ -643,21 +687,23 @@ Content-Length: 784
       "id" : null,
       "ingredientId" : 1,
       "name" : "테스트",
-      "quantity" : 10,
+      "type" : null,
+      "quantity" : 15,
       "expirationDate" : "2024-08-30",
-      "storageType" : "COLD",
+      "storageType" : "ROOM",
       "url" : "testUrl"
     }, {
       "id" : null,
       "ingredientId" : 1,
       "name" : "테스트",
-      "quantity" : 10,
+      "type" : null,
+      "quantity" : 30,
       "expirationDate" : "2024-08-30",
-      "storageType" : "COLD",
+      "storageType" : "FREEZE",
       "url" : "testUrl"
     } ]
   },
-  "timestamp" : "2024-08-30T21:47:11.735765"
+  "timestamp" : "2024-08-30T22:22:41.354232"
 }</code></pre>
 </div>
 </div>
@@ -682,11 +728,6 @@ Content-Length: 784
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.userId</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">유저 id</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.type</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">조회 타입</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.itemList[].id</code></p></td>
@@ -716,7 +757,7 @@ Content-Length: 784
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.itemList[].storageType</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">보관 방식</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">저장된 장소</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.itemList[].url</code></p></td>
@@ -754,6 +795,28 @@ Host: localhost:8080
 }</code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="UserItem-수정_path_parameters">Path parameters</h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/v1/user/{userId}/items</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저 id</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="UserItem-수정_request_fields">Request fields</h4>
@@ -827,7 +890,7 @@ Content-Length: 597
       "storageType" : "COLD"
     } ]
   },
-  "timestamp" : "2024-08-30T21:47:11.666034"
+  "timestamp" : "2024-08-30T22:22:41.284711"
 }</code></pre>
 </div>
 </div>
@@ -896,6 +959,28 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
+<h4 id="UserItem-기한임박조회_path_parameters">Path parameters</h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/v1/user/{userId}/items/near-expiry</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저 id</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
 <h4 id="UserItem-기한임박조회_http_response">HTTP response</h4>
 <div class="listingblock">
 <div class="content">
@@ -926,7 +1011,7 @@ Content-Length: 555
       "url" : "testUrl"
     } ]
   },
-  "timestamp" : "2024-08-30T21:47:11.852883"
+  "timestamp" : "2024-08-30T22:22:41.455409"
 }</code></pre>
 </div>
 </div>
@@ -1010,6 +1095,28 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect3">
+<h4 id="UserItem-삭제_path_parameters">Path parameters</h4>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /api/v1/user/{userId}/items</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">유저 id</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
 <h4 id="UserItem-삭제_request_fields">Request fields</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1047,7 +1154,7 @@ Content-Length: 157
   "data" : {
     "ids" : [ 1, 2, 3 ]
   },
-  "timestamp" : "2024-08-30T21:47:11.889701"
+  "timestamp" : "2024-08-30T22:22:41.494002"
 }</code></pre>
 </div>
 </div>
@@ -1083,7 +1190,7 @@ Content-Length: 157
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0 - Alpha<br>
-Last updated 2024-08-23 23:20:12 +0900
+Last updated 2024-08-30 22:21:33 +0900
 </div>
 </div>
 </body>

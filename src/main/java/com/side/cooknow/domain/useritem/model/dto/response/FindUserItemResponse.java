@@ -11,7 +11,6 @@ import java.util.Locale;
 public class FindUserItemResponse {
 
     private Long userId;
-    private String type;
     private List<Item> itemList;
 
     @Data
@@ -19,6 +18,7 @@ public class FindUserItemResponse {
         private Long id;
         private Long ingredientId;
         private String name;
+        private String type;
         private int quantity;
         private LocalDate expirationDate;
         private String storageType;
@@ -26,9 +26,8 @@ public class FindUserItemResponse {
     }
 
 
-    public FindUserItemResponse(Long userId, String type, List<UserItem> userItems, Locale locale) {
+    public FindUserItemResponse(Long userId, List<UserItem> userItems, Locale locale) {
         this.userId = userId;
-        this.type = type;
         this.itemList = userItems.stream()
                 .map(item -> {
                     Item itemDto = new Item();
