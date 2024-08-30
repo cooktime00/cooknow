@@ -43,11 +43,10 @@ public class UserItemController {
     }
 
     @GetMapping("/user/{userId}/items")
-    public ResponseEntity<ApiResponse<FindUserItemResponse>> findItems(@PathVariable("userId") Long userId,
-                                                                       @RequestParam("type") String type) {
+    public ResponseEntity<ApiResponse<FindUserItemResponse>> findItems(@PathVariable("userId") Long userId) {
         Locale requestLocale = LocaleContextHolder.getLocale();
-        List<UserItem> userItemList = userItemService.find(userId, type);
-        return createResponse("User items found successfully", new FindUserItemResponse(userId, type, userItemList, requestLocale));
+        List<UserItem> userItemList = userItemService.find(userId);
+        return createResponse("User items found successfully", new FindUserItemResponse(userId, userItemList, requestLocale));
     }
 
     @GetMapping("/user/{userId}/items/near-expiry")

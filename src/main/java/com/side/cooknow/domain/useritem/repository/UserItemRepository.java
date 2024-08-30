@@ -3,8 +3,6 @@ package com.side.cooknow.domain.useritem.repository;
 import com.side.cooknow.domain.ingredient.model.StorageType;
 import com.side.cooknow.domain.user.model.User;
 import com.side.cooknow.domain.useritem.model.UserItem;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +16,7 @@ public interface UserItemRepository extends JpaRepository<UserItem, Long> {
 
     Optional<UserItem> findByIdAndDeletedAtIsNull(Long id);
 
-    List<UserItem> findAllByUserAndStorageTypeAndDeletedAtIsNull(User user, StorageType storageType);
+    List<UserItem> findAllByUserAndDeletedAtIsNull(User user);
 
     List<UserItem> findAllByUserAndDeletedAtIsNullAndExpirationDateBefore(User user, LocalDate date);
 
