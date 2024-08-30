@@ -33,7 +33,7 @@ public class OAuthController {
         String accessToken = jwtTokenService.createAccessToken(user);
         refreshTokenService.deleteAllByEmail(user);
         RefreshToken refreshToken = refreshTokenService.createToken(user);
-        SignInResponse responseDto = new SignInResponse(accessToken, refreshToken);
+        SignInResponse responseDto = new SignInResponse(user.getId(), accessToken, refreshToken);
         return createResponse("Sign in successfully", responseDto);
     }
 
