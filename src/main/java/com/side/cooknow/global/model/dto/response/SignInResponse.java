@@ -5,11 +5,12 @@ import lombok.Data;
 
 @Data
 public class SignInResponse {
+    private Long id;
+    private String accessToken;
+    private String refreshToken;
 
-    String accessToken;
-    String refreshToken;
-
-    public SignInResponse(String accessToken, RefreshToken refreshToken) {
+    public SignInResponse(long id, String accessToken, RefreshToken refreshToken) {
+        this.id = id;
         this.accessToken = accessToken;
         this.refreshToken = refreshToken.getTokenValue();
     }
