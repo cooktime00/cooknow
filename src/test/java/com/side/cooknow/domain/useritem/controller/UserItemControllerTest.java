@@ -102,6 +102,9 @@ public class UserItemControllerTest extends RestDocsTestSupport {
                 .andExpect(status().isOk())
                 .andDo(
                         restDocs.document(
+                                pathParameters(
+                                        parameterWithName("userId").description("유저 id")
+                                ),
                                 requestFields(
                                         fieldWithPath("ids").description("삭제 할 유저아이템 ids")
                                 ),
@@ -194,20 +197,35 @@ public class UserItemControllerTest extends RestDocsTestSupport {
                 .expirationDate(LocalDate.now())
                 .build();
 
+        UserItem userItem2 = UserItem.builder()
+                .user(user)
+                .storageType(StorageType.ROOM)
+                .quantity(15)
+                .ingredient(ingredient)
+                .expirationDate(LocalDate.now())
+                .build();
+
+        UserItem userItem3 = UserItem.builder()
+                .user(user)
+                .storageType(StorageType.FREEZE)
+                .quantity(30)
+                .ingredient(ingredient)
+                .expirationDate(LocalDate.now())
+                .build();
+
 
         userItems = new ArrayList<>();
         userItems.add(userItem);
-        userItems.add(userItem);
-        userItems.add(userItem);
+        userItems.add(userItem2);
+        userItems.add(userItem3);
 
-        when(userItemService.find(any(), any())).thenReturn(userItems);
+        when(userItemService.find(any())).thenReturn(userItems);
 
 
         this.mockMvc.perform(get("/api/v1/user/{userId}/items", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("Authorization", "Bearer AccessToken")
                         .locale(locales)
-                        .param("type", "COLD")
                 )
                 .andExpect(status().isOk())
                 .andDo(
@@ -215,18 +233,14 @@ public class UserItemControllerTest extends RestDocsTestSupport {
                                 pathParameters(
                                         parameterWithName("userId").description("유저 id")
                                 ),
-                                queryParameters(
-                                        parameterWithName("type").description("보관 방식")
-                                ),
                                 relaxedResponseFields(
                                         fieldWithPath("data.userId").description("유저 id"),
-                                        fieldWithPath("data.type").description("조회 타입"),
                                         fieldWithPath("data.itemList[].id").description("유저아이템 id"),
                                         fieldWithPath("data.itemList[].ingredientId").description("재료 id"),
                                         fieldWithPath("data.itemList[].name").description("유저아이템 이름"),
                                         fieldWithPath("data.itemList[].quantity").description("재료 양"),
                                         fieldWithPath("data.itemList[].expirationDate").description("만료 날짜"),
-                                        fieldWithPath("data.itemList[].storageType").description("보관 방식"),
+                                        fieldWithPath("data.itemList[].storageType").description("저장된 장소"),
                                         fieldWithPath("data.itemList[].url").description("재료 이미지 url")
                                 )
                         )
@@ -268,6 +282,9 @@ public class UserItemControllerTest extends RestDocsTestSupport {
                 .andExpect(status().isOk())
                 .andDo(
                         restDocs.document(
+                                pathParameters(
+                                        parameterWithName("userId").description("유저 id")
+                                ),
                                 relaxedResponseFields(
                                         fieldWithPath("data.userId").description("유저스토리지 id"),
                                         fieldWithPath("data.itemList[].id").description("유저아이템 id"),

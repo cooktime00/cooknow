@@ -67,10 +67,9 @@ public class UserItemService {
     }
 
     @Transactional(readOnly = true)
-    public List<UserItem> find(Long userId, String type) {
+    public List<UserItem> find(Long userId) {
         User user = userService.findById(userId);
-        StorageType storageType = StorageType.find(type);
-        return userItemRepository.findAllByUserAndStorageTypeAndDeletedAtIsNull(user, storageType);
+        return userItemRepository.findAllByUserAndDeletedAtIsNull(user);
     }
 
     @Transactional(readOnly = true)
